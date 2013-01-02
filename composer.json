@@ -1,0 +1,23 @@
+{
+	"name": "titon/utility",
+	"type": "library",
+	"description": "The Titon utility package provides convenience classes for basic tasks like validation, formatting, sanitization and more.",
+	"keywords": ["titon", "utility", "crypt", "format", "hash", "inflector", "loader", "number", "sanitize", "string", "time", "uuid", "validate"],
+	"homepage": "https://github.com/titon/Titon.Utility",
+	"license": "BSD-2-Clause",
+	"authors": [
+		{
+			"name": "Miles Johnson",
+			"homepage": "http://milesj.me"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"suggest": {
+		"titon/g11n": "Provides localization support for inflections, formatting and validation"
+	},
+	"autoload": {
+		"psr-0": { "Titon\\Utility": "src/" }
+	}
+}
