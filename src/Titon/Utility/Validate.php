@@ -7,7 +7,6 @@
 
 namespace Titon\Utility;
 
-use Titon\G11n\G11n;
 use Titon\Utility\Loader;
 use Titon\Utility\Number;
 use Titon\Utility\Time;
@@ -208,11 +207,12 @@ class Validate {
 	 *
 	 * @access public
 	 * @param string $input
+	 * @param string $format
 	 * @return boolean
 	 * @static
 	 */
-	public static function currency($input) {
-		return self::custom($input, self::get('currency'));
+	public static function currency($input, $format = '/^\$[0-9,]+(?:\.[0-9]{2})?$/') {
+		return self::custom($input, $format);
 	}
 
 	/**
@@ -403,30 +403,6 @@ class Validate {
 	 */
 	public static function file($input) {
 		return (is_array($input) && !empty($input['tmp_name']) && $input['error'] == 0);
-	}
-
-	/**
-	 * Get a validation rule from G11n, else use the fallback.
-	 *
-	 * @access public
-	 * @param string $key
-	 * @param string $fallback
-	 * @return string
-	 * @throws \Titon\Utility\Exception
-	 * @static
-	 */
-	public static function get($key, $fallback = null) {
-		$pattern = $fallback;
-
-		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
-			$pattern = G11n::current()->getValidations($key) ?: $fallback;
-		}
-
-		if (!$pattern) {
-			throw new Exception(sprintf('Validation pattern %s does not exist', $key));
-		}
-
-		return $pattern;
 	}
 
 	/**
@@ -691,11 +667,12 @@ class Validate {
 	 *
 	 * @access public
 	 * @param string $input
+	 * @param string $format
 	 * @return boolean
 	 * @static
 	 */
-	public static function phone($input) {
-		return self::custom($input, self::get('phone'));
+	public static function phone($input, $format = '/^(?:\+?1)?\s?(?:\([0-9]{3}\))?\s?[0-9]{3}-[0-9]{4}$/') {
+		return self::custom($input, $format);
 	}
 
 	/**
@@ -703,11 +680,12 @@ class Validate {
 	 *
 	 * @access public
 	 * @param string $input
+	 * @param string $format
 	 * @return boolean
 	 * @static
 	 */
-	public static function postalCode($input) {
-		return self::custom($input, self::get('postalCode'));
+	public static function postalCode($input, $format = '/^[0-9]{5}(?:-[0-9]{4})?$/') {
+		return self::custom($input, $format);
 	}
 
 	/**
@@ -715,11 +693,12 @@ class Validate {
 	 *
 	 * @access public
 	 * @param string $input
+	 * @param string $format
 	 * @return boolean
 	 * @static
 	 */
-	public static function ssn($input) {
-		return self::custom($input, self::get('ssn'));
+	public static function ssn($input, $format = '/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/') {
+		return self::custom($input, $format);
 	}
 
 	/**

@@ -7,24 +7,12 @@
 
 namespace Titon\Utility;
 
-use Titon\G11n\G11n;
 use Titon\Utility\Format;
-use \Exception;
 
 /**
  * Test class for Titon\Utility\Format.
  */
 class FormatTest extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 * Prepare G11n.
-	 */
-	protected function setUp() {
-		G11n::setup('en');
-		G11n::setup('en-us');
-		G11n::setup('no');
-		G11n::set('en');
-	}
 
 	/**
 	 * Test that atom() formats a timestamp to an Atom feed format.
@@ -41,13 +29,8 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	public function testDate() {
 		$time = mktime(16, 35, 0, 2, 26, 1988);
 
-		// uses en locale
-		$this->assertEquals('02/26/1988', Format::date($time));
-		$this->assertEquals('02/26/1988', Format::date('1988-02-26'));
-
-		// now try with no locale, will use fallback
-		G11n::set('no');
-		$this->assertEquals('Feb 26 1988', Format::date($time, '%b %d %Y'));
+		$this->assertEquals('1988-02-26', Format::date($time));
+		$this->assertEquals('02/26/1988', Format::date($time, '%m/%d/%Y'));
 	}
 
 	/**
@@ -56,13 +39,8 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	public function testDatetime() {
 		$time = mktime(16, 35, 0, 2, 26, 1988);
 
-		// uses en locale
-		$this->assertEquals('02/26/1988 04:35PM', Format::datetime($time));
-		$this->assertEquals('02/26/1988 04:35PM', Format::datetime('1988-02-26 16:35:00'));
-
-		// now try with no locale, will use fallback
-		G11n::set('no');
-		$this->assertEquals('Feb 26 1988, 04:35PM', Format::datetime($time, '%h %d %Y, %I:%M%p'));
+		$this->assertEquals('1988-02-26 16:35:00', Format::datetime($time));
+		$this->assertEquals('02/26/1988 04:35PM', Format::datetime($time, '%m/%d/%Y %I:%M%p'));
 	}
 
 	/**
@@ -88,27 +66,6 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test that get() returns locale Validate rules.
-	 */
-	public function testGet() {
-		try {
-			Format::get('phone', null);
-			$this->assertTrue(true);
-
-		} catch (Exception $e) {
-			$this->assertTrue(false, $e->getMessage());
-		}
-
-		try {
-			Format::get('fakeKey', null);
-			$this->assertTrue(false);
-
-		} catch (Exception $e) {
-			$this->assertTrue(true);
-		}
-	}
-
-	/**
 	 * Test that http() formats a timestamp to an HTTP format.
 	 */
 	public function testHttp() {
@@ -121,24 +78,15 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	 * Test that phone() formats a number to a phone number.
 	 */
 	public function testPhone() {
+		$formats = [
+			7 => '###-####',
+			10 => '(###) ###-####',
+			11 => '# (###) ###-####'
+		];
 
-		// uses en locale
-		$this->assertEquals('666-1337', Format::phone(6661337));
-		$this->assertEquals('(888) 666-1337', Format::phone('8886661337'));
-		$this->assertEquals('1 (888) 666-1337', Format::phone('+1 8886661337'));
-
-		// now try with no locale, will use fallback
-		G11n::set('no');
-
-		$this->assertEquals('666-1337', Format::phone(6661337, '###-####'));
-
-		$this->assertEquals('888-666-1337', Format::phone(8886661337, [
-			10 => '###-###-####'
-		]));
-
-		$this->assertEquals('+1-888-666-1337', Format::phone(18886661337, [
-			11 => '+#-###-###-####'
-		]));
+		$this->assertEquals('666-1337', Format::phone(6661337, $formats));
+		$this->assertEquals('(888) 666-1337', Format::phone('8886661337', $formats));
+		$this->assertEquals('1 (888) 666-1337', Format::phone('+1 8886661337', $formats));
 	}
 
 	/**
@@ -154,14 +102,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	 * Test that ssn() formats a number to a social security number.
 	 */
 	public function testSsn() {
-		$ssn = '998293841';
-
-		// uses en locale
-		$this->assertEquals('998-29-3841', Format::ssn($ssn));
-
-		// now try with no locale, will use fallback
-		G11n::set('no');
-		$this->assertEquals('998.29.3841', Format::ssn($ssn, '###.##.####'));
+		$this->assertEquals('998-29-3841', Format::ssn('998293841', '###-##-####'));
 	}
 
 	/**
@@ -170,13 +111,8 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	public function testTime() {
 		$time = mktime(16, 35, 0, 2, 26, 1988);
 
-		// uses en locale
-		$this->assertEquals('04:35PM', Format::time($time));
-		$this->assertEquals('04:35PM', Format::time('1988-02-26 16:35:00'));
-
-		// now try with no locale, will use fallback
-		G11n::set('no');
-		$this->assertEquals('04:35:00 PM', Format::time($time, '%r'));
+		$this->assertEquals('16:35:00', Format::time($time));
+		$this->assertEquals('04:35PM', Format::time($time, '%I:%M%p'));
 	}
 
 }

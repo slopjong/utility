@@ -18,7 +18,7 @@ The Titon utility package provides convenience classes for basic tasks like vali
 
 ### Requirements ###
 
-* PHP 5.3
+* PHP 5.4
 * Multibyte
-* Mcrypt
-* Fileinfo
+* Mcrypt (for Crypt)
+* Fileinfo (for Validate)

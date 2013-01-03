@@ -7,7 +7,6 @@
 
 namespace Titon\Utility;
 
-use Titon\G11n\G11n;
 use Titon\Utility\Time;
 use Titon\Utility\Exception;
 use \DateTime;
@@ -30,7 +29,7 @@ class Format {
 	}
 
 	/**
-	 * Format a date string. If G11n is enabled, grab the format from the locale.
+	 * Format a date string.
 	 *
 	 * @access public
 	 * @param string|int $time
@@ -39,11 +38,11 @@ class Format {
 	 * @static
 	 */
 	public static function date($time, $format = '%Y-%m-%d') {
-		return strftime(self::get('date', $format), Time::toUnix($time));
+		return strftime($format, Time::toUnix($time));
 	}
 
 	/**
-	 * Format a datetime string. If G11n is enabled, grab the format from the locale.
+	 * Format a datetime string.
 	 *
 	 * @access public
 	 * @param string|int $time
@@ -52,7 +51,7 @@ class Format {
 	 * @static
 	 */
 	public static function datetime($time, $format = '%Y-%m-%d %H:%M:%S') {
-		return strftime(self::get('datetime', $format), Time::toUnix($time));
+		return strftime($format, Time::toUnix($time));
 	}
 
 	/**
@@ -90,30 +89,6 @@ class Format {
 	}
 
 	/**
-	 * Get a formatting rule from G11n, else use the fallback.
-	 *
-	 * @access public
-	 * @param string $key
-	 * @param string $fallback
-	 * @return string
-	 * @throws \Titon\Utility\Exception
-	 * @static
-	 */
-	public static function get($key, $fallback) {
-		$pattern = $fallback;
-
-		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
-			$pattern = G11n::current()->getFormats($key) ?: $fallback;
-		}
-
-		if (!$pattern) {
-			throw new Exception(sprintf('Format pattern %s does not exist', $key));
-		}
-
-		return $pattern;
-	}
-
-	/**
 	 * Format a date string to an HTTP header format.
 	 *
 	 * @access public
@@ -122,12 +97,12 @@ class Format {
 	 * @static
 	 */
 	public static function http($time) {
-		return gmdate(DateTime::RFC2822, Time::toUnix($time));
+		return gmdate('D, d M Y H:i:s T', Time::toUnix($time));
 	}
 
 	/**
-	 * Format a phone number. If G11n is enabled, grab the format from the locale.
-	 * A phone number can support multiple variations, depending on how many numbers are present.
+	 * Format a phone number. A phone number can support multiple variations,
+	 * depending on how many numbers are present.
 	 *
 	 * @access public
 	 * @param int $value
@@ -135,22 +110,19 @@ class Format {
 	 * @return string
 	 * @static
 	 */
-	public static function phone($value, $format = null) {
-		$formats = self::get('phone', $format);
+	public static function phone($value, $format) {
 		$value = preg_replace('/[^0-9]+/', '', $value);
 
-		if (is_array($formats)) {
+		if (is_array($format)) {
 			$length = mb_strlen($value);
 
 			if ($length >= 11) {
-				$format = $formats[11];
+				$format = $format[11];
 			} else if ($length >= 10) {
-				$format = $formats[10];
+				$format = $format[10];
 			} else {
-				$format = $formats[7];
+				$format = $format[7];
 			}
-		} else {
-			$format = $formats;
 		}
 
 		return self::format($value, $format);
@@ -181,7 +153,7 @@ class Format {
 	}
 
 	/**
-	 * Format a social security number. If G11n is enabled, grab the format from the locale.
+	 * Format a social security number.
 	 *
 	 * @access public
 	 * @param string|int $value
@@ -189,12 +161,12 @@ class Format {
 	 * @return string
 	 * @static
 	 */
-	public static function ssn($value, $format = null) {
-		return self::format($value, self::get('ssn', $format));
+	public static function ssn($value, $format) {
+		return self::format($value, $format);
 	}
 
 	/**
-	 * Format a time string. If G11n is enabled, grab the format from the locale.
+	 * Format a time string.
 	 *
 	 * @access public
 	 * @param string|int $time
@@ -203,7 +175,7 @@ class Format {
 	 * @static
 	 */
 	public static function time($time, $format = '%H:%M:%S') {
-		return strftime(self::get('time', $format), Time::toUnix($time));
+		return strftime($format, Time::toUnix($time));
 	}
 
 }

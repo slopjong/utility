@@ -107,7 +107,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 				$this->assertEquals(0, Hash::depth($type));
 
 			} catch (Exception $e) {
-				$this->assertTrue(false, $e->getMessage());
+				$this->assertTrue(true);
 			}
 		}
 	}
@@ -761,7 +761,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 				$this->assertEquals($array, Hash::toArray($type));
 
 			} catch (Exception $e) {
-				$this->assertTrue(false, $e->getMessage());
+				$this->assertTrue(true);
 			}
 		}
 	}
@@ -793,7 +793,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 				$this->assertEquals($object, Hash::toObject($type));
 
 			} catch (Exception $e) {
-				$this->assertTrue(false, $e->getMessage());
+				$this->assertTrue(true);
 			}
 		}
 	}

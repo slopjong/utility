@@ -50,7 +50,7 @@ class Loader {
 	 * @static
 	 */
 	public static function ds($path, $endSlash = false) {
-		$path = str_replace('\\', '/', realpath($path));
+		$path = str_replace('\\', '/', $path);
 
 		if ($endSlash && mb_substr($path, -1) !== '/') {
 			$path .= '/';
@@ -118,15 +118,14 @@ class Loader {
 	 * @static
 	 */
 	public static function toNamespace($path) {
-		$path = self::stripExt($path);
+		$path = self::ds(self::stripExt($path));
 
-		if (mb_strpos($path, '/') !== false) {
-			// @TODO
-			//$path = str_replace(self::ds(VENDORS), '', self::ds($path));
-			$path = str_replace('/', '\\', $path);
+		// Attempt to split path at src folder
+		if (mb_strpos($path, 'src/') !== false) {
+			$path = explode('src/', $path)[1];
 		}
 
-		return trim($path, '\\');
+		return trim(str_replace('/', '\\', $path), '\\');
 	}
 
 	/**

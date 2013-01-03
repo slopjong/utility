@@ -7,7 +7,6 @@
 
 namespace Titon\Utility;
 
-use Titon\G11n\G11n;
 use Titon\Utility\Validate;
 use \Exception;
 
@@ -26,11 +25,6 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 		$this->image = TEST_DIR . '/tmp/image.jpg';
-
-		G11n::setup('en');
-		G11n::setup('en-us');
-		G11n::setup('no');
-		G11n::set('en');
 	}
 
 	/**
@@ -211,7 +205,7 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	public function testDate() {
 		$this->assertTrue(Validate::date('2012-05-25'));
 		$this->assertTrue(Validate::date('1946-09-11 12:03:43'));
-		$this->assertTrue(Validate::date('March 25th 1893'));
+		$this->assertTrue(Validate::date('March 25th 1993'));
 
 		$this->assertFalse(Validate::date('02-32-2011'));
 		$this->assertFalse(Validate::date('May 40th 2054'));
@@ -322,27 +316,6 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 			'error' => UPLOAD_ERR_CANT_WRITE,
 			'size' => 307808
 		]));
-	}
-
-	/**
-	 * Test that get() returns locale Validate rules.
-	 */
-	public function testGet() {
-		try {
-			Validate::get('phone');
-			$this->assertTrue(true);
-
-		} catch (Exception $e) {
-			$this->assertTrue(false, $e->getMessage());
-		}
-
-		try {
-			Validate::get('fakeKey');
-			$this->assertTrue(false);
-
-		} catch (Exception $e) {
-			$this->assertTrue(true, $e->getMessage());
-		}
 	}
 
 	/**

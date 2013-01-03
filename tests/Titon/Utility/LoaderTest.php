@@ -103,8 +103,8 @@ class LoaderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('test\file\path\FileName', Loader::toNamespace('/test/file/path/FileName.php'));
 		$this->assertEquals('test\file\path\File\Name', Loader::toNamespace('/test/file/path/File/Name.php'));
 
-		$this->assertEquals('test\file\path\FileName', Loader::toNamespace(VENDORS . 'test/file/path/FileName.php'));
-		$this->assertEquals('titon\test\file\path\File\Name', Loader::toNamespace(TITON . 'test/file/path/File/Name.php'));
+		$this->assertEquals('test\file\path\FileName', Loader::toNamespace('vendors/src/test/file/path/FileName.php'));
+		$this->assertEquals('Titon\test\file\path\File\Name', Loader::toNamespace('vendors/src/Titon/test/file/path/File/Name.php'));
 	}
 
 	/**
@@ -120,11 +120,11 @@ class LoaderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('/test/namespace/ClassName.PHP', Loader::toPath('\test\namespace\ClassName', 'PHP'));
 		$this->assertEquals('/test/namespace/Class/Name.PHP', Loader::toPath('\test\namespace\Class_Name', 'PHP'));
 
-		$this->assertEquals(TITON . '/test/namespace/ClassName.php', Loader::toPath('\test\namespace\ClassName', 'php', TITON));
-		$this->assertEquals(TITON . '/test/namespace/Class/Name.php', Loader::toPath('\test\namespace\Class_Name', 'php', TITON));
+		$this->assertEquals(TEST_DIR . '/test/namespace/ClassName.php', Loader::toPath('\test\namespace\ClassName', 'php', TEST_DIR));
+		$this->assertEquals(TEST_DIR . '/test/namespace/Class/Name.php', Loader::toPath('\test\namespace\Class_Name', 'php', TEST_DIR));
 
-		$this->assertEquals(TITON_APP . '/test/namespace/ClassName.php', Loader::toPath('\test\namespace\ClassName', 'php', TITON_APP));
-		$this->assertEquals(TITON_APP . '/test/namespace/Class/Name.php', Loader::toPath('\test\namespace\Class_Name', 'php', TITON_APP));
+		$this->assertEquals(VENDOR_DIR . '/test/namespace/ClassName.php', Loader::toPath('\test\namespace\ClassName', 'php', VENDOR_DIR));
+		$this->assertEquals(VENDOR_DIR . '/test/namespace/Class/Name.php', Loader::toPath('\test\namespace\Class_Name', 'php', VENDOR_DIR));
 	}
 
 }
