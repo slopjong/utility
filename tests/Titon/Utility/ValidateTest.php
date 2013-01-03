@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use Titon\Utility\Validate;
 use \Exception;
 
@@ -26,8 +27,10 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		$this->image = TEST_DIR . '/tmp/image.jpg';
 
-		// @TODO
-		//Titon::g11n()->setup('en')->setup('en-us')->setup('no')->set('en');
+		G11n::setup('en');
+		G11n::setup('en-us');
+		G11n::setup('no');
+		G11n::set('en');
 	}
 
 	/**

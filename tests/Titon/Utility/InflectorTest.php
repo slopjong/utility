@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use Titon\Utility\Inflector;
 
 /**
@@ -18,8 +19,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
 	 * Prepare G11n.
 	 */
 	protected function setUp() {
-		// @TODO
-		//Titon::g11n()->setup('en')->setup('en-us')->set('en');
+		G11n::setup('en');
+		G11n::setup('en-us');
+		G11n::set('en');
 	}
 
 	/**

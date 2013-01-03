@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use Titon\Utility\Time;
 use Titon\Utility\Exception;
 use \DateTime;
@@ -101,10 +102,9 @@ class Format {
 	public static function get($key, $fallback) {
 		$pattern = $fallback;
 
-		// @TODO
-		/*if (Titon::g11n()->isEnabled()) {
-			$pattern = Titon::g11n()->current()->getFormats($key) ?: $fallback;
-		}*/
+		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
+			$pattern = G11n::current()->getFormats($key) ?: $fallback;
+		}
 
 		if (!$pattern) {
 			throw new Exception(sprintf('Format pattern %s does not exist', $key));

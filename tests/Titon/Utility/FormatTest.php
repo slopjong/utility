@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use Titon\Utility\Format;
 use \Exception;
 
@@ -19,8 +20,10 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 	 * Prepare G11n.
 	 */
 	protected function setUp() {
-		// @todo
-		//Titon::g11n()->setup('en')->setup('en-us')->setup('no')->set('en');
+		G11n::setup('en');
+		G11n::setup('en-us');
+		G11n::setup('no');
+		G11n::set('en');
 	}
 
 	/**
@@ -43,7 +46,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('02/26/1988', Format::date('1988-02-26'));
 
 		// now try with no locale, will use fallback
-		//Titon::g11n()->set('no');
+		G11n::set('no');
 		$this->assertEquals('Feb 26 1988', Format::date($time, '%b %d %Y'));
 	}
 
@@ -58,7 +61,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('02/26/1988 04:35PM', Format::datetime('1988-02-26 16:35:00'));
 
 		// now try with no locale, will use fallback
-		//Titon::g11n()->set('no');
+		G11n::set('no');
 		$this->assertEquals('Feb 26 1988, 04:35PM', Format::datetime($time, '%h %d %Y, %I:%M%p'));
 	}
 
@@ -125,7 +128,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('1 (888) 666-1337', Format::phone('+1 8886661337'));
 
 		// now try with no locale, will use fallback
-		//Titon::g11n()->set('no');
+		G11n::set('no');
 
 		$this->assertEquals('666-1337', Format::phone(6661337, '###-####'));
 
@@ -157,7 +160,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('998-29-3841', Format::ssn($ssn));
 
 		// now try with no locale, will use fallback
-		//Titon::g11n()->set('no');
+		G11n::set('no');
 		$this->assertEquals('998.29.3841', Format::ssn($ssn, '###.##.####'));
 	}
 
@@ -172,7 +175,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('04:35PM', Format::time('1988-02-26 16:35:00'));
 
 		// now try with no locale, will use fallback
-		//Titon::g11n()->set('no');
+		G11n::set('no');
 		$this->assertEquals('04:35:00 PM', Format::time($time, '%r'));
 	}
 

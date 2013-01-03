@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use Titon\Utility\Loader;
 use Titon\Utility\Number;
 use Titon\Utility\Time;
@@ -417,11 +418,9 @@ class Validate {
 	public static function get($key, $fallback = null) {
 		$pattern = $fallback;
 
-		// @todo
-		/*
-		if (Titon::g11n()->isEnabled()) {
-			$pattern = Titon::g11n()->current()->getValidations($key) ?: $fallback;
-		}*/
+		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
+			$pattern = G11n::current()->getValidations($key) ?: $fallback;
+		}
 
 		if (!$pattern) {
 			throw new Exception(sprintf('Validation pattern %s does not exist', $key));

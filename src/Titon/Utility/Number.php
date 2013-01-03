@@ -7,6 +7,8 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
+
 /**
  * The Number utility allows for the twiddling and calculation of numbers and floats.
  * Provides helper methods to ease in the evaluation of numbers within context.
@@ -126,12 +128,11 @@ class Number {
 		];
 
 		// Localization support
-		// @TODO
-		/*if (Titon::g11n()->isEnabled()) {
+		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
 			$defaults = array_merge($defaults,
-				Titon::g11n()->current()->getFormats('number'),
-				Titon::g11n()->current()->getFormats('currency'));
-		}*/
+				G11n::current()->getFormats('number'),
+				G11n::current()->getFormats('currency'));
+		}
 
 		$options = $options + $defaults;
 		$amount = number_format(self::precision(abs($number), $options['places']), $options['places'], $options['decimals'], $options['thousands']);
@@ -303,10 +304,9 @@ class Number {
 		];
 
 		// Localization support
-		// @TODO
-		/*if (Titon::g11n()->isEnabled()) {
-			$defaults = array_merge($defaults, Titon::g11n()->current()->getFormats('number'));
-		}*/
+		if (class_exists('Titon\G11n\G11n') && G11n::isEnabled()) {
+			$defaults = array_merge($defaults, G11n::current()->getFormats('number'));
+		}
 
 		$options = (array) $options + $defaults;
 

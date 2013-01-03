@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\G11n\G11n;
 use \Closure;
 
 /**
@@ -102,13 +103,12 @@ class Inflector {
 	 * @static
 	 */
 	public static function ordinal($number) {
-		// @TODO
-		/*if (!Titon::g11n()->isEnabled()) {
+		if (!class_exists('Titon\G11n\G11n') || !G11n::isEnabled()) {
 			return $number;
-		}*/
+		}
 
 		return self::_cache([__METHOD__, $number], function() use ($number) {
-			$inflections = []; // Titon::g11n()->current()->getInflections();
+			$inflections = G11n::current()->getInflections();
 			$number = (int) $number;
 
 			if (!$inflections || empty($inflections['ordinal'])) {
@@ -149,15 +149,14 @@ class Inflector {
 	 * @static
 	 */
 	public static function pluralize($string) {
-		// @TODO
-		/*if (!Titon::g11n()->isEnabled()) {
+		if (!class_exists('Titon\G11n\G11n') || !G11n::isEnabled()) {
 			return $string;
-		}*/
+		}
 
 		return self::_cache([__METHOD__, $string], function() use ($string) {
 			$string = mb_strtolower($string);
 			$result = null;
-			$inflections = []; //Titon::g11n()->current()->getInflections();
+			$inflections = G11n::current()->getInflections();
 
 			if (!$inflections) {
 				return $string;
@@ -211,15 +210,14 @@ class Inflector {
 	 * @static
 	 */
 	public static function singularize($string) {
-		// @TODO
-		/*if (!Titon::g11n()->isEnabled()) {
+		if (!class_exists('Titon\G11n\G11n') || !G11n::isEnabled()) {
 			return $string;
-		}*/
+		}
 
 		return self::_cache([__METHOD__, $string], function() use ($string) {
 			$string = mb_strtolower($string);
 			$result = null;
-			$inflections = []; // Titon::g11n()->current()->getInflections();
+			$inflections = G11n::current()->getInflections();
 
 			if (!$inflections) {
 				return $string;
@@ -310,13 +308,12 @@ class Inflector {
 	 * @static
 	 */
 	public static function transliterate($string) {
-		// @TODO
-		/*if (!Titon::g11n()->isEnabled()) {
+		if (!class_exists('Titon\G11n\G11n') || !G11n::isEnabled()) {
 			return $string;
-		}*/
+		}
 
 		return self::_cache([__METHOD__, $string], function() use ($string) {
-			$inflections = []; // Titon::g11n()->current()->getInflections();
+			$inflections = G11n::current()->getInflections();
 
 			if (!$inflections || empty($inflections['transliteration'])) {
 				return $string;
