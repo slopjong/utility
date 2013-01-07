@@ -24,7 +24,7 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->image = TEST_DIR . '/tmp/image.jpg';
+		$this->image = TEMP_DIR . '/image.jpg';
 	}
 
 	/**
