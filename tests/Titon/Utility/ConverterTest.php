@@ -281,6 +281,25 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test that nested objects within arrays are cast to arrays.
+	 */
+	public function testToXmlArrayOfTypes() {
+		$items = ['item' => [
+			Converter::toObject($this->createXmlItem(1)),
+			$this->createXmlItem(2),
+			Converter::toObject($this->createXmlItem(3))
+		]];
+
+		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
+		$expected .= '<item><id>1</id><title>Item #1</title></item>';
+		$expected .= '<item><id>2</id><title>Item #2</title></item>';
+		$expected .= '<item><id>3</id><title>Item #3</title></item>';
+		$expected .= '</root>';
+
+		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
+	}
+
+	/**
 	 * Test that buildArray() and buildObject() convert all nested tiers.
 	 */
 	public function testBuildArrayObject() {

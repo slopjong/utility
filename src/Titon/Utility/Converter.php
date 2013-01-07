@@ -284,7 +284,9 @@ class Converter {
 
 		if ($array = self::toArray($resource)) {
 			$xml = simplexml_load_string('<?xml version="1.0" encoding="utf-8"?><' . $root . '></' . $root . '>');
-			$response = self::buildXml($xml, $array);
+
+			// Convert nested types to array
+			$response = self::buildXml($xml, self::buildArray($array));
 
 			return trim($response->asXML());
 		}
@@ -296,14 +298,14 @@ class Converter {
 	 * Turn an object into an array. Alternative to array_map magic.
 	 *
 	 * @access public
-	 * @param object $object
+	 * @param object|array $object
 	 * @return array
 	 */
 	public static function buildArray($object) {
 		$array = [];
 
 		foreach ($object as $key => $value) {
-			if (is_object($value)) {
+			if (is_object($value) || is_array($value)) {
 				$array[$key] = self::buildArray($value);
 			} else {
 				$array[$key] = self::autobox($value);
@@ -317,14 +319,14 @@ class Converter {
 	 * Turn an array into an object. Alternative to array_map magic.
 	 *
 	 * @access public
-	 * @param array $array
+	 * @param array|object $array
 	 * @return object
 	 */
 	public static function buildObject($array) {
 		$obj = new \stdClass();
 
 		foreach ((array) $array as $key => $value) {
-			if (is_array($value)) {
+			if (is_array($value) || is_object($value)) {
 				$obj->{$key} = self::buildObject($value);
 			} else {
 				$obj->{$key} = self::autobox($value);
@@ -345,6 +347,7 @@ class Converter {
 	public static function buildXml(SimpleXMLElement &$xml, $array) {
 		if (is_array($array)) {
 			foreach ($array as $key => $value) {
+
 				// XML_NONE
 				if (!is_array($value)) {
 					$xml->addChild($key, self::unbox($value));
