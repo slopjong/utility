@@ -184,6 +184,103 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test nested elements and it's related complexity.
+	 */
+	public function testToXmlComplexity() {
+		$items = [
+			$this->createXmlItem(1),
+			$this->createXmlItem(2),
+			$this->createXmlItem(3)
+		];
+
+		// Without named indices
+		$expected  = '<?xml version="1.0" encoding="utf-8"?>' . "\n" . '<root>';
+		$expected .= '<0><id>1</id><title>Item #1</title></0>';
+		$expected .= '<1><id>2</id><title>Item #2</title></1>';
+		$expected .= '<2><id>3</id><title>Item #3</title></2>';
+		$expected .= '</root>';
+
+		$this->assertEquals($expected, Converter::toXml($items)); // Cant compare XML here
+
+		// With named indices
+		$items = ['item' => $items];
+
+		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
+		$expected .= '<item><id>1</id><title>Item #1</title></item>';
+		$expected .= '<item><id>2</id><title>Item #2</title></item>';
+		$expected .= '<item><id>3</id><title>Item #3</title></item>';
+		$expected .= '</root>';
+
+		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
+
+		// With deep nested complexity
+		$items = ['item' => [
+			$this->createXmlItem(1, true),
+			$this->createXmlItem(2, true),
+			$this->createXmlItem(3, true)
+		]];
+
+		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
+		$expected .= '<item>
+			<id>1</id><title>Item #1</title>
+			<foo><id>1</id><title>Item #1</title></foo>
+			<foo><id>2</id><title>Item #2</title></foo>
+			<foo><id>3</id><title>Item #3</title></foo>
+		</item>';
+		$expected .= '<item>
+			<id>2</id><title>Item #2</title>
+			<foo><id>1</id><title>Item #1</title></foo>
+			<foo><id>2</id><title>Item #2</title></foo>
+			<foo><id>3</id><title>Item #3</title></foo>
+		</item>';
+		$expected .= '<item>
+			<id>3</id><title>Item #3</title>
+			<foo><id>1</id><title>Item #1</title></foo>
+			<foo><id>2</id><title>Item #2</title></foo>
+			<foo><id>3</id><title>Item #3</title></foo>
+		</item>';
+		$expected .= '</root>';
+
+		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
+
+		// With deep nested complexity again
+		$items = ['item' => [
+			$this->createXmlItem(1, 'a'),
+			$this->createXmlItem(2, 'b'),
+			$this->createXmlItem(3, 'c')
+		]];
+
+		$expected  = '<?xml version="1.0" encoding="utf-8"?><items>';
+		$expected .= '<item>
+			<id>1</id><title>Item #1</title>
+			<foo>
+				<a><id>1</id><title>Item #1</title></a>
+				<a><id>2</id><title>Item #2</title></a>
+				<a><id>3</id><title>Item #3</title></a>
+			</foo>
+		</item>';
+		$expected .= '<item>
+			<id>2</id><title>Item #2</title>
+			<foo>
+				<b><id>1</id><title>Item #1</title></b>
+				<b><id>2</id><title>Item #2</title></b>
+				<b><id>3</id><title>Item #3</title></b>
+			</foo>
+		</item>';
+		$expected .= '<item>
+			<id>3</id><title>Item #3</title>
+			<foo>
+				<c><id>1</id><title>Item #1</title></c>
+				<c><id>2</id><title>Item #2</title></c>
+				<c><id>3</id><title>Item #3</title></c>
+			</foo>
+		</item>';
+		$expected .= '</items>';
+
+		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items, 'items'));
+	}
+
+	/**
 	 * Test that buildArray() and buildObject() convert all nested tiers.
 	 */
 	public function testBuildArrayObject() {
@@ -409,6 +506,32 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		];
 
 		$this->assertEquals($expected, Converter::xmlToArray($this->barbarian, Converter::XML_ATTRIBS));
+	}
+
+	/**
+	 * Create an array to use for an XML element.
+	 *
+	 * @access protected
+	 * @param int $id
+	 * @param boolean|string $complex
+	 * @return array
+	 */
+	protected function createXmlItem($id, $complex = false) {
+		$item = ['id' => $id, 'title' => 'Item #' . $id];
+
+		if ($complex) {
+			$item['foo'] = [
+				$this->createXmlItem(1),
+				$this->createXmlItem(2),
+				$this->createXmlItem(3)
+			];
+
+			if ($complex !== true) {
+				$item['foo'] = [$complex => $item['foo']];
+			}
+		}
+
+		return $item;
 	}
 
 }
