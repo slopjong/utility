@@ -179,12 +179,13 @@ class Converter {
 	 *
 	 * @access public
 	 * @param mixed $resource
+	 * @param boolean $recursive
 	 * @return array
 	 * @static
 	 */
-	public static function toArray($resource) {
+	public static function toArray($resource, $recursive = false) {
 		if (self::isArray($resource)) {
-			return $resource;
+			return $recursive ? self::buildArray($resource) : $resource;
 
 		} else if (self::isObject($resource)) {
 			return self::buildArray($resource);
@@ -233,12 +234,15 @@ class Converter {
 	 *
 	 * @access public
 	 * @param mixed $resource
+	 * @param boolean $recursive
 	 * @return object
 	 * @static
 	 */
-	public static function toObject($resource) {
+	public static function toObject($resource, $recursive = false) {
 		if (self::isObject($resource)) {
-			return $resource;
+			if (!$recursive) {
+				return $resource;
+			}
 
 		} else if (self::isArray($resource)) {
 			// Continue
@@ -282,11 +286,9 @@ class Converter {
 			return $resource;
 		}
 
-		if ($array = self::toArray($resource)) {
+		if ($array = self::toArray($resource, true)) {
 			$xml = simplexml_load_string('<?xml version="1.0" encoding="utf-8"?><' . $root . '></' . $root . '>');
-
-			// Convert nested types to array
-			$response = self::buildXml($xml, self::buildArray($array));
+			$response = self::buildXml($xml, $array);
 
 			return trim($response->asXML());
 		}
@@ -325,7 +327,7 @@ class Converter {
 	public static function buildObject($array) {
 		$obj = new \stdClass();
 
-		foreach ((array) $array as $key => $value) {
+		foreach ($array as $key => $value) {
 			if (is_array($value) || is_object($value)) {
 				$obj->{$key} = self::buildObject($value);
 			} else {

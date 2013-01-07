@@ -140,6 +140,24 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test that toArray() converts all tiers to an array.
+	 */
+	public function testToArrayRecursive() {
+		$array = [
+			Converter::toObject(['key' => 1]),
+			['key' => 2],
+			Converter::toObject(['key' => 3])
+		];
+
+		$this->assertEquals($array, Converter::toArray($array));
+		$this->assertEquals([
+			['key' => 1],
+			['key' => 2],
+			['key' => 3]
+		], Converter::toArray($array, true));
+	}
+
+	/**
 	 * Test that toObject() converts any resource type to an object.
 	 */
 	public function testToObject() {
@@ -148,6 +166,30 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->object, Converter::toObject($this->json));
 		$this->assertEquals($this->object, Converter::toObject($this->serialized));
 		$this->assertEquals($this->object, Converter::toObject($this->xml));
+	}
+
+	/**
+	 * Test that toObject() converts all tiers to an object.
+	 */
+	public function testToObjectRecursive() {
+		$object = new \stdClass();
+		$object->a = ['key' => 1];
+		$sub = new \stdClass();
+		$sub->key = 2;
+		$object->b = $sub;
+		$object->c = ['key' => 3];
+
+		$this->assertEquals($object, Converter::toObject($object));
+
+		$expected = $object;
+		$sub = new \stdClass();
+		$sub->key = 1;
+		$expected->a = $sub;
+		$sub = new \stdClass();
+		$sub->key = 3;
+		$expected->c = $sub;
+
+		$this->assertEquals($object, Converter::toObject($object, true));
 	}
 
 	/**
