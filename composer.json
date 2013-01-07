@@ -2,7 +2,7 @@
 	"name": "titon/utility",
 	"type": "library",
 	"description": "The Titon utility package provides convenience classes for basic tasks like validation, formatting, sanitization and more.",
-	"keywords": ["titon", "utility", "crypt", "format", "hash", "inflector", "loader", "number", "sanitize", "string", "time", "uuid", "validate"],
+	"keywords": ["titon", "utility", "crypt", "format", "hash", "inflector", "loader", "number", "sanitize", "string", "time", "uuid", "validate", "converter"],
 	"homepage": "https://github.com/titon/Titon.Utility",
 	"license": "BSD-2-Clause",
 	"authors": [

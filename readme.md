@@ -4,6 +4,7 @@ The Titon utility package provides convenience classes for basic tasks like vali
 
 ### Features ###
 
+* Converter - Convert one type to another
 * Crypt - Data encryption and decryption
 * Format - Data formatting
 * Hash - Object and array manipulation
@@ -20,5 +21,6 @@ The Titon utility package provides convenience classes for basic tasks like vali
 
 * PHP 5.4
 * Multibyte
+* SimpleXML (for Converter)
 * Mcrypt (for Crypt)
 * Fileinfo (for Validate)
