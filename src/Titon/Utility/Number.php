@@ -33,6 +33,7 @@ class Number {
 	public static function bytesFrom($number) {
 		if (!$number) {
 			return 0;
+
 		} else if (is_numeric($number)) {
 			return $number;
 		}

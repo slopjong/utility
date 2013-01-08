@@ -7,7 +7,6 @@
 
 namespace Titon\Utility;
 
-use Titon\Utility\Exception;
 use Titon\Utility\Sanitize;
 
 /**

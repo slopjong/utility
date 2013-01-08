@@ -8,7 +8,6 @@
 namespace Titon\Utility;
 
 use Titon\Utility\Time;
-use Titon\Utility\Exception;
 use \DateTime;
 
 /**
