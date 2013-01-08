@@ -47,11 +47,7 @@ class Inflector {
 	 */
 	public static function className($string) {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
-			if (method_exists(__CLASS__, 'singularize')) {
-				$string = self::singularize($string);
-			}
-
-			return self::camelCase($string);
+			return self::camelCase(self::singularize($string));
 		});
 	}
 
@@ -98,6 +94,30 @@ class Inflector {
 	}
 
 	/**
+	 * Inflect a number by appending its ordinal suffix: st, nd, rd, th, etc.
+	 *
+	 * @access public
+	 * @param int $number
+	 * @return string
+	 * @static
+	 */
+	public static function ordinal($number) {
+		return $number;
+	}
+
+	/**
+	 * Inflect a string to its pluralized form.
+	 *
+	 * @access public
+	 * @param string $string
+	 * @return string
+	 * @static
+	 */
+	public static function pluralize($string) {
+		return $string;
+	}
+
+	/**
 	 * Inflect a word to a routeable format. All non-alphanumeric characters will be removed, and any spaces or underscores will be changed to dashes.
 	 *
 	 * @access public
@@ -109,6 +129,18 @@ class Inflector {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
 			return str_replace([' ', '_'], '-', preg_replace('/[^-_a-z0-9\s]+/i', '', preg_replace('/\s{2,}+/', ' ', $string)));
 		});
+	}
+
+	/**
+	 * Inflect a string to its singular form.
+	 *
+	 * @access public
+	 * @param string $string
+	 * @return string
+	 * @static
+	 */
+	public static function singularize($string) {
+		return $string;
 	}
 
 	/**
@@ -125,11 +157,7 @@ class Inflector {
 			$string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
 
 			// Remove non-ascii characters
-			if (method_exists(__CLASS__, 'transliterate')) {
-				$string = self::transliterate($string);
-			}
-
-			$string = preg_replace('/[^-a-z0-9\s]+/i', '', $string);
+			$string = preg_replace('/[^-a-z0-9\s]+/i', '', self::transliterate($string));
 
 			// Replace dashes and underscores
 			$string = str_replace(' ', '-', str_replace('-', '_', $string));
@@ -148,11 +176,7 @@ class Inflector {
 	 */
 	public static function tableName($string) {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
-			if (method_exists(__CLASS__, 'pluralize')) {
-				$string = self::pluralize($string);
-			}
-
-			return lcfirst(self::camelCase($string));
+			return lcfirst(self::camelCase(self::pluralize($string)));
 		});
 	}
 
@@ -168,6 +192,18 @@ class Inflector {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
 			return mb_convert_case(str_replace('_', ' ', $string), MB_CASE_TITLE);
 		});
+	}
+
+	/**
+	 * Inflect a word by replacing all non-ASCII characters with there equivalents.
+	 *
+	 * @access public
+	 * @param string $string
+	 * @return string
+	 * @static
+	 */
+	public static function transliterate($string) {
+		return $string;
 	}
 
 	/**
@@ -220,7 +256,7 @@ class Inflector {
 			return self::$_cache[$key];
 		}
 
-		$callback = Closure::bind($callback, null, __CLASS__);
+		$callback = Closure::bind($callback, null, get_called_class());
 
 		self::$_cache[$key] = $callback();
 
