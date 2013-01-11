@@ -38,7 +38,6 @@ class Converter {
 	/**
 	 * Autobox a value by type casting it.
 	 *
-	 * @access public
 	 * @param mixed $value
 	 * @return mixed
 	 * @static
@@ -60,7 +59,6 @@ class Converter {
 	/**
 	 * Unbox values by type casting to a string equivalent.
 	 *
-	 * @access public
 	 * @param mixed $value
 	 * @return string
 	 * @static
@@ -76,7 +74,6 @@ class Converter {
 	/**
 	 * Returns a string for the detected type.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return string
 	 * @static
@@ -111,7 +108,6 @@ class Converter {
 	/**
 	 * Check to see if data passed is an array.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return boolean
 	 * @static
@@ -123,7 +119,6 @@ class Converter {
 	/**
 	 * Check to see if data passed is a JSON object.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return mixed
 	 * @static
@@ -137,7 +132,6 @@ class Converter {
 	/**
 	 * Check to see if data passed is an object.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return boolean
 	 * @static
@@ -149,7 +143,6 @@ class Converter {
 	/**
 	 * Check to see if data passed has been serialized.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return mixed
 	 * @static
@@ -163,7 +156,6 @@ class Converter {
 	/**
 	 * Check to see if data passed is an XML document.
 	 *
-	 * @access public
 	 * @param mixed $data
 	 * @return \SimpleXmlElement
 	 * @static
@@ -177,7 +169,6 @@ class Converter {
 	/**
 	 * Transforms a resource into an array.
 	 *
-	 * @access public
 	 * @param mixed $resource
 	 * @param boolean $recursive
 	 * @return array
@@ -206,7 +197,6 @@ class Converter {
 	/**
 	 * Transforms a resource into a JSON object.
 	 *
-	 * @access public
 	 * @param mixed $resource
 	 * @return string
 	 * @static
@@ -232,7 +222,6 @@ class Converter {
 	/**
 	 * Transforms a resource into an object.
 	 *
-	 * @access public
 	 * @param mixed $resource
 	 * @param boolean $recursive
 	 * @return object
@@ -263,7 +252,6 @@ class Converter {
 	/**
 	 * Transforms a resource into a serialized form.
 	 *
-	 * @access public
 	 * @param mixed $resource
 	 * @return string
 	 * @static
@@ -275,7 +263,6 @@ class Converter {
 	/**
 	 * Transforms a resource into an XML document.
 	 *
-	 * @access public
 	 * @param mixed $resource
 	 * @param string $root
 	 * @return string
@@ -299,7 +286,6 @@ class Converter {
 	/**
 	 * Turn an object into an array. Alternative to array_map magic.
 	 *
-	 * @access public
 	 * @param object|array $object
 	 * @return array
 	 */
@@ -320,7 +306,6 @@ class Converter {
 	/**
 	 * Turn an array into an object. Alternative to array_map magic.
 	 *
-	 * @access public
 	 * @param array|object $array
 	 * @return object
 	 */
@@ -341,7 +326,6 @@ class Converter {
 	/**
 	 * Turn an array into an XML document. Alternative to array_map magic.
 	 *
-	 * @access public
 	 * @param \SimpleXMLElement $xml
 	 * @param array $array
 	 * @return \SimpleXMLElement
@@ -419,7 +403,6 @@ class Converter {
 	/**
 	 * Convert a SimpleXML object into an array.
 	 *
-	 * @access public
 	 * @param mixed $xml
 	 * @param int $format
 	 * @return array

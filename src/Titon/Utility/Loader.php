@@ -15,7 +15,6 @@ class Loader {
 	/**
 	 * Strips the namespace to return the base class name.
 	 *
-	 * @access public
 	 * @param string $class
 	 * @param string $separator
 	 * @return string
@@ -28,7 +27,6 @@ class Loader {
 	/**
 	 * Returns a namespace with only the base package, and not the class name.
 	 *
-	 * @access public
 	 * @param string $class
 	 * @param string $separator
 	 * @return string
@@ -43,7 +41,6 @@ class Loader {
 	/**
 	 * Converts OS directory separators to the standard forward slash.
 	 *
-	 * @access public
 	 * @param string $path
 	 * @param boolean $endSlash
 	 * @return string
@@ -62,7 +59,6 @@ class Loader {
 	/**
 	 * Return the extension from a file path.
 	 *
-	 * @access public
 	 * @param string $path
 	 * @return string
 	 * @static
@@ -74,7 +70,6 @@ class Loader {
 	/**
 	 * Define additional include paths for PHP to detect within.
 	 *
-	 * @access public
 	 * @param string|array $paths
 	 * @return void
 	 * @static
@@ -96,7 +91,6 @@ class Loader {
 	/**
 	 * Strip off the extension if it exists.
 	 *
-	 * @access public
 	 * @param string $path
 	 * @return string
 	 * @static
@@ -112,7 +106,6 @@ class Loader {
 	/**
 	 * Converts a path to a namespace package.
 	 *
-	 * @access public
 	 * @param string $path
 	 * @return string
 	 * @static
@@ -131,7 +124,6 @@ class Loader {
 	/**
 	 * Converts a namespace to a relative or absolute file system path.
 	 *
-	 * @access public
 	 * @param string $path
 	 * @param string $ext
 	 * @param mixed $root

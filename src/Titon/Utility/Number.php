@@ -25,7 +25,6 @@ class Number {
 	 * Convert a readable string notated form of bytes (1KB) to the numerical equivalent (1024).
 	 * Supports all the different format variations: k, kb, ki, kib, etc.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return int
 	 * @static
@@ -69,7 +68,6 @@ class Number {
 	/**
 	 * Convert a numerical value to the readable string notated equivalent.
 	 *
-	 * @access public
 	 * @param int $size
 	 * @param int $precision
 	 * @return string
@@ -89,7 +87,6 @@ class Number {
 	/**
 	 * Convert a number from one base to another.
 	 *
-	 * @access public
 	 * @param int $no
 	 * @param int $fromBase
 	 * @param int $toBase
@@ -108,7 +105,6 @@ class Number {
 	 * Convert a number to it's currency equivalent, respecting locale.
 	 * Allow for overrides through an options array.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param array $options
 	 * @return string
@@ -153,7 +149,6 @@ class Number {
 	/**
 	 * Return true if the number is within the min and max.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $min
 	 * @param int $max
@@ -167,7 +162,6 @@ class Number {
 	/**
 	 * Is the current value even?
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return boolean
 	 * @static
@@ -179,7 +173,6 @@ class Number {
 	/**
 	 * Is the current value negative; less than zero.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return boolean
 	 * @static
@@ -191,7 +184,6 @@ class Number {
 	/**
 	 * Is the current value odd?
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return boolean
 	 * @static
@@ -203,7 +195,6 @@ class Number {
 	/**
 	 * Is the current value positive; greater than or equal to zero.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param boolean $zero
 	 * @return boolean
@@ -216,7 +207,6 @@ class Number {
 	/**
 	 * Limits the number between two bounds.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $min
 	 * @param int $max
@@ -230,7 +220,6 @@ class Number {
 	/**
 	 * Increase the number to the minimum if below threshold.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $min
 	 * @return int
@@ -247,7 +236,6 @@ class Number {
 	/**
 	 * Decrease the number to the maximum if above threshold.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $max
 	 * @return int
@@ -264,7 +252,6 @@ class Number {
 	/**
 	 * Return true if the number is outside the min and max.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $min
 	 * @param int $max
@@ -278,7 +265,6 @@ class Number {
 	/**
 	 * Convert a number to a percentage string with decimal and comma separations.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int|array $options
 	 * @return string
@@ -303,7 +289,6 @@ class Number {
 	/**
 	 * Formats a number with a level of precision (even if it had none).
 	 *
-	 * @access public
 	 * @param float $number
 	 * @param int $precision
 	 * @return float
@@ -316,7 +301,6 @@ class Number {
 	/**
 	 * Returns -1 if the value is negative, 0 if the value equals 0, or 1 if the value is positive.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return int
 	 * @static
@@ -336,7 +320,6 @@ class Number {
 	/**
 	 * Returns as an unsigned integer in base 2 (binary).
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $base
 	 * @return int
@@ -349,7 +332,6 @@ class Number {
 	/**
 	 * Returns as an unsigned integer in base 10 (decimal).
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $base
 	 * @return int
@@ -362,7 +344,6 @@ class Number {
 	/**
 	 * Returns as an unsigned integer in base 16 (hexadecimal).
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $base
 	 * @return string
@@ -375,7 +356,6 @@ class Number {
 	/**
 	 * Returns as an unsigned integer in base 8 (octal).
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int $base
 	 * @return string

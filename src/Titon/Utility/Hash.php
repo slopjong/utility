@@ -19,7 +19,6 @@ class Hash {
 	 * Determines the total depth of a multi-dimensional array or object.
 	 * Has two methods of determining depth: based on recursive depth, or based on tab indentation (faster).
 	 *
-	 * @access public
 	 * @param array|object $set
 	 * @param boolean $recursive
 	 * @return int
@@ -75,7 +74,6 @@ class Hash {
 	 * Calls a function for each key-value pair in the set.
 	 * If recursive is true, will apply the callback to nested arrays as well.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param Closure $callback
 	 * @param boolean $recursive
@@ -97,7 +95,6 @@ class Hash {
 	/**
 	 * Returns true if every element in the array satisfies the provided testing function.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param Closure $callback
 	 * @return boolean
@@ -116,7 +113,6 @@ class Hash {
 	/**
 	 * Expand an array to a fully workable multi-dimensional array, where the values key is a dot notated path.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @return array
 	 * @static
@@ -135,7 +131,6 @@ class Hash {
 	 * Extract the value of an array, depending on the paths given, represented by Key.Key.Key notation.
 	 * Can extract multiple values by passing an array of paths as the second argument.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return mixed
@@ -176,7 +171,6 @@ class Hash {
 	 * Filter out all keys within an array that have an empty value, excluding 0 (string and numeric).
 	 * If $recursive is set to true, will remove all empty values within all sub-arrays.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param boolean $recursive
 	 * @param Closure $callback
@@ -206,7 +200,6 @@ class Hash {
 	/**
 	 * Flatten a multi-dimensional array by returning the values with their keys representing their previous pathing.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return array
@@ -238,7 +231,6 @@ class Hash {
 	 * Flip the array by replacing all array keys with their value, if the value is a string and the key is numeric.
 	 * If the value is empty/false/null and $truncate is true, that key will be removed.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param boolean $recursive
 	 * @param boolean $truncate
@@ -276,7 +268,6 @@ class Hash {
 	/**
 	 * Get a value from the set. If they path doesn't exist, return null, or if the path is empty, return the whole set.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return mixed
@@ -292,7 +283,6 @@ class Hash {
 	/**
 	 * Checks to see if a key/value pair exists within an array, determined by the given path.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return array
@@ -332,7 +322,6 @@ class Hash {
 	/**
 	 * Includes the specified key-value pair in the set if the key doesn't already exist.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @param mixed $value
@@ -349,7 +338,6 @@ class Hash {
 	/**
 	 * Inserts a value into the array set based on the given path.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @param mixed $value
@@ -391,7 +379,6 @@ class Hash {
 	 * Checks to see if all values in the array are strings, returns false if not.
 	 * If $strict is true, method will fail if there are values that are numerical strings, but are not cast as integers.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param boolean $strict
 	 * @return boolean
@@ -416,7 +403,6 @@ class Hash {
 	/**
 	 * Checks to see if all values in the array are numeric, returns false if not.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @return boolean
 	 * @static
@@ -430,7 +416,6 @@ class Hash {
 	/**
 	 * Returns the key of the specified value. Will recursively search if the first pass doesn't match.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param mixed $match
 	 * @return mixed
@@ -464,7 +449,6 @@ class Hash {
 	 * Works in a similar fashion to array_map() but can be used recursively as well as supply arguments for the function callback.
 	 * Additionally, the $function argument can be a string or array containing the class and method name.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string|Closure $function
 	 * @param array $args
@@ -490,7 +474,6 @@ class Hash {
 	/**
 	 * Compares to see if the first array set matches the second set exactly.
 	 *
-	 * @access public
 	 * @param array $set1
 	 * @param array $set2
 	 * @return boolean
@@ -504,7 +487,6 @@ class Hash {
 	 * Merge is a combination of array_merge() and array_merge_recursive(). However, when merging two keys with the same key,
 	 * the previous value will be overwritten instead of being added into an array. The later array takes precedence when merging.
 	 *
-	 * @access public
 	 * @return array
 	 * @static
 	 */
@@ -538,7 +520,6 @@ class Hash {
 	/**
 	 * Works similar to merge(), except that it will only overwrite/merge values if the keys exist in the previous array.
 	 *
-	 * @access public
 	 * @param array $set1 - The base array
 	 * @param array $set2 - The array to overwrite the base array
 	 * @return null|array
@@ -567,7 +548,6 @@ class Hash {
 	/**
 	 * Pluck a value out of each child-array and return an array of the plucked values.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return array
@@ -588,7 +568,6 @@ class Hash {
 	/**
 	 * Generate an array with a range of numbers. Can apply a step interval to increase/decrease with larger increments.
 	 *
-	 * @access public
 	 * @param int $start
 	 * @param int $stop
 	 * @param int $step
@@ -624,7 +603,6 @@ class Hash {
 	/**
 	 * Remove an index from the array, determined by the given path.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param string $path
 	 * @return array
@@ -665,7 +643,6 @@ class Hash {
 	/**
 	 * Set a value into the result set. If the paths is an array, loop over each one and insert the value.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param array|string $path
 	 * @param mixed $value
@@ -687,7 +664,6 @@ class Hash {
 	/**
 	 * Returns true if at least one element in the array satisfies the provided testing function.
 	 *
-	 * @access public
 	 * @param array $set
 	 * @param Closure $callback
 	 * @return boolean
@@ -712,7 +688,6 @@ class Hash {
 	 * Transforms a multi/single-dimensional object into a mirrored array.
 	 * Only public class properties will be parsed into the array.
 	 *
-	 * @access public
 	 * @param object $object
 	 * @return array
 	 * @throws \Titon\Utility\Exception
@@ -740,7 +715,6 @@ class Hash {
 	/**
 	 * Transforms a multi/single-dimensional array into a mirrored object.
 	 *
-	 * @access public
 	 * @param array $array
 	 * @return object
 	 * @throws \Titon\Utility\Exception
@@ -768,7 +742,6 @@ class Hash {
 	/**
 	 * Convenience function for converting an object to array, or array to object.
 	 *
-	 * @access public
 	 * @param array|object $set
 	 * @return array|object
 	 * @static

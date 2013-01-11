@@ -572,7 +572,6 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Create an array to use for an XML element.
 	 *
-	 * @access protected
 	 * @param int $id
 	 * @param boolean|string $complex
 	 * @return array

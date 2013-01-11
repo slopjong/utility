@@ -18,7 +18,6 @@ class Uuid {
 	/**
 	 * Creates UUID version 1.
 	 *
-	 * @access public
 	 * @return string
 	 * @throws \Titon\Utility\Exception
 	 * @static
@@ -30,7 +29,6 @@ class Uuid {
 	/**
 	 * Creates UUID version 2.
 	 *
-	 * @access public
 	 * @return string
 	 * @throws \Titon\Utility\Exception
 	 * @static
@@ -42,7 +40,6 @@ class Uuid {
 	/**
 	 * Creates UUID version 3: md5 based.
 	 *
-	 * @access public
 	 * @return string
 	 * @throws \Titon\Utility\Exception
 	 * @static
@@ -54,7 +51,6 @@ class Uuid {
 	/**
 	 * Creates UUID version 4: random number generation based.
 	 *
-	 * @access public
 	 * @return string
 	 * @throws \Titon\Utility\Exception
 	 * @static
@@ -73,7 +69,6 @@ class Uuid {
 	/**
 	 * Creates UUID version 5: sha1 based.
 	 *
-	 * @access public
 	 * @return string
 	 * @throws \Titon\Utility\Exception
 	 * @static

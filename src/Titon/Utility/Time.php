@@ -26,7 +26,6 @@ class Time {
 	/**
 	 * Calculate the difference in seconds between 2 dates.
 	 *
-	 * @access public
 	 * @param string|int $time1
 	 * @param string|int $time2
 	 * @return int
@@ -39,7 +38,6 @@ class Time {
 	/**
 	 * Return a DateTime object based on the current time and timezone.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $timezone
 	 * @return \DateTime
@@ -52,7 +50,6 @@ class Time {
 	/**
 	 * Returns true if date passed is today.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -64,7 +61,6 @@ class Time {
 	/**
 	 * Returns true if date passed is within this week.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -76,7 +72,6 @@ class Time {
 	/**
 	 * Returns true if date passed is within this month.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -88,7 +83,6 @@ class Time {
 	/**
 	 * Returns true if date passed is within this year.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -100,7 +94,6 @@ class Time {
 	/**
 	 * Returns true if date passed is tomorrow.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -112,7 +105,6 @@ class Time {
 	/**
 	 * Returns true if the date passed will be within the next time frame span.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @param int $span
 	 * @return boolean
@@ -128,7 +120,6 @@ class Time {
 	/**
 	 * Return a DateTimeZone object based on the current timezone.
 	 *
-	 * @access public
 	 * @param string $timezone
 	 * @return \DateTimeZone
 	 * @static
@@ -144,7 +135,6 @@ class Time {
 	/**
 	 * Return a unix timestamp. If the time is a string convert it, else cast to int.
 	 *
-	 * @access public
 	 * @param int|string $time
 	 * @return int
 	 * @static
@@ -163,7 +153,6 @@ class Time {
 	/**
 	 * Returns true if date passed was within last week.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -175,7 +164,6 @@ class Time {
 	/**
 	 * Returns true if date passed was within last month.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -187,7 +175,6 @@ class Time {
 	/**
 	 * Returns true if date passed was within last year.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -199,7 +186,6 @@ class Time {
 	/**
 	 * Returns true if date passed was yesterday.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @return boolean
 	 * @static
@@ -211,7 +197,6 @@ class Time {
 	/**
 	 * Returns true if the date passed was within the last time frame span.
 	 *
-	 * @access public
 	 * @param mixed $time
 	 * @param int $span
 	 * @return boolean

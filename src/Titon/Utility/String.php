@@ -30,7 +30,6 @@ class String {
 	/**
 	 * Return the character at the specified index, if not found returns null.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param int $index
 	 * @return string
@@ -43,7 +42,6 @@ class String {
 	/**
 	 * Compares to strings alphabetically. Returns 0 if they are equal, negative if passed value is greater, or positive if current value is greater.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $value
 	 * @param boolean $strict
@@ -73,7 +71,6 @@ class String {
 	/**
 	 * Check to see if a string exists within this string.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $needle
 	 * @param boolean $strict
@@ -88,7 +85,6 @@ class String {
 	/**
 	 * Checks to see if the string ends with a specific value.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $needle
 	 * @param boolean $strict
@@ -108,7 +104,6 @@ class String {
 	/**
 	 * Extracts a portion of a string.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param int $offset
 	 * @param int $length
@@ -126,7 +121,6 @@ class String {
 	/**
 	 * Generates a string of random characters.
 	 *
-	 * @access public
 	 * @param int $length
 	 * @param string $seed
 	 * @return string
@@ -147,7 +141,6 @@ class String {
 	/**
 	 * Grab the index of the first matched character.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $needle
 	 * @param boolean $strict
@@ -166,7 +159,6 @@ class String {
 	/**
 	 * Insert values into a string defined by an array of key tokens.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param array $data
 	 * @param array $options
@@ -194,7 +186,6 @@ class String {
 	/**
 	 * Grab the index of the last matched character.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $needle
 	 * @param boolean $strict
@@ -213,7 +204,6 @@ class String {
 	/**
 	 * Creates a comma separated list with the last item having an ampersand prefixing it.
 	 *
-	 * @access public
 	 * @param array $items
 	 * @param string $glue
 	 * @param string $sep
@@ -238,7 +228,6 @@ class String {
 	/**
 	 * If a string is too long, shorten it in the middle while also respecting whitespace and preserving words.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param int $limit
 	 * @param string $glue
@@ -272,7 +261,6 @@ class String {
 	/**
 	 * Checks to see if the string starts with a specific value.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $needle
 	 * @param boolean $strict
@@ -292,7 +280,6 @@ class String {
 	/**
 	 * Truncates a string to a certain length. Will preserve HTML tags and words if the flags are true.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param int $limit
 	 * @param array $options

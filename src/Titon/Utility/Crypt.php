@@ -35,7 +35,6 @@ class Crypt {
 	/**
 	 * Encrypt and decrypt a string using the Blowfish algorithm with CBC mode.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param int $operation
@@ -54,7 +53,6 @@ class Crypt {
 	 * Decrypt an encrypted string using the passed cipher and mode.
 	 * Additional types of ciphers and modes can be used that aren't constants of this class.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param string $cipher
@@ -71,7 +69,6 @@ class Crypt {
 	/**
 	 * Encrypt and decrypt a string using the DES (data encryption standard) algorithm with CBC mode.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param int $operation
@@ -90,7 +87,6 @@ class Crypt {
 	 * Encrypt string using the passed cipher and mode.
 	 * Additional types of ciphers and modes can be used that aren't constants of this class.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param string $cipher
@@ -108,7 +104,6 @@ class Crypt {
 	 * Return a hashed string using one of the built in ciphers (md5, sha1, sha256, etc) and use the config salt if it has been set.
 	 * Can also supply an optional second salt for increased security.
 	 *
-	 * @access public
 	 * @param string $cipher
 	 * @param string $string
 	 * @param string $salt
@@ -122,7 +117,6 @@ class Crypt {
 	/**
 	 * Scrambles the source of a string.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -144,7 +138,6 @@ class Crypt {
 	/**
 	 * Encrypt and decrypt a string using the Rijndael 128 algorithm with CBC mode.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param int $operation
@@ -162,7 +155,6 @@ class Crypt {
 	/**
 	 * Encrypt and decrypt a string using the 3DES (triple data encryption standard) algorithm with CBC mode.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $key
 	 * @param int $operation
@@ -181,7 +173,6 @@ class Crypt {
 	 * Prepare for en/decryption by generating persistent keys and IVs.
 	 * We can't use randomization as the key/iv needs to be the same for both encrypt and decrypt.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param string $cipher
 	 * @param string $mode

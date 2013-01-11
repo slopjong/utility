@@ -15,7 +15,6 @@ class Sanitize {
 	/**
 	 * Sanitize an email by removing all characters except letters, digits and !#$%&'*+-/=?^_`{|}~@.[].
 	 *
-	 * @access public
 	 * @param string $value
 	 * @return string
 	 * @static
@@ -27,7 +26,6 @@ class Sanitize {
 	/**
 	 * Escape a string using the apps encoding.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @param array $options
 	 * 		encoding	- (string) Character encoding set; defaults to UTF-8
@@ -49,7 +47,6 @@ class Sanitize {
 	/**
 	 * Sanitize a float by removing all characters except digits, +- and .,eE.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @return string
 	 * @static
@@ -61,7 +58,6 @@ class Sanitize {
 	/**
 	 * Sanitize a string by removing xor escaping HTML characters and entities.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @param array $options
 	 * 		strip		- (bool) Will remove HTML tags
@@ -85,7 +81,6 @@ class Sanitize {
 	/**
 	 * Sanitize an integer by removing all characters except digits, plus and minus sign.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @return string
 	 * @static
@@ -97,7 +92,6 @@ class Sanitize {
 	/**
 	 * Sanitize a string by removing excess CRLF characters.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @param array $options
 	 * 		cr		- (bool) Will remove carriage returns \r
@@ -147,7 +141,6 @@ class Sanitize {
 	/**
 	 * Sanitize a URL by removing all characters except letters, digits and $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&=.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @return string
 	 * @static
@@ -159,7 +152,6 @@ class Sanitize {
 	/**
 	 * Sanitize a string by removing excess whitespace and tab characters.
 	 *
-	 * @access public
 	 * @param string $value
 	 * @param array $options
 	 * 		space	- (bool) Will remove white space
@@ -210,7 +202,6 @@ class Sanitize {
 	 * Sanitize a string by removing any XSS attack vectors.
 	 * Will bubble up to html() and escape().
 	 *
-	 * @access public
 	 * @param string $value
 	 * @param array $options
 	 * @return string

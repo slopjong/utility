@@ -17,7 +17,6 @@ class Inflector {
 	/**
 	 * Cached inflections for all methods.
 	 *
-	 * @access protected
 	 * @var array
 	 * @static
 	 */
@@ -26,7 +25,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a camel case form with the first letter being capitalized.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -40,7 +38,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a class name. Singular camel cased form.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -54,7 +51,6 @@ class Inflector {
 	/**
 	 * Inflect a word for a filename. Studly cased and capitalized.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @param string $ext
 	 * @param boolean $capitalize
@@ -82,7 +78,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a human readable string with only the first word capitalized and the rest lowercased.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -96,7 +91,6 @@ class Inflector {
 	/**
 	 * Inflect a number by appending its ordinal suffix: st, nd, rd, th, etc.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return string
 	 * @static
@@ -108,7 +102,6 @@ class Inflector {
 	/**
 	 * Inflect a string to its pluralized form.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -120,7 +113,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a routeable format. All non-alphanumeric characters will be removed, and any spaces or underscores will be changed to dashes.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -134,7 +126,6 @@ class Inflector {
 	/**
 	 * Inflect a string to its singular form.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -146,7 +137,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a URL friendly slug. Removes all punctuation, replaces dashes with underscores and spaces with dashes.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -169,7 +159,6 @@ class Inflector {
 	/**
 	 * Inflect a word for a database table name. Formatted as plural and camel case with the first letter lowercase.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -183,7 +172,6 @@ class Inflector {
 	/**
 	 * Inflect a word to a human readable string with all words capitalized.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -197,7 +185,6 @@ class Inflector {
 	/**
 	 * Inflect a word by replacing all non-ASCII characters with there equivalents.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -209,7 +196,6 @@ class Inflector {
 	/**
 	 * Inflect a word to an underscore form that strips all punctuation and special characters and converts spaces to underscores.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -223,7 +209,6 @@ class Inflector {
 	/**
 	 * Inflect a word to be used as a PHP variable. Strip all but letters, numbers and underscores. Add an underscore if the first letter is numeric.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -241,7 +226,6 @@ class Inflector {
 	/**
 	 * Cache the result of an inflection by using a Closure.
 	 *
-	 * @access protected
 	 * @param string|array $key
 	 * @param Closure $callback
 	 * @return mixed

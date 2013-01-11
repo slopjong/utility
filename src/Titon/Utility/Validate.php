@@ -44,7 +44,6 @@ class Validate {
 	/**
 	 * Validate input is alphabetical.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param array $exceptions
 	 * @return boolean
@@ -57,7 +56,6 @@ class Validate {
 	/**
 	 * Validate input is numerical and alphabetical (does not include punctuation).
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param array $exceptions
 	 * @return boolean
@@ -70,7 +68,6 @@ class Validate {
 	/**
 	 * Validate input string length is between the min and max.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $min
 	 * @param int $max
@@ -86,7 +83,6 @@ class Validate {
 	/**
 	 * Validate input is a boolean or boolean-like flag.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -98,7 +94,6 @@ class Validate {
 	/**
 	 * Compare two numerical values.
 	 *
-	 * @access public
 	 * @param int $input
 	 * @param int $check
 	 * @param string $mode
@@ -149,7 +144,6 @@ class Validate {
 	/**
 	 * Validate input is a credit card number. If $types is defined, will only validate against those cards, else will validate against all.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string|array $types
 	 * @return boolean
@@ -205,7 +199,6 @@ class Validate {
 	/**
 	 * Validate input matches a currency format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -218,7 +211,6 @@ class Validate {
 	/**
 	 * Validate input against a custom regex pattern.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $expression
 	 * @return boolean
@@ -231,7 +223,6 @@ class Validate {
 	/**
 	 * Validate input is a real date.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -251,7 +242,6 @@ class Validate {
 	/**
 	 * Validate input is a decimal.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $places
 	 * @return boolean
@@ -270,7 +260,6 @@ class Validate {
 	/**
 	 * Validate an images dimensions.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param string $type
 	 * @param int $size
@@ -308,7 +297,6 @@ class Validate {
 	/**
 	 * Validate input is an email. If $dns is true, will check DNS records as well.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param boolean $dns
 	 * @return boolean
@@ -337,7 +325,6 @@ class Validate {
 	/**
 	 * Validate two values are equal.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $check
 	 * @return boolean
@@ -350,7 +337,6 @@ class Validate {
 	/**
 	 * Validate two types match exactly.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $check
 	 * @return boolean
@@ -363,7 +349,6 @@ class Validate {
 	/**
 	 * Escapes characters that would break the regex.
 	 *
-	 * @access public
 	 * @param array|string $characters
 	 * @return string
 	 * @static
@@ -379,7 +364,6 @@ class Validate {
 	/**
 	 * Validate input has an extension and is in the whitelist.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string|array $extensions
 	 * @return boolean
@@ -396,7 +380,6 @@ class Validate {
 	/**
 	 * Validate input is a file upload by checking for tmp_name and verifying error.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -408,7 +391,6 @@ class Validate {
 	/**
 	 * Validate an images height is exact.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $size
 	 * @return boolean
@@ -421,7 +403,6 @@ class Validate {
 	/**
 	 * Validate input is in the list.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param array $list
 	 * @return boolean
@@ -434,7 +415,6 @@ class Validate {
 	/**
 	 * Validate input is within the min and max range.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $min
 	 * @param int $max
@@ -448,7 +428,6 @@ class Validate {
 	/**
 	 * Validate input is an IP address. Optional $mode can be passed to flag as IP v4 or v6.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $flags
 	 * @return boolean
@@ -461,7 +440,6 @@ class Validate {
 	/**
 	 * Luhn algorithm.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -490,7 +468,6 @@ class Validate {
 	/**
 	 * Validate a files mime type is in the whitelist.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string|array $mimes
 	 * @return boolean
@@ -517,7 +494,6 @@ class Validate {
 	/**
 	 * Validate an images file size is above the minimum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $min
 	 * @return boolean
@@ -540,7 +516,6 @@ class Validate {
 	/**
 	 * Validate an images height is above the minimum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $min
 	 * @return boolean
@@ -553,7 +528,6 @@ class Validate {
 	/**
 	 * Validate input length has a minimum amount of characters.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $min
 	 * @return boolean
@@ -566,7 +540,6 @@ class Validate {
 	/**
 	 * Validate an images width is above the minimum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $min
 	 * @return boolean
@@ -579,7 +552,6 @@ class Validate {
 	/**
 	 * Validate an images file size is below the maximum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $max
 	 * @return boolean
@@ -602,7 +574,6 @@ class Validate {
 	/**
 	 * Validate an images height is below the maximum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $max
 	 * @return boolean
@@ -615,7 +586,6 @@ class Validate {
 	/**
 	 * Validate input length has a maximum amount of characters.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param int $max
 	 * @return boolean
@@ -628,7 +598,6 @@ class Validate {
 	/**
 	 * Validate an images width is below the maximum.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $max
 	 * @return boolean
@@ -641,7 +610,6 @@ class Validate {
 	/**
 	 * Validate input is not empty; zero's are not flagged as empty.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -653,7 +621,6 @@ class Validate {
 	/**
 	 * Validate input is numeric.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -665,7 +632,6 @@ class Validate {
 	/**
 	 * Validate input matches a phone number format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -678,7 +644,6 @@ class Validate {
 	/**
 	 * Validate input matches a postal/zip code format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -691,7 +656,6 @@ class Validate {
 	/**
 	 * Validate input matches a social security number (SSN) format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -704,7 +668,6 @@ class Validate {
 	/**
 	 * Validate input is a UUID.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -716,7 +679,6 @@ class Validate {
 	/**
 	 * Validate input is a URL / website address.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @return boolean
 	 * @static
@@ -728,7 +690,6 @@ class Validate {
 	/**
 	 * Validate an images width is exact.
 	 *
-	 * @access public
 	 * @param array $input
 	 * @param int $size
 	 * @return boolean

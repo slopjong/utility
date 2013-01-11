@@ -18,7 +18,6 @@ class Format {
 	/**
 	 * Format a date string to an Atom feed format.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @return string
 	 * @static
@@ -30,7 +29,6 @@ class Format {
 	/**
 	 * Format a date string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
@@ -43,7 +41,6 @@ class Format {
 	/**
 	 * Format a datetime string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
@@ -62,7 +59,6 @@ class Format {
 	 * 		Format::format(1234567890123456, '****-****-####-####');	****-****-9012-3456
 	 * }}}
 	 *
-	 * @access public
 	 * @param int|string $value
 	 * @param string $format
 	 * @return mixed
@@ -90,7 +86,6 @@ class Format {
 	/**
 	 * Format a date string to an HTTP header format.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @return string
 	 * @static
@@ -103,7 +98,6 @@ class Format {
 	 * Format a phone number. A phone number can support multiple variations,
 	 * depending on how many numbers are present.
 	 *
-	 * @access public
 	 * @param int $value
 	 * @param string $format
 	 * @return string
@@ -130,7 +124,6 @@ class Format {
 	/**
 	 * Format a timestamp as a date relative human readable string; also known as time ago in words.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @return string
 	 * @static
@@ -142,7 +135,6 @@ class Format {
 	/**
 	 * Format a date string to an RSS feed format.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @return string
 	 * @static
@@ -154,7 +146,6 @@ class Format {
 	/**
 	 * Format a social security number.
 	 *
-	 * @access public
 	 * @param string|int $value
 	 * @param string $format
 	 * @return string
@@ -167,7 +158,6 @@ class Format {
 	/**
 	 * Format a time string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
