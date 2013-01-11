@@ -342,6 +342,35 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test that type casting works going to/from.
+	 */
+	public function testXmlTypeCasting() {
+		$data = [
+			'true' => true,
+			'false' => false,
+			'null' => null,
+			'zero' => 0,
+			'empty' => '',
+			'float' => 1.50,
+			'int' => 666
+		];
+
+		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
+		$expected .= '<true>true</true>';
+		$expected .= '<false>false</false>';
+		$expected .= '<null></null>';
+		$expected .= '<zero>0</zero>';
+		$expected .= '<empty></empty>';
+		$expected .= '<float>1.5</float>';
+		$expected .= '<int>666</int>';
+		$expected .= '</root>';
+
+		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($data));
+
+		$this->assertEquals($data, Converter::xmlToArray($expected));
+	}
+
+	/**
 	 * Test that buildArray() and buildObject() convert all nested tiers.
 	 */
 	public function testBuildArrayObject() {

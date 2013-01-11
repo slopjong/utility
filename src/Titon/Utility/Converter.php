@@ -46,11 +46,16 @@ class Converter {
 		if (is_numeric($value)) {
 			if (strpos($value, '.') !== false) {
 				return (float) $value;
+
 			} else {
 				return (int) $value;
 			}
-		} else if (is_bool($value) || $value === 'true' || $value === 'false') {
+
+		} else if (is_bool($value)) {
 			return (bool) $value;
+
+		} else if ($value === 'true' || $value === 'false') {
+			return ($value === 'true');
 		}
 
 		return (string) $value;
