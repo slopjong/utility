@@ -44,7 +44,7 @@ class Inflector {
 	 */
 	public static function className($string) {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
-			return self::camelCase(self::singularize($string));
+			return Inflector::camelCase(Inflector::singularize($string));
 		});
 	}
 
@@ -147,7 +147,7 @@ class Inflector {
 			$string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
 
 			// Remove non-ascii characters
-			$string = preg_replace('/[^-a-z0-9\s]+/i', '', self::transliterate($string));
+			$string = preg_replace('/[^-a-z0-9\s]+/i', '', Inflector::transliterate($string));
 
 			// Replace dashes and underscores
 			$string = str_replace(' ', '-', str_replace('-', '_', $string));
@@ -165,7 +165,7 @@ class Inflector {
 	 */
 	public static function tableName($string) {
 		return self::_cache([__METHOD__, $string], function() use ($string) {
-			return lcfirst(self::camelCase(self::pluralize($string)));
+			return lcfirst(Inflector::camelCase(Inflector::pluralize($string)));
 		});
 	}
 
@@ -239,8 +239,6 @@ class Inflector {
 		if (isset(self::$_cache[$key])) {
 			return self::$_cache[$key];
 		}
-
-		$callback = Closure::bind($callback, null, get_called_class());
 
 		self::$_cache[$key] = $callback();
 
