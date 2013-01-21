@@ -18,10 +18,13 @@ class Time {
 	/**
 	 * Time constants represented as seconds.
 	 */
+	const YEAR = 31536000;
+	const MONTH = 2592000; // 30 days
 	const WEEK = 604800;
 	const DAY = 86400;
 	const HOUR = 3600;
 	const MINUTE = 60;
+	const SECOND = 1;
 
 	/**
 	 * Calculate the difference in seconds between 2 dates.

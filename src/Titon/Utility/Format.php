@@ -125,11 +125,94 @@ class Format {
 	 * Format a timestamp as a date relative human readable string; also known as time ago in words.
 	 *
 	 * @param string|int $time
+	 * @param array $options
 	 * @return string
 	 * @static
 	 */
-	public static function relativeTime($time) {
-		// @todo
+	public static function relativeTime($time, array $options = []) {
+		$defaults = [
+			'seconds' => ['%ss', '%s second', '%s seconds'],
+			'minutes' => ['%sm', '%s minute', '%s minutes'],
+			'hours' => ['%sh', '%s hour', '%s hours'],
+			'days' => ['%sd', '%s day', '%s days'],
+			'weeks' => ['%sw', '%s week', '%s weeks'],
+			'months' => ['%sm', '%s month', '%s months'],
+			'years' => ['%sy', '%s year', '%s years'],
+			'now' => 'just now',
+			'in' => 'in %s',
+			'ago' => '%s ago',
+			'separator' => ', ',
+			'verbose' => true,
+			'depth' => 2,
+			'time' => time()
+		];
+
+		$options = $options + $defaults;
+		$diff = Time::difference($options['time'], Time::toUnix($time));
+		$output = [];
+
+		// Present tense
+		if ($diff === 0) {
+			return $options['now'];
+		}
+
+		// Past or future tense
+		$seconds = abs($diff);
+		$depth = $options['depth'];
+
+		while ($seconds > 0 && $depth > 0) {
+			if ($seconds >= Time::YEAR) {
+				$key = 'years';
+				$div = Time::YEAR;
+
+			} elseif ($seconds >= Time::MONTH) {
+				$key = 'months';
+				$div = Time::MONTH;
+
+			} elseif ($seconds >= Time::WEEK) {
+				$key = 'weeks';
+				$div = Time::WEEK;
+
+			} elseif ($seconds >= Time::DAY) {
+				$key = 'days';
+				$div = Time::DAY;
+
+			} elseif ($seconds >= Time::HOUR) {
+				$key = 'hours';
+				$div = Time::HOUR;
+
+			} elseif ($seconds >= Time::MINUTE) {
+				$key = 'minutes';
+				$div = Time::MINUTE;
+
+			} else {
+				$key = 'seconds';
+				$div = Time::SECOND;
+			}
+
+			$count = round($seconds / $div);
+			$seconds -= ($count * $div);
+
+			if ($options['verbose']) {
+				$index = ($count == 1) ? 1 : 2;
+			} else {
+				$index = 0;
+			}
+
+			$output[$key] = sprintf($options[$key][$index], $count);
+			$depth--;
+		}
+
+		$output = implode($options['separator'], $output);
+
+		// Past
+		if ($diff > 0) {
+			return sprintf($options['ago'], $output);
+
+		// Future
+		} else {
+			return sprintf($options['in'], $output);
+		}
 	}
 
 	/**
