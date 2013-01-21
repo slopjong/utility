@@ -385,7 +385,7 @@ class Converter {
 						}
 					}
 
-				// XML_OVERWRITE
+				// XML_ATTRIBS
 				} else {
 					$node = $xml->addChild($key);
 

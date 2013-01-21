@@ -79,6 +79,19 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test that callback() validates with a closure.
+	 */
+	public function testCallback() {
+		$this->assertTrue(Validate::callback('123', function($value) {
+			return is_numeric($value);
+		}));
+
+		$this->assertFalse(Validate::callback('123abc', function($value) {
+			return is_numeric($value);
+		}));
+	}
+
+	/**
 	 * Test that comparison() returns true if the value passes the expression.
 	 */
 	public function testComparison() {

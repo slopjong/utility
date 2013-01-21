@@ -11,6 +11,7 @@ use Titon\Utility\Loader;
 use Titon\Utility\Number;
 use Titon\Utility\Time;
 use Titon\Utility\Exception;
+use \Closure;
 
 /**
  * Validate provides methods for validating data against specific conditions. This should not be used to validate formatting (excluding a few),
@@ -89,6 +90,18 @@ class Validate {
 	 */
 	public static function boolean($input) {
 		return in_array($input, [true, false, 1, 0, '1', '0', 'on', 'off', 'yes', 'no'], true);
+	}
+
+	/**
+	 * Validate input with a custom callback function.
+	 *
+	 * @param string $input
+	 * @param Closure $callback
+	 * @return boolean
+	 * @static
+	 */
+	public static function callback($input, Closure $callback) {
+		return (bool) $callback($input);
 	}
 
 	/**
