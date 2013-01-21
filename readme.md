@@ -16,10 +16,11 @@ The Titon utility package provides convenience classes for basic tasks like vali
 * Time - Date and time manipulation
 * Uuid - UUID generation
 * Validate - Data validation and filtering
+* Validator - Schema Rule Validation
 
 ### Requirements ###
 
-* PHP 5.4
+* PHP 5.3.0
 * Multibyte
 * SimpleXML (for Converter)
 * Mcrypt (for Crypt)
