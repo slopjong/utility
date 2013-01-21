@@ -283,7 +283,7 @@ class Validate {
 		if (self::file($input)) {
 			$path = $input['tmp_name'];
 
-		} else if (file_exists($input)) {
+		} elseif (file_exists($input)) {
 			$path = $input;
 
 		} else {
@@ -490,7 +490,7 @@ class Validate {
 		if (self::file($input)) {
 			$path = $input['tmp_name'];
 
-		} else if (file_exists($input)) {
+		} elseif (file_exists($input)) {
 			$path = $input;
 
 		} else {
@@ -516,7 +516,7 @@ class Validate {
 		if (self::file($input)) {
 			$size = $input['size'];
 
-		} else if (file_exists($input)) {
+		} elseif (file_exists($input)) {
 			$size = filesize($input);
 
 		} else {
@@ -574,7 +574,7 @@ class Validate {
 		if (self::file($input)) {
 			$size = $input['size'];
 
-		} else if (file_exists($input)) {
+		} elseif (file_exists($input)) {
 			$size = filesize($input);
 
 		} else {

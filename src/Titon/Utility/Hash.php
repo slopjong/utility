@@ -29,7 +29,7 @@ class Hash {
 		if (is_object($set)) {
 			$set = self::toArray($set);
 
-		} else if (!is_array($set)) {
+		} elseif (!is_array($set)) {
 			throw new Exception('Value passed must be an array');
 		}
 
@@ -153,7 +153,7 @@ class Hash {
 				return array_key_exists($key, $search) ? $search[$key] : null;
 
 			// Break out of non-existent paths early
-			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return null;
 			}
 
@@ -252,7 +252,7 @@ class Hash {
 					$data[$key] = self::flip($value, $truncate);
 				}
 
-			} else if (is_int($key) && !$empty) {
+			} elseif (is_int($key) && !$empty) {
 				$data[$value] = '';
 
 			} else {
@@ -305,7 +305,7 @@ class Hash {
 				return array_key_exists($key, $search);
 
 			// Break out of non-existent paths early
-			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return false;
 			}
 
@@ -361,7 +361,7 @@ class Hash {
 				$search[$key] = $value;
 
 			// Break out of non-existent paths early
-			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				$search[$key] = [];
 			}
 
@@ -501,7 +501,7 @@ class Hash {
 						if (is_array($value) && is_array($data[$key])) {
 							$data[$key] = self::merge($data[$key], $value);
 
-						} else if (is_int($key)) {
+						} elseif (is_int($key)) {
 							array_push($data, $value);
 
 						} else {
@@ -587,7 +587,7 @@ class Hash {
 				}
 			}
 
-		} else if ($stop < $start) {
+		} elseif ($stop < $start) {
 			for ($i = $start; $i >= $stop; $i -= $step) {
 				if ($index) {
 					$array[$i] = $i;
@@ -626,7 +626,7 @@ class Hash {
 				return $set;
 
 			// Break out of non-existent paths early
-			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return $set;
 			}
 
@@ -697,7 +697,7 @@ class Hash {
 		if (is_array($object)) {
 			return $object;
 
-		} else if (!is_object($object)) {
+		} elseif (!is_object($object)) {
 			throw new Exception('Value passed must be an object');
 		}
 
@@ -724,7 +724,7 @@ class Hash {
 		if (is_object($array)) {
 			return $array;
 
-		} else if (!is_array($array)) {
+		} elseif (!is_array($array)) {
 			throw new Exception('Value passed must be an array');
 		}
 
@@ -750,7 +750,7 @@ class Hash {
 		if (is_object($set)) {
 			return self::toArray($set);
 
-		} else if (is_array($set)) {
+		} elseif (is_array($set)) {
 			return self::toObject($set);
 
 		} else {

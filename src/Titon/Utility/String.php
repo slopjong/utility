@@ -332,7 +332,7 @@ class String {
 				$tokens[] = $token;
 				$token = $char;
 
-			} else if ($char === $close || $char === ';') {
+			} elseif ($char === $close || $char === ';') {
 				$tokens[] = $token . $char;
 				$token = '';
 
@@ -359,7 +359,7 @@ class String {
 				$output .= $token;
 
 			// Increase limit by 0 for HTML tags but check for tag boundaries
-			} else if (preg_match($htmlPattern, $token, $matches)) {
+			} elseif (preg_match($htmlPattern, $token, $matches)) {
 				$inHtml = (mb_substr($token, 0, 2) !== $open . '/');
 				$output .= $token;
 
@@ -370,7 +370,7 @@ class String {
 				if ($current >= $limit) {
 					// Do nothing, we reached the limit
 
-				} else if (($current + $length) >= $limit) {
+				} elseif (($current + $length) >= $limit) {
 					$allowed = ($limit - $current);
 					$output .= mb_substr($token, 0, $allowed);
 					$current += $allowed;

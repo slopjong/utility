@@ -51,10 +51,10 @@ class Converter {
 				return (int) $value;
 			}
 
-		} else if (is_bool($value)) {
+		} elseif (is_bool($value)) {
 			return (bool) $value;
 
-		} else if ($value === 'true' || $value === 'false') {
+		} elseif ($value === 'true' || $value === 'false') {
 			return ($value === 'true');
 		}
 
@@ -87,16 +87,16 @@ class Converter {
 		if (self::isArray($data)) {
 			return 'array';
 
-		} else if (self::isObject($data)) {
+		} elseif (self::isObject($data)) {
 			return 'object';
 
-		} else if (self::isJson($data)) {
+		} elseif (self::isJson($data)) {
 			return 'json';
 
-		} else if (self::isSerialized($data)) {
+		} elseif (self::isSerialized($data)) {
 			return 'serialized';
 
-		} else if (self::isXml($data)) {
+		} elseif (self::isXml($data)) {
 			return 'xml';
 		}
 
@@ -183,16 +183,16 @@ class Converter {
 		if (self::isArray($resource)) {
 			return $recursive ? self::buildArray($resource) : $resource;
 
-		} else if (self::isObject($resource)) {
+		} elseif (self::isObject($resource)) {
 			return self::buildArray($resource);
 
-		} else if ($json = self::isJson($resource)) {
+		} elseif ($json = self::isJson($resource)) {
 			$resource = $json;
 
-		} else if ($ser = self::isSerialized($resource)) {
+		} elseif ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 
-		} else if ($xml = self::isXml($resource)) {
+		} elseif ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 		}
 
@@ -214,10 +214,10 @@ class Converter {
 		if (self::isObject($resource)) {
 			$resource = self::buildArray($resource);
 
-		} else if ($xml = self::isXml($resource)) {
+		} elseif ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 
-		} else if ($ser = self::isSerialized($resource)) {
+		} elseif ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 		}
 
@@ -238,16 +238,16 @@ class Converter {
 				return $resource;
 			}
 
-		} else if (self::isArray($resource)) {
+		} elseif (self::isArray($resource)) {
 			// Continue
 
-		} else if ($json = self::isJson($resource)) {
+		} elseif ($json = self::isJson($resource)) {
 			$resource = $json;
 
-		} else if ($ser = self::isSerialized($resource)) {
+		} elseif ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 
-		} else if ($xml = self::isXml($resource)) {
+		} elseif ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 		}
 
@@ -356,7 +356,7 @@ class Converter {
 					}
 
 				// XML_GROUP
-				} else if (isset($value['attributes'])) {
+				} elseif (isset($value['attributes'])) {
 					if (is_array($value['value'])) {
 						$node = $xml->addChild($key);
 						self::buildXml($node, $value['value']);
@@ -371,7 +371,7 @@ class Converter {
 					}
 
 				// XML_MERGE
-				} else if (isset($value['value'])) {
+				} elseif (isset($value['value'])) {
 					$node = $xml->addChild($key, $value['value']);
 					unset($value['value']);
 

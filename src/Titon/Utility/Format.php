@@ -111,7 +111,7 @@ class Format {
 
 			if ($length >= 11) {
 				$format = $format[11];
-			} else if ($length >= 10) {
+			} elseif ($length >= 10) {
 				$format = $format[10];
 			} else {
 				$format = $format[7];

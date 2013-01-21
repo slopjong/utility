@@ -141,7 +141,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		], Hash::each($data, function($value, $key) {
 			if (is_numeric($value)) {
 				return $value * 2;
-			} else if (is_string($value)) {
+			} elseif (is_string($value)) {
 				return $value . 'wtf';
 			}
 
@@ -161,7 +161,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		], Hash::each($data, function($value, $key) {
 			if (is_numeric($value)) {
 				return $value * 2;
-			} else if (is_string($value)) {
+			} elseif (is_string($value)) {
 				return $value . 'wtf';
 			}
 
@@ -478,11 +478,11 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		], Hash::map($data, function($value) {
 			if (is_numeric($value)) {
 				return 'number';
-			} else if (is_bool($value)) {
+			} elseif (is_bool($value)) {
 				return $value ? 'true' : 'false';
-			} else if (is_null($value)) {
+			} elseif (is_null($value)) {
 				return 'null';
-			} else if (is_string($value)) {
+			} elseif (is_string($value)) {
 				return 'string';
 			} else {
 				return $value;

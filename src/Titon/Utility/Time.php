@@ -146,7 +146,7 @@ class Time {
 		if (!$time) {
 			return time();
 
-		} else if ($time instanceof DateTime) {
+		} elseif ($time instanceof DateTime) {
 			return $time->format('U');
 		}
 

@@ -33,7 +33,7 @@ class Number {
 		if (!$number) {
 			return 0;
 
-		} else if (is_numeric($number)) {
+		} elseif (is_numeric($number)) {
 			return $number;
 		}
 
@@ -309,7 +309,7 @@ class Number {
 		if ($number < 0) {
 			return -1;
 
-		} else if ($number == 0) {
+		} elseif ($number == 0) {
 			return 0;
 
 		} else {
