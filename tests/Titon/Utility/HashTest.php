@@ -21,47 +21,47 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @var array
 	 */
-	public $expanded = [
+	public $expanded = array(
 		'boolean' => true,
 		'integer' => 123,
 		'strings' => 'foobar',
 		'numeric' => '1988',
-		'empty' => [],
-		'one' => [
+		'empty' => array(),
+		'one' => array(
 			'depth' => 1,
-			'two' => [
+			'two' => array(
 				'depth' => 2,
-				'three' => [
+				'three' => array(
 					'depth' => 3,
 					'false' => false,
 					'true' => true,
 					'null' => null,
 					'zero' => 0,
-					'four' => [
-						'five' => [
-							'six' => [
-								'seven' => [
+					'four' => array(
+						'five' => array(
+							'six' => array(
+								'seven' => array(
 									'key' => 'We can go deeper!'
-								]
-							]
-						]
-					]
-				]
-			]
-		]
-	];
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	);
 
 	/**
 	 * Single-dimension array.
 	 *
 	 * @var array
 	 */
-	public $collapsed = [
+	public $collapsed = array(
 		'boolean' => true,
 		'integer' => 123,
 		'strings' => 'foobar',
 		'numeric' => '1988',
-		'empty' => [],
+		'empty' => array(),
 		'one.depth' => 1,
 		'one.two.depth' => 2,
 		'one.two.three.depth' => 3,
@@ -70,7 +70,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		'one.two.three.null' => null,
 		'one.two.three.zero' => 0,
 		'one.two.three.four.five.six.seven.key' => 'We can go deeper!'
-	];
+	);
 
 	/**
 	 * Test that depth() returns an integer for the number of tiers in the array.
@@ -88,21 +88,21 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$data4->one = new stdClass();
 		$data4->one->foo = 'bar';
 
-		$this->assertEquals(0, Hash::depth([]));
+		$this->assertEquals(0, Hash::depth(array()));
 		$this->assertEquals(8, Hash::depth($data));
 		$this->assertEquals(4, Hash::depth($data1));
 		$this->assertEquals(2, Hash::depth($data2));
 		$this->assertEquals(3, Hash::depth($data3));
 		$this->assertEquals(2, Hash::depth($data4));
 
-		$this->assertEquals(0, Hash::depth([], true));
+		$this->assertEquals(0, Hash::depth(array(), true));
 		$this->assertEquals(8, Hash::depth($data, true));
 		$this->assertEquals(4, Hash::depth($data1, true));
 		$this->assertEquals(2, Hash::depth($data2, true));
 		$this->assertEquals(3, Hash::depth($data3, true));
 		$this->assertEquals(2, Hash::depth($data4, true));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			try {
 				$this->assertEquals(0, Hash::depth($type));
 
@@ -116,29 +116,29 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that each() runs the callback on every value.
 	 */
 	public function testEach() {
-		$data = [
+		$data = array(
 			'integer' => 123,
 			'number' => '456',
 			'foo' => 'bar',
 			'string' => 'test',
 			'boolean' => true,
-			'array' => [
+			'array' => array(
 				525,
 				'boo'
-			]
-		];
+			)
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'integer' => 246,
 			'number' => 912,
 			'foo' => 'barwtf',
 			'string' => 'testwtf',
 			'boolean' => true,
-			'array' => [
+			'array' => array(
 				1050,
 				'boowtf'
-			]
-		], Hash::each($data, function($value, $key) {
+			)
+		), Hash::each($data, function($value, $key) {
 			if (is_numeric($value)) {
 				return $value * 2;
 			} elseif (is_string($value)) {
@@ -148,17 +148,17 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 			return $value;
 		}));
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'integer' => 246,
 			'number' => 912,
 			'foo' => 'barwtf',
 			'string' => 'testwtf',
 			'boolean' => true,
-			'array' => [
+			'array' => array(
 				525,
 				'boo'
-			]
-		], Hash::each($data, function($value, $key) {
+			)
+		), Hash::each($data, function($value, $key) {
 			if (is_numeric($value)) {
 				return $value * 2;
 			} elseif (is_string($value)) {
@@ -177,9 +177,9 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 			return is_int($value);
 		};
 
-		$this->assertTrue(Hash::every([ 123, 456 ], $callback));
-		$this->assertFalse(Hash::every([ 123, '456' ], $callback));
-		$this->assertFalse(Hash::every([ 123, '456', 'foo' ], $callback));
+		$this->assertTrue(Hash::every(array( 123, 456 ), $callback));
+		$this->assertFalse(Hash::every(array( 123, '456' ), $callback));
+		$this->assertFalse(Hash::every(array( 123, '456', 'foo' ), $callback));
 	}
 
 	/**
@@ -188,8 +188,8 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	public function testExpand() {
 		$this->assertEquals($this->expanded, Hash::expand($this->collapsed));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
-			$this->assertEquals([], Hash::expand($type));
+		foreach (array(true, false, null, 123, 'foo') as $type) {
+			$this->assertEquals(array(), Hash::expand($type));
 		}
 	}
 
@@ -208,7 +208,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($data['one']['two']['three'], Hash::extract($data, 'one.two.three'));
 		$this->assertEquals($data['one']['two']['three']['four']['five']['six'], Hash::extract($data, 'one.two.three.four.five.six'));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			$this->assertEquals(null, Hash::extract($type, 'boolean'));
 			$this->assertEquals(null, Hash::extract($data, $type));
 		}
@@ -227,25 +227,25 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($match1, Hash::filter($data));
 		$this->assertEquals($match2, Hash::filter($data, false));
 
-		$data = [
+		$data = array(
 			'true' => true,
 			'false' => false,
 			'null' => null,
 			'zero' => 0,
 			'stringZero' => '0',
-			'empty' => [],
-			'array' => [
+			'empty' => array(),
+			'array' => array(
 				'false' => false,
 				'null' => null,
-				'empty' => []
-			]
-		];
+				'empty' => array()
+			)
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'true' => true,
 			'zero' => 0,
 			'stringZero' => '0'
-		], Hash::filter($data));
+		), Hash::filter($data));
 	}
 
 	/**
@@ -262,30 +262,30 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that flip() will replace keys with their value, and the value with the key. Will remove empty values first.
 	 */
 	public function testFlip() {
-		$data = [
+		$data = array(
 			'true' => true,
 			'false' => false,
 			'null' => null,
 			'zero' => 0,
 			'stringZero' => '0',
-			'empty' => [],
-			'array' => [
+			'empty' => array(),
+			'array' => array(
 				'false' => false,
 				'null' => null,
-				'empty' => []
-			]
-		];
+				'empty' => array()
+			)
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			1 => 'true',
 			0 => 'stringZero',
-			'empty' => [],
-			'array' => [
-				'empty' => []
-			]
-		], Hash::flip($data));
+			'empty' => array(),
+			'array' => array(
+				'empty' => array()
+			)
+		), Hash::flip($data));
 
-		$data = [
+		$data = array(
 			'foo' => 'bar',
 			1 => 'one',
 			2 => 'two',
@@ -294,43 +294,43 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 			null,
 			'key' => 'value',
 			'baz' => 'bar',
-		];
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'bar' => 'baz',
 			'one' => '',
 			'two' => '',
 			1 => '',
 			'value' => 'key'
-		], Hash::flip($data));
+		), Hash::flip($data));
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			1 => 'boolean',
 			123 => 'integer',
 			'foobar' => 'strings',
 			1988 => 'numeric',
-			'empty' => [],
-			'one' => [
+			'empty' => array(),
+			'one' => array(
 				1 => 'depth',
-				'two' => [
+				'two' => array(
 					2 => 'depth',
-					'three' => [
+					'three' => array(
 						3 => 'depth',
 						1 => 'true',
 						0 => 'zero',
-						'four' => [
-							'five' => [
-								'six' => [
-									'seven' => [
+						'four' => array(
+							'five' => array(
+								'six' => array(
+									'seven' => array(
 										'We can go deeper!' => 'key'
-									]
-								]
-							]
-						]
-					]
-				]
-			]
-		], Hash::flip($this->expanded));
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+		), Hash::flip($this->expanded));
 	}
 
 	/**
@@ -365,7 +365,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse(Hash::has($data, 'foo.bar'));
 		$this->assertFalse(Hash::has($data, 'empty.key'));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			$this->assertFalse(Hash::has($type, 'fake'));
 			$this->assertFalse(Hash::has($type, null));
 		}
@@ -386,7 +386,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that insert() adds data to the array based on the dot notated path.
 	 */
 	public function testInsert() {
-		$data = [];
+		$data = array();
 
 		foreach ($this->collapsed as $key => $value) {
 			$data = Hash::insert($data, $key, $value);
@@ -399,35 +399,35 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that isAlpha() returns true if all values are strings.
 	 */
 	public function testIsAlpha() {
-		$this->assertTrue(Hash::isAlpha(['foo', 'bar']));
-		$this->assertTrue(Hash::isAlpha(['foo' => 'bar', 'number' => '123'], false));
-		$this->assertTrue(Hash::isAlpha(['bar', '123'], false));
+		$this->assertTrue(Hash::isAlpha(array('foo', 'bar')));
+		$this->assertTrue(Hash::isAlpha(array('foo' => 'bar', 'number' => '123'), false));
+		$this->assertTrue(Hash::isAlpha(array('bar', '123'), false));
 
-		$this->assertFalse(Hash::isAlpha(['foo' => 'bar', 'number' => '123']));
-		$this->assertFalse(Hash::isAlpha(['bar', '123']));
-		$this->assertFalse(Hash::isAlpha(['foo' => 123]));
-		$this->assertFalse(Hash::isAlpha([null]));
-		$this->assertFalse(Hash::isAlpha([true]));
-		$this->assertFalse(Hash::isAlpha([false]));
-		$this->assertFalse(Hash::isAlpha([[]]));
-		$this->assertFalse(Hash::isAlpha([new stdClass()]));
+		$this->assertFalse(Hash::isAlpha(array('foo' => 'bar', 'number' => '123')));
+		$this->assertFalse(Hash::isAlpha(array('bar', '123')));
+		$this->assertFalse(Hash::isAlpha(array('foo' => 123)));
+		$this->assertFalse(Hash::isAlpha(array(null)));
+		$this->assertFalse(Hash::isAlpha(array(true)));
+		$this->assertFalse(Hash::isAlpha(array(false)));
+		$this->assertFalse(Hash::isAlpha(array(array())));
+		$this->assertFalse(Hash::isAlpha(array(new stdClass())));
 	}
 
 	/**
 	 * Test that isNumeric() returns true if all values are numbers.
 	 */
 	public function testIsNumeric() {
-		$this->assertTrue(Hash::isNumeric(['123', 456]));
-		$this->assertTrue(Hash::isNumeric(['foo' => 123, 'number' => '456']));
+		$this->assertTrue(Hash::isNumeric(array('123', 456)));
+		$this->assertTrue(Hash::isNumeric(array('foo' => 123, 'number' => '456')));
 
-		$this->assertFalse(Hash::isNumeric(['foo', 'bar']));
-		$this->assertFalse(Hash::isNumeric(['foo' => 'bar', 'number' => '123']));
-		$this->assertFalse(Hash::isNumeric(['bar', '123']));
-		$this->assertFalse(Hash::isNumeric([null]));
-		$this->assertFalse(Hash::isNumeric([true]));
-		$this->assertFalse(Hash::isNumeric([false]));
-		$this->assertFalse(Hash::isNumeric([[]]));
-		$this->assertFalse(Hash::isNumeric([new stdClass()]));
+		$this->assertFalse(Hash::isNumeric(array('foo', 'bar')));
+		$this->assertFalse(Hash::isNumeric(array('foo' => 'bar', 'number' => '123')));
+		$this->assertFalse(Hash::isNumeric(array('bar', '123')));
+		$this->assertFalse(Hash::isNumeric(array(null)));
+		$this->assertFalse(Hash::isNumeric(array(true)));
+		$this->assertFalse(Hash::isNumeric(array(false)));
+		$this->assertFalse(Hash::isNumeric(array(array())));
+		$this->assertFalse(Hash::isNumeric(array(new stdClass())));
 	}
 
 	/**
@@ -445,37 +445,37 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that map() applies callback functions to all elements in the array.
 	 */
 	public function testMap() {
-		$data = [
+		$data = array(
 			'foo' => 'bar',
 			'boolean' => true,
 			'null' => null,
-			'array' => [],
+			'array' => array(),
 			'number' => 123
-		];
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'BAR',
 			'boolean' => true,
 			'null' => null,
-			'array' => [],
+			'array' => array(),
 			'number' => 123
-		], Hash::map($data, 'strtoupper'));
+		), Hash::map($data, 'strtoupper'));
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 0,
 			'boolean' => 1,
 			'null' => 0,
-			'array' => [],
+			'array' => array(),
 			'number' => 123
-		], Hash::map($data, 'intval'));
+		), Hash::map($data, 'intval'));
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'string',
 			'boolean' => 'true',
 			'null' => 'null',
-			'array' => [],
+			'array' => array(),
 			'number' => 'number'
-		], Hash::map($data, function($value) {
+		), Hash::map($data, function($value) {
 			if (is_numeric($value)) {
 				return 'number';
 			} elseif (is_bool($value)) {
@@ -495,28 +495,28 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMatches() {
 		$this->assertTrue(Hash::matches($this->expanded, $this->expanded));
-		$this->assertTrue(Hash::matches([
+		$this->assertTrue(Hash::matches(array(
 			'foo' => 123,
 			'bar' => 'baz',
-			'array' => []
-		], [
+			'array' => array()
+		), array(
 			'foo' => 123,
 			'bar' => 'baz',
-			'array' => []
-		]));
+			'array' => array()
+		)));
 
 		$this->assertFalse(Hash::matches($this->expanded, $this->collapsed));
-		$this->assertFalse(Hash::matches([
+		$this->assertFalse(Hash::matches(array(
 			'foo' => '123',
 			'bar' => 'baz',
-			'array' => []
-		], [
+			'array' => array()
+		), array(
 			'foo' => 123,
 			'bar' => 'baz',
-			'array' => []
-		]));
+			'array' => array()
+		)));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			$this->assertFalse(Hash::matches($this->expanded, $type));
 		}
 	}
@@ -525,139 +525,139 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that merge() will correctly merge nested arrays.
 	 */
 	public function testMerge() {
-		$data1 = [
+		$data1 = array(
 			'foo' => 'bar',
 			'boolean' => true,
 			'string' => 'abc',
 			'number' => 123,
 			'one'
-		];
+		);
 
-		$data2 = [
+		$data2 = array(
 			'foo' => 'baz',
 			'boolean' => false,
 			'string' => 'xyz',
 			'number' => 456,
 			'two'
-		];
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'baz',
 			'boolean' => false,
 			'string' => 'xyz',
 			'number' => 456,
 			'one',
 			'two'
-		], Hash::merge($data1, $data2));
+		), Hash::merge($data1, $data2));
 
-		$data1['array'] = [
+		$data1['array'] = array(
 			'key' => 'value',
 			123,
 			true
-		];
+		);
 
-		$data2['array'] = [];
+		$data2['array'] = array();
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'baz',
 			'boolean' => false,
 			'string' => 'xyz',
 			'number' => 456,
 			'one',
 			'two',
-			'array' => [
+			'array' => array(
 				'key' => 'value',
 				123,
 				true
-			]
-		], Hash::merge($data1, $data2));
+			)
+		), Hash::merge($data1, $data2));
 
-		$data2['array'] = [
+		$data2['array'] = array(
 			'key' => 'base',
 			'foo' => 'bar',
 			123
-		];
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'bar',
 			'boolean' => true,
 			'string' => 'abc',
 			'number' => 123,
 			'two',
-			'array' => [
+			'array' => array(
 				'key' => 'value',
 				'foo' => 'bar',
 				123,
 				123,
 				true
-			],
+			),
 			'one'
-		], Hash::merge($data2, $data1));
+		), Hash::merge($data2, $data1));
 	}
 
 	/**
 	 * Test that overwrite() will only overwrite values that share the same keys.
 	 */
 	public function testOverwrite() {
-		$data1 = [
+		$data1 = array(
 			'foo' => 'bar',
 			123,
-			'array' => [
+			'array' => array(
 				'boolean' => true,
 				'left' => 'left'
-			]
-		];
+			)
+		);
 
-		$data2 = [
+		$data2 = array(
 			'foo' => 'baz',
 			456,
-			'array' => [
+			'array' => array(
 				'boolean' => false,
 				'right' => 'right'
-			]
-		];
+			)
+		);
 
-		$this->assertEquals([
+		$this->assertEquals(array(
 			'foo' => 'baz',
 			456,
-			'array' => [
+			'array' => array(
 				'boolean' => false,
 				'left' => 'left'
-			]
-		], Hash::overwrite($data1, $data2));
+			)
+		), Hash::overwrite($data1, $data2));
 	}
 
 	/**
 	 * Test that pluck() generates an array of all values found within path.
 	 */
 	public function testPluck() {
-		$data = [
-			[ 'name' => 'Miles', 'user' => [ 'id' => 1 ] ],
-			[ 'name' => 'Foo', 'user' => [ 'id' => 2] ],
-			[ 'key' => 'value', 'user' => [ 'id' => 3 ] ],
-			[ 'name' => 'Bar', 'user' => [ 'id' => 4 ] ],
-			[ 'name' => 'Baz', 'user' => [ 'id' => 5 ] ],
-		];
+		$data = array(
+			array( 'name' => 'Miles', 'user' => array( 'id' => 1 ) ),
+			array( 'name' => 'Foo', 'user' => array( 'id' => 2) ),
+			array( 'key' => 'value', 'user' => array( 'id' => 3 ) ),
+			array( 'name' => 'Bar', 'user' => array( 'id' => 4 ) ),
+			array( 'name' => 'Baz', 'user' => array( 'id' => 5 ) ),
+		);
 
-		$this->assertEquals(['Miles', 'Foo', 'Bar', 'Baz'], Hash::pluck($data, 'name'));
-		$this->assertEquals([1, 2, 3, 4, 5], Hash::pluck($data, 'user.id'));
+		$this->assertEquals(array('Miles', 'Foo', 'Bar', 'Baz'), Hash::pluck($data, 'name'));
+		$this->assertEquals(array(1, 2, 3, 4, 5), Hash::pluck($data, 'user.id'));
 	}
 
 	/**
 	 * Test that range() generates an array of numbers based on the start and stop values.
 	 */
 	public function testRange() {
-		$this->assertEquals([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], Hash::range(0, 10));
-		$this->assertEquals([0 => 0, 2 => 2, 4 => 4, 6 => 6, 8 => 8, 10 => 10], Hash::range(0, 10, 2));
-		$this->assertEquals([0 => 0, 3 => 3, 6 => 6, 9 => 9], Hash::range(0, 10, 3));
-		$this->assertEquals([0 => 0, 13 => 13, 26 => 26, 39 => 39, 52 => 52, 65 => 65, 78 => 78, 91 => 91], Hash::range(0, 100, 13));
-		$this->assertEquals([23 => 23, 29 => 29, 35 => 35, 41 => 41, 47 => 47, 53 => 53, 59 => 59, 65 => 65], Hash::range(23, 66, 6));
+		$this->assertEquals(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), Hash::range(0, 10));
+		$this->assertEquals(array(0 => 0, 2 => 2, 4 => 4, 6 => 6, 8 => 8, 10 => 10), Hash::range(0, 10, 2));
+		$this->assertEquals(array(0 => 0, 3 => 3, 6 => 6, 9 => 9), Hash::range(0, 10, 3));
+		$this->assertEquals(array(0 => 0, 13 => 13, 26 => 26, 39 => 39, 52 => 52, 65 => 65, 78 => 78, 91 => 91), Hash::range(0, 100, 13));
+		$this->assertEquals(array(23 => 23, 29 => 29, 35 => 35, 41 => 41, 47 => 47, 53 => 53, 59 => 59, 65 => 65), Hash::range(23, 66, 6));
 
-		$this->assertEquals([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], Hash::range(0, 10, 1, false));
-		$this->assertEquals([0, 2, 4, 6, 8, 10], Hash::range(0, 10, 2, false));
-		$this->assertEquals([0, 3, 6, 9], Hash::range(0, 10, 3, false));
-		$this->assertEquals([0, 13, 26, 39, 52, 65, 78, 91], Hash::range(0, 100, 13, false));
-		$this->assertEquals([23, 29, 35, 41, 47, 53, 59, 65], Hash::range(23, 66, 6, false));
+		$this->assertEquals(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), Hash::range(0, 10, 1, false));
+		$this->assertEquals(array(0, 2, 4, 6, 8, 10), Hash::range(0, 10, 2, false));
+		$this->assertEquals(array(0, 3, 6, 9), Hash::range(0, 10, 3, false));
+		$this->assertEquals(array(0, 13, 26, 39, 52, 65, 78, 91), Hash::range(0, 100, 13, false));
+		$this->assertEquals(array(23, 29, 35, 41, 47, 53, 59, 65), Hash::range(23, 66, 6, false));
 	}
 
 	/**
@@ -689,7 +689,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$data = Hash::remove($data, 'one.two.three.four.five.six.seven.key');
 		$this->assertEquals($match, $data);
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			$data = Hash::remove($data, $type);
 			$this->assertEquals($match, $data);
 		}
@@ -707,7 +707,7 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($match, $data);
 
 		$data = Hash::set($data, 'key.key', 'value');
-		$match['key'] = ['key' => 'value'];
+		$match['key'] = array('key' => 'value');
 		$this->assertEquals($match, $data);
 
 		$data = Hash::set($data, array(
@@ -715,8 +715,8 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 			'true' => true,
 			'one.false' => false
 		));
-		$match['key']['key'] = ['key' => 'value'];
-		$match['true'] = true;
+		$match['key']['key'] = array('key' => 'value');
+		$match['true']= true;
 		$match['one']['false'] = false;
 		$this->assertEquals($match, $data);
 	}
@@ -725,11 +725,11 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	 * Test that some() returns true if one value matches the callback condition.
 	 */
 	public function testSome() {
-		$this->assertTrue(Hash::some([ 123, 'abc', true, null ], function($value, $key) {
+		$this->assertTrue(Hash::some(array( 123, 'abc', true, null ), function($value, $key) {
 			return is_string($value);
 		}));
 
-		$this->assertFalse(Hash::some([ 123, true, null ], function($value, $key) {
+		$this->assertFalse(Hash::some(array( 123, true, null ), function($value, $key) {
 			return is_string($value);
 		}));
 	}
@@ -745,18 +745,18 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$object->nested = new stdClass();
 		$object->nested->foo = 'bar';
 
-		$array = [
+		$array = array(
 			'string' => 'abc',
 			'integer' => 123,
 			'boolean' => true,
-			'nested' => [
+			'nested' => array(
 				'foo' => 'bar'
-			]
-		];
+			)
+		);
 
 		$this->assertEquals($array, Hash::toArray($object));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			try {
 				$this->assertEquals($array, Hash::toArray($type));
 
@@ -777,18 +777,18 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 		$object->nested = new stdClass();
 		$object->nested->foo = 'bar';
 
-		$array = [
+		$array = array(
 			'string' => 'abc',
 			'integer' => 123,
 			'boolean' => true,
-			'nested' => [
+			'nested' => array(
 				'foo' => 'bar'
-			]
-		];
+			)
+		);
 
 		$this->assertEquals($object, Hash::toObject($array));
 
-		foreach ([true, false, null, 123, 'foo'] as $type) {
+		foreach (array(true, false, null, 123, 'foo') as $type) {
 			try {
 				$this->assertEquals($object, Hash::toObject($type));
 

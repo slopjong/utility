@@ -165,12 +165,12 @@ class String {
 	 * @return string
 	 * @static
 	 */
-	public static function insert($string, array $data, array $options = []) {
-		$options = $options + [
+	public static function insert($string, array $data, array $options = array()) {
+		$options = $options + array(
 			'before' => '{',
 			'after' => '}',
 			'escape' => true
-		];
+		);
 
 		foreach ($data as $key => $value) {
 			$string = str_replace($options['before'] . $key . $options['after'], $value, $string);
@@ -292,15 +292,15 @@ class String {
 	 * @return string
 	 * @static
 	 */
-	public static function truncate($string, $limit = 25, array $options = []) {
-		$options = $options + [
+	public static function truncate($string, $limit = 25, array $options = array()) {
+		$options = $options + array(
 			'html' => true,
 			'word' => true,
 			'suffix' => '&hellip;',
 			'prefix' => '',
 			'open' => '<',
 			'close' => '>'
-		];
+		);
 
 		// If we should preserve HTML
 		if ($options['open'] !== '<' || $options['close'] !== '>') {
@@ -321,7 +321,7 @@ class String {
 		// Generate tokens
 		$open = $options['open'];
 		$close = $options['close'];
-		$tokens = [];
+		$tokens = array();
 		$token = '';
 		$i = 0;
 

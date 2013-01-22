@@ -17,7 +17,7 @@ class CryptTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * String to crypt.
 	 */
-	public $string = 'This string will be used to encrypt and decrypt. It contains numbers: 1 2 3 4 5 6 7 8 9 0. It also contains punctuation: ! @ # $ % ^ & * ( ) : [ < ?. You get the picture';
+	public $string = 'This string will be used to encrypt and decrypt. It contains numbers: 1 2 3 4 5 6 7 8 9 0. It also contains punctuation: ! @ # $ % ^ & * ( ) : array( < ?. You get the picture';
 
 	/**
 	 * Test that blowfish() will encrypt and decrypt.

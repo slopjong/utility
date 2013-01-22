@@ -108,18 +108,18 @@ class StringTest extends \PHPUnit_Framework_TestCase {
 	 * Test that insert() replaces tokens with their value.
 	 */
 	public function testInsert() {
-		$this->assertEquals('Titon is the best PHP framework around!', String::insert('{framework} is the best {lang} framework around!', [
+		$this->assertEquals('Titon is the best PHP framework around!', String::insert('{framework} is the best {lang} framework around!', array(
 			'framework' => 'Titon',
 			'lang' => 'PHP'
-		]));
+		)));
 
-		$this->assertEquals('Titon is the best PHP framework around!', String::insert(':framework is the best :lang framework around!', [
+		$this->assertEquals('Titon is the best PHP framework around!', String::insert(':framework is the best :lang framework around!', array(
 			'framework' => 'Titon',
 			'lang' => 'PHP'
-		], [
+		), array(
 			'before' => ':',
 			'after' => ''
-		]));
+		)));
 	}
 
 	/**
@@ -147,14 +147,14 @@ class StringTest extends \PHPUnit_Framework_TestCase {
 	 * Test that listing() returns a comma separate list of items as a string.
 	 */
 	public function testListing() {
-		$this->assertEquals('red, blue &amp; green', String::listing(['red', 'blue', 'green']));
-		$this->assertEquals('red &amp; green', String::listing(['red', 'green']));
-		$this->assertEquals('blue', String::listing(['blue']));
+		$this->assertEquals('red, blue &amp; green', String::listing(array('red', 'blue', 'green')));
+		$this->assertEquals('red &amp; green', String::listing(array('red', 'green')));
+		$this->assertEquals('blue', String::listing(array('blue')));
 		$this->assertEquals('green', String::listing('green'));
 
 		// custom
-		$this->assertEquals('red, blue, and green', String::listing(['red', 'blue', 'green'], ', and '));
-		$this->assertEquals('red - blue and green', String::listing(['red', 'blue', 'green'], ' and ', ' - '));
+		$this->assertEquals('red, blue, and green', String::listing(array('red', 'blue', 'green'), ', and '));
+		$this->assertEquals('red - blue and green', String::listing(array('red', 'blue', 'green'), ' and ', ' - '));
 	}
 
 	/**
@@ -196,32 +196,32 @@ class StringTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false));
 
 		// Preserve HTML
-		$this->assertEquals('This has <a href="/" class="link">anch</a>&hellip;', String::truncate($string, 13, ['word' => false]));
-		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; en&hellip;', String::truncate($string, 25, ['word' => false]));
-		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in&hellip;', String::truncate($string, 35, ['word' => false]));
-		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has&hellip;', String::truncate($string, 45, ['word' => false]));
-		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, ['word' => false]));
+		$this->assertEquals('This has <a href="/" class="link">anch</a>&hellip;', String::truncate($string, 13, array('word' => false)));
+		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; en&hellip;', String::truncate($string, 25, array('word' => false)));
+		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in&hellip;', String::truncate($string, 35, array('word' => false)));
+		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has&hellip;', String::truncate($string, 45, array('word' => false)));
+		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, array('word' => false)));
 
 		// Preserve none
-		$this->assertEquals('This has anchor tags &amp; en&hellip;', String::truncate($string, 25, ['word' => false, 'html' => false]));
-		$this->assertEquals('This has anchor tags &amp; entities in&hellip;', String::truncate($string, 35, ['word' => false, 'html' => false]));
-		$this->assertEquals('This has anchor tags &amp; entities in it. It has&hellip;', String::truncate($string, 45, ['word' => false, 'html' => false]));
-		$this->assertEquals('This has anchor tags &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, ['word' => false, 'html' => false]));
+		$this->assertEquals('This has anchor tags &amp; en&hellip;', String::truncate($string, 25, array('word' => false, 'html' => false)));
+		$this->assertEquals('This has anchor tags &amp; entities in&hellip;', String::truncate($string, 35, array('word' => false, 'html' => false)));
+		$this->assertEquals('This has anchor tags &amp; entities in it. It has&hellip;', String::truncate($string, 45, array('word' => false, 'html' => false)));
+		$this->assertEquals('This has anchor tags &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, array('word' => false, 'html' => false)));
 
 		// Preserve none with custom suffix
-		$this->assertEquals('This has anchor tags &amp; en...', String::truncate($string, 25, ['word' => false, 'html' => false, 'suffix' => '...']));
-		$this->assertEquals('This has anchor tags &amp; entities in...', String::truncate($string, 35, ['word' => false, 'html' => false, 'suffix' => '...']));
-		$this->assertEquals('This has anchor tags &amp; entities in it. It has...', String::truncate($string, 45, ['word' => false, 'html' => false, 'suffix' => '...']));
-		$this->assertEquals('This has anchor tags &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, ['word' => false, 'html' => false, 'suffix' => '...']));
+		$this->assertEquals('This has anchor tags &amp; en...', String::truncate($string, 25, array('word' => false, 'html' => false, 'suffix' => '...')));
+		$this->assertEquals('This has anchor tags &amp; entities in...', String::truncate($string, 35, array('word' => false, 'html' => false, 'suffix' => '...')));
+		$this->assertEquals('This has anchor tags &amp; entities in it. It has...', String::truncate($string, 45, array('word' => false, 'html' => false, 'suffix' => '...')));
+		$this->assertEquals('This has anchor tags &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, array('word' => false, 'html' => false, 'suffix' => '...')));
 
 		// Custom tags (BB code)
 		$string = 'This has [url="/"]anchor tags[/url] &amp; entities in it. It has &quot;quotes&quot; as well.';
 
-		$this->assertEquals('This has [url="/"]anchor[/url]&hellip;', String::truncate($string, 15, ['open' => '[', 'close' => ']']));
-		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp;&hellip;', String::truncate($string, 25, ['open' => '[', 'close' => ']']));
-		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in&hellip;', String::truncate($string, 35, ['open' => '[', 'close' => ']']));
-		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in it. It&hellip;', String::truncate($string, 45, ['open' => '[', 'close' => ']']));
-		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, ['open' => '[', 'close' => ']']));
+		$this->assertEquals('This has [url="/"]anchor[/url]&hellip;', String::truncate($string, 15, array('open' => '[', 'close' => ']')));
+		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp;&hellip;', String::truncate($string, 25, array('open' => '[', 'close' => ']')));
+		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in&hellip;', String::truncate($string, 35, array('open' => '[', 'close' => ']')));
+		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in it. It&hellip;', String::truncate($string, 45, array('open' => '[', 'close' => ']')));
+		$this->assertEquals('This has [url="/"]anchor tags[/url] &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, array('open' => '[', 'close' => ']')));
 	}
 
 }

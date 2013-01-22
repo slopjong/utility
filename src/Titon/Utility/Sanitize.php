@@ -13,7 +13,7 @@ namespace Titon\Utility;
 class Sanitize {
 
 	/**
-	 * Sanitize an email by removing all characters except letters, digits and !#$%&'*+-/=?^_`{|}~@.[].
+	 * Sanitize an email by removing all characters except letters, digits and !#$%&'*+-/=?^_`{|}~@.array().
 	 *
 	 * @param string $value
 	 * @return string
@@ -34,12 +34,12 @@ class Sanitize {
 	 * @return string
 	 * @static
 	 */
-	public static function escape($value, array $options = []) {
-		$options = $options + [
+	public static function escape($value, array $options = array()) {
+		$options = $options + array(
 			'encoding' => 'UTF-8',
 			'flags' => ENT_QUOTES,
 			'double' => false
-		];
+		);
 
 		return htmlentities($value, $options['flags'], $options['encoding'], $options['double']);
 	}
@@ -65,11 +65,11 @@ class Sanitize {
 	 * @return string
 	 * @static
 	 */
-	public static function html($value, array $options = []) {
-		$options = $options + [
+	public static function html($value, array $options = array()) {
+		$options = $options + array(
 			'strip' => true,
 			'whitelist' => ''
-		];
+		);
 
 		if ($options['strip']) {
 			$value = strip_tags($value, $options['whitelist']);
@@ -102,14 +102,14 @@ class Sanitize {
 	 * @return string
 	 * @static
 	 */
-	public static function newlines($value, array $options = []) {
-		$options = $options + [
+	public static function newlines($value, array $options = array()) {
+		$options = $options + array(
 			'cr' => true,
 			'lf' => true,
 			'crlf' => true,
 			'limit' => 2,
 			'trim' => true
-		];
+		);
 
 		if ($options['limit']) {
 			$pattern = '/(?:%s){' . $options['limit'] . ',}/u';
@@ -139,7 +139,7 @@ class Sanitize {
 	}
 
 	/**
-	 * Sanitize a URL by removing all characters except letters, digits and $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&=.
+	 * Sanitize a URL by removing all characters except letters, digits and $-_.+!*'(),{}|\\^~array()`<>#%";/?:@&=.
 	 *
 	 * @param string $value
 	 * @return string
@@ -162,14 +162,14 @@ class Sanitize {
 	 * @return string
 	 * @static
 	 */
-	public static function whitespace($value, array $options = []) {
-		$options = $options + [
+	public static function whitespace($value, array $options = array()) {
+		$options = $options + array(
 			'space' => true,
 			'tab' => true,
 			'limit' => 2,
 			'strip' => true,
 			'trim' => true
-		];
+		);
 
 		if ($options['limit']) {
 			$pattern = '/%s{' . $options['limit'] . ',}/u';
@@ -207,8 +207,8 @@ class Sanitize {
 	 * @return string
 	 * @static
 	 */
-	public static function xss($value, array $options = []) {
-		$options = $options + ['strip' => true];
+	public static function xss($value, array $options = array()) {
+		$options = $options + array('strip' => true);
 
 		$value = str_replace("\0", '', $value);
 

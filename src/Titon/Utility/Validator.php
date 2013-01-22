@@ -19,35 +19,35 @@ class Validator {
 	 *
 	 * @var array
 	 */
-	protected $_data = [];
+	protected $_data = array();
 
 	/**
 	 * Errors gathered during validation.
 	 *
 	 * @var array
 	 */
-	protected $_errors = [];
+	protected $_errors = array();
 
 	/**
 	 * Mapping of fields and titles.
 	 *
 	 * @var array
 	 */
-	protected $_fields = [];
+	protected $_fields = array();
 
 	/**
 	 * Mapping of fields and validation rules.
 	 *
 	 * @var array
 	 */
-	protected $_rules = [];
+	protected $_rules = array();
 
 	/**
 	 * Store the data to validate.
 	 *
 	 * @param array $data
 	 */
-	public function __construct(array $data = []) {
+	public function __construct(array $data = array()) {
 		$this->_data = $data;
 	}
 
@@ -72,7 +72,7 @@ class Validator {
 	 * @param array $rules
 	 * @return \Titon\Utility\Validator
 	 */
-	public function addField($field, $title, array $rules = []) {
+	public function addField($field, $title, array $rules = array()) {
 		$this->_fields[$field] = $title;
 
 		/**
@@ -82,7 +82,7 @@ class Validator {
 		if ($rules) {
 			foreach ($rules as $rule => $params) {
 				$message = null;
-				$options = [];
+				$options = array();
 
 				if (is_array($params)) {
 					$message = array_shift($params);
@@ -109,15 +109,15 @@ class Validator {
 	 * @return \Titon\Utility\Validator
 	 * @throws \Titon\Utility\Exception
 	 */
-	public function addRule($field, $rule, $message, $options = []) {
+	public function addRule($field, $rule, $message, $options = array()) {
 		if (empty($this->_fields[$field])) {
 			throw new Exception(sprintf('Field %s does not exist', $field));
 		}
 
-		$this->_rules[$field][$rule] = [
+		$this->_rules[$field][$rule] = array(
 			'message' => $message,
 			'options' => (array) $options
-		];
+		);
 
 		return $this;
 	}
@@ -180,7 +180,7 @@ class Validator {
 					throw new Exception(sprintf('Validation rule %s does not exist', $rule));
 				}
 
-				if (!call_user_func_array([$class, $rule], $options)) {
+				if (!call_user_func_array(array($class, $rule), $options)) {
 					$this->addError($field, $params['message']);
 					break;
 				}

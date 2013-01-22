@@ -50,7 +50,7 @@ class Validate {
 	 * @return boolean
 	 * @static
 	 */
-	public static function alpha($input, $exceptions = []) {
+	public static function alpha($input, $exceptions = array()) {
 		return self::custom($input, '/^[\p{L}\s' . self::escape($exceptions) . ']+$/imU');
 	}
 
@@ -62,7 +62,7 @@ class Validate {
 	 * @return boolean
 	 * @static
 	 */
-	public static function alphaNumeric($input, $exceptions = []) {
+	public static function alphaNumeric($input, $exceptions = array()) {
 		return self::custom($input, '/^[\p{L}\p{N}\p{Nd}\s' . self::escape($exceptions) . ']+$/imU');
 	}
 
@@ -89,7 +89,7 @@ class Validate {
 	 * @static
 	 */
 	public static function boolean($input) {
-		return in_array($input, [true, false, 1, 0, '1', '0', 'on', 'off', 'yes', 'no'], true);
+		return in_array($input, array(true, false, 1, 0, '1', '0', 'on', 'off', 'yes', 'no'), true);
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Validate {
 			return false;
 		}
 
-		$cards = [
+		$cards = array(
 			self::AMERICAN_EXPRESS 	=> '/^3[4|7]\\d{13}$/',
 			self::BANKCARD			=> '/^56(10\\d\\d|022[1-5])\\d{10}$/',
 			self::DINERS_CLUB		=> '/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})$/',
@@ -184,10 +184,10 @@ class Validate {
 			self::VISA				=> '/^4\\d{12}(\\d{3})?$/',
 			self::VISA_ELECTRON		=> '/^(?:417500|4917\\d{2}|4913\\d{2})\\d{10}$/',
 			self::VOYAGER			=> '/^8699[0-9]{11}$/'
-		];
+		);
 
 		if ($types) {
-			$validate = [];
+			$validate = array();
 
 			foreach ((array) $types as $card) {
 				if (isset($cards[$card])) {
@@ -382,7 +382,7 @@ class Validate {
 	 * @return boolean
 	 * @static
 	 */
-	public static function ext($input, $extensions = ['gif', 'jpeg', 'png', 'jpg']) {
+	public static function ext($input, $extensions = array('gif', 'jpeg', 'png', 'jpg')) {
 		if (isset($input['name'])) {
 			$input = $input['name'];
 		}

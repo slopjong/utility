@@ -25,7 +25,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Setup resources.
 	 */
 	protected function setUp() {
-		$data = ['key' => 'value', 'number' => 1337, 'boolean' => true, 'float' => 1.50, 'array' => [1, 2, 3]];
+		$data = array('key' => 'value', 'number' => 1337, 'boolean' => true, 'float' => 1.50, 'array' => array(1, 2, 3));
 
 		$this->array = $data;
 
@@ -143,18 +143,18 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that toArray() converts all tiers to an array.
 	 */
 	public function testToArrayRecursive() {
-		$array = [
-			Converter::toObject(['key' => 1]),
-			['key' => 2],
-			Converter::toObject(['key' => 3])
-		];
+		$array = array(
+			Converter::toObject(array('key' => 1)),
+			array('key' => 2),
+			Converter::toObject(array('key' => 3))
+		);
 
 		$this->assertEquals($array, Converter::toArray($array));
-		$this->assertEquals([
-			['key' => 1],
-			['key' => 2],
-			['key' => 3]
-		], Converter::toArray($array, true));
+		$this->assertEquals(array(
+			array('key' => 1),
+			array('key' => 2),
+			array('key' => 3)
+		), Converter::toArray($array, true));
 	}
 
 	/**
@@ -173,11 +173,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testToObjectRecursive() {
 		$object = new \stdClass();
-		$object->a = ['key' => 1];
+		$object->a = array('key' => 1);
 		$sub = new \stdClass();
 		$sub->key = 2;
 		$object->b = $sub;
-		$object->c = ['key' => 3];
+		$object->c = array('key' => 3);
 
 		$this->assertEquals($object, Converter::toObject($object));
 
@@ -229,11 +229,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test nested elements and it's related complexity.
 	 */
 	public function testToXmlComplexity() {
-		$items = [
+		$items = array(
 			$this->createXmlItem(1),
 			$this->createXmlItem(2),
 			$this->createXmlItem(3)
-		];
+		);
 
 		// Without named indices
 		$expected  = '<?xml version="1.0" encoding="utf-8"?>' . "\n" . '<root>';
@@ -245,7 +245,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, Converter::toXml($items)); // Cant compare XML here
 
 		// With named indices
-		$items = ['item' => $items];
+		$items = array('item' => $items);
 
 		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
 		$expected .= '<item><id>1</id><title>Item #1</title></item>';
@@ -256,11 +256,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
 
 		// With deep nested complexity
-		$items = ['item' => [
+		$items = array('item' => array(
 			$this->createXmlItem(1, true),
 			$this->createXmlItem(2, true),
 			$this->createXmlItem(3, true)
-		]];
+		));
 
 		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
 		$expected .= '<item>
@@ -286,11 +286,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
 
 		// With deep nested complexity again
-		$items = ['item' => [
+		$items = array('item' => array(
 			$this->createXmlItem(1, 'a'),
 			$this->createXmlItem(2, 'b'),
 			$this->createXmlItem(3, 'c')
-		]];
+		));
 
 		$expected  = '<?xml version="1.0" encoding="utf-8"?><items>';
 		$expected .= '<item>
@@ -326,11 +326,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that nested objects within arrays are cast to arrays.
 	 */
 	public function testToXmlArrayOfTypes() {
-		$items = ['item' => [
+		$items = array('item' => array(
 			Converter::toObject($this->createXmlItem(1)),
 			$this->createXmlItem(2),
 			Converter::toObject($this->createXmlItem(3))
-		]];
+		));
 
 		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
 		$expected .= '<item><id>1</id><title>Item #1</title></item>';
@@ -345,7 +345,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that type casting works going to/from.
 	 */
 	public function testXmlTypeCasting() {
-		$data = [
+		$data = array(
 			'true' => true,
 			'false' => false,
 			'null' => null,
@@ -353,7 +353,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 			'empty' => '',
 			'float' => 1.50,
 			'int' => 666
-		];
+		);
 
 		$expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
 		$expected .= '<true>true</true>';
@@ -374,14 +374,14 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that buildArray() and buildObject() convert all nested tiers.
 	 */
 	public function testBuildArrayObject() {
-		$array = ['one' => 1];
+		$array = array('one' => 1);
 		$object = new \stdClass();
 		$object->one = 1;
 
 		$this->assertEquals($array, Converter::toArray($object));
 		$this->assertEquals($object, Converter::toObject($array));
 
-		$array['one'] = ['two' => 2];
+		$array['one'] = array('two' => 2);
 		$level = new \stdClass();
 		$level->two = 2;
 		$object->one = $level;
@@ -389,7 +389,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($array, Converter::toArray($object));
 		$this->assertEquals($object, Converter::toObject($array));
 
-		$array['one']['two'] = ['three' => 3];
+		$array['one']['two'] = array('three' => 3);
 		$level = new \stdClass();
 		$level->three = 3;
 		$object->one->two = $level;
@@ -402,7 +402,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that xmlToArray(XML_NONE) returns the XML without attributes.
 	 */
 	public function testXmlToArrayNone() {
-		$expected = [
+		$expected = array(
 			'name' => 'Barbarian',
 			'life' => 50,
 			'mana' => 100,
@@ -410,27 +410,27 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 			'vitality' => 20,
 			'dexterity' => '',
 			'agility' => '',
-			'armors' => [
-				'armor' => ['Helmet', 'Shoulder Plates', 'Breast Plate', 'Greaves', 'Gloves', 'Shield']
-			],
-			'weapons' => [
-				'sword' => ['Broadsword', 'Longsword'],
-				'axe' => ['Heavy Axe', 'Double-edged Axe'],
+			'armors' => array(
+				'armor' => array('Helmet', 'Shoulder Plates', 'Breast Plate', 'Greaves', 'Gloves', 'Shield')
+			),
+			'weapons' => array(
+				'sword' => array('Broadsword', 'Longsword'),
+				'axe' => array('Heavy Axe', 'Double-edged Axe'),
 				'polearm' => 'Polearm',
 				'mace' => 'Mace'
-			],
-			'items' => [
-				'potions' => [
-					'potion' => ['Health Potion', 'Mana Potion']
-				],
-				'keys' => [
+			),
+			'items' => array(
+				'potions' => array(
+					'potion' => array('Health Potion', 'Mana Potion')
+				),
+				'keys' => array(
 					'chestKey' => 'Chest Key',
 					'bossKey' => 'Boss Key'
-				],
-				'food' => ['Fruit', 'Bread', 'Vegetables'],
+				),
+				'food' => array('Fruit', 'Bread', 'Vegetables'),
 				'scrap' => 'Scrap'
-			]
-		];
+			)
+		);
 
 		$this->assertEquals($expected, Converter::xmlToArray($this->barbarian, Converter::XML_NONE));
 	}
@@ -439,50 +439,50 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that xmlToArray(XML_MERGE) returns the XML without attributes.
 	 */
 	public function testXmlToArrayMerge() {
-		$expected = [
+		$expected = array(
 			'name' => 'Barbarian',
-			'life' => ['value' => 50, 'max' => 150],
-			'mana' => ['value' => 100, 'max' => 250],
+			'life' => array('value' => 50, 'max' => 150),
+			'mana' => array('value' => 100, 'max' => 250),
 			'stamina' => 15,
 			'vitality' => 20,
-			'dexterity' => ['value' => '', 'evade' => '5%', 'block' => '10%'],
-			'agility' => ['value' => '', 'turnRate' => '1.25', 'acceleration' => 5],
-			'armors' => [
-				'armor' => [
-					['value' => 'Helmet', 'defense' => 15],
-					['value' => 'Shoulder Plates', 'defense' => 25],
-					['value' => 'Breast Plate', 'defense' => 50],
-					['value' => 'Greaves', 'defense' => 10],
-					['value' => 'Gloves', 'defense' => 10],
-					['value' => 'Shield', 'defense' => 25],
-				],
+			'dexterity' => array('value' => '', 'evade' => '5%', 'block' => '10%'),
+			'agility' => array('value' => '', 'turnRate' => '1.25', 'acceleration' => 5),
+			'armors' => array(
+				'armor' => array(
+					array('value' => 'Helmet', 'defense' => 15),
+					array('value' => 'Shoulder Plates', 'defense' => 25),
+					array('value' => 'Breast Plate', 'defense' => 50),
+					array('value' => 'Greaves', 'defense' => 10),
+					array('value' => 'Gloves', 'defense' => 10),
+					array('value' => 'Shield', 'defense' => 25),
+				),
 				'items' => 6
-			],
-			'weapons' => [
-				'sword' => [
-					['value' => 'Broadsword', 'damage' => 25],
-					['value' => 'Longsword', 'damage' => 30]
-				],
-				'axe' => [
-					['value' => 'Heavy Axe', 'damage' => 20],
-					['value' => 'Double-edged Axe', 'damage' => 25],
-				],
-				'polearm' => ['value' => 'Polearm', 'damage' => 50, 'range' => 3, 'speed' => 'slow'],
-				'mace' => ['value' => 'Mace', 'damage' => 15, 'speed' => 'fast'],
+			),
+			'weapons' => array(
+				'sword' => array(
+					array('value' => 'Broadsword', 'damage' => 25),
+					array('value' => 'Longsword', 'damage' => 30)
+				),
+				'axe' => array(
+					array('value' => 'Heavy Axe', 'damage' => 20),
+					array('value' => 'Double-edged Axe', 'damage' => 25),
+				),
+				'polearm' => array('value' => 'Polearm', 'damage' => 50, 'range' => 3, 'speed' => 'slow'),
+				'mace' => array('value' => 'Mace', 'damage' => 15, 'speed' => 'fast'),
 				'items' => 6
-			],
-			'items' => [
-				'potions' => [
-					'potion' => ['Health Potion', 'Mana Potion']
-				],
-				'keys' => [
+			),
+			'items' => array(
+				'potions' => array(
+					'potion' => array('Health Potion', 'Mana Potion')
+				),
+				'keys' => array(
 					'chestKey' => 'Chest Key',
 					'bossKey' => 'Boss Key'
-				],
-				'food' => ['Fruit', 'Bread', 'Vegetables'],
-				'scrap' => ['value' => 'Scrap', 'count' => 25]
-			]
-		];
+				),
+				'food' => array('Fruit', 'Bread', 'Vegetables'),
+				'scrap' => array('value' => 'Scrap', 'count' => 25)
+			)
+		);
 
 		$this->assertEquals($expected, Converter::xmlToArray($this->barbarian, Converter::XML_MERGE));
 	}
@@ -491,75 +491,75 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that xmlToArray(XML_GROUP) returns the XML with attributes and value grouped separately.
 	 */
 	public function testXmlToArrayGroup() {
-		$expected = [
+		$expected = array(
 			'name' => 'Barbarian',
-			'life' => [
+			'life' => array(
 				'value' => 50,
-				'attributes' => ['max' => 150]
-			],
-			'mana' => [
+				'attributes' => array('max' => 150)
+			),
+			'mana' => array(
 				'value' => 100,
-				'attributes' => ['max' => 250]
-			],
+				'attributes' => array('max' => 250)
+			),
 			'stamina' => 15,
 			'vitality' => 20,
-			'dexterity' => [
+			'dexterity' => array(
 				'value' => '',
-				'attributes' => ['evade' => '5%', 'block' => '10%']
-			],
-			'agility' => [
+				'attributes' => array('evade' => '5%', 'block' => '10%')
+			),
+			'agility' => array(
 				'value' => '',
-				'attributes' => ['turnRate' => '1.25', 'acceleration' => 5]
-			],
-			'armors' => [
-				'value' => [
-					'armor' => [
-						['value' => 'Helmet', 'attributes' => ['defense' => 15]],
-						['value' => 'Shoulder Plates', 'attributes' => ['defense' => 25]],
-						['value' => 'Breast Plate', 'attributes' => ['defense' => 50]],
-						['value' => 'Greaves', 'attributes' => ['defense' => 10]],
-						['value' => 'Gloves', 'attributes' => ['defense' => 10]],
-						['value' => 'Shield', 'attributes' => ['defense' => 25]],
-					],
-				],
-				'attributes' => ['items' => 6]
-			],
-			'weapons' => [
-				'value' => [
-					'sword' => [
-						['value' => 'Broadsword', 'attributes' => ['damage' => 25]],
-						['value' => 'Longsword', 'attributes' => ['damage' => 30]]
-					],
-					'axe' => [
-						['value' => 'Heavy Axe', 'attributes' => ['damage' => 20]],
-						['value' => 'Double-edged Axe', 'attributes' => ['damage' => 25]],
-					],
-					'polearm' => [
+				'attributes' => array('turnRate' => '1.25', 'acceleration' => 5)
+			),
+			'armors' => array(
+				'value' => array(
+					'armor' => array(
+						array('value' => 'Helmet', 'attributes' => array('defense' => 15)),
+						array('value' => 'Shoulder Plates', 'attributes' => array('defense' => 25)),
+						array('value' => 'Breast Plate', 'attributes' => array('defense' => 50)),
+						array('value' => 'Greaves', 'attributes' => array('defense' => 10)),
+						array('value' => 'Gloves', 'attributes' => array('defense' => 10)),
+						array('value' => 'Shield', 'attributes' => array('defense' => 25)),
+					),
+				),
+				'attributes' => array('items' => 6)
+			),
+			'weapons' => array(
+				'value' => array(
+					'sword' => array(
+						array('value' => 'Broadsword', 'attributes' => array('damage' => 25)),
+						array('value' => 'Longsword', 'attributes' => array('damage' => 30))
+					),
+					'axe' => array(
+						array('value' => 'Heavy Axe', 'attributes' => array('damage' => 20)),
+						array('value' => 'Double-edged Axe', 'attributes' => array('damage' => 25)),
+					),
+					'polearm' => array(
 						'value' => 'Polearm',
-						'attributes' => ['damage' => 50, 'range' => 3, 'speed' => 'slow']
-					],
-					'mace' => [
+						'attributes' => array('damage' => 50, 'range' => 3, 'speed' => 'slow')
+					),
+					'mace' => array(
 						'value' => 'Mace',
-						'attributes' => ['damage' => 15, 'speed' => 'fast']
-					],
-				],
-				'attributes' => ['items' => 6]
-			],
-			'items' => [
-				'potions' => [
-					'potion' => ['Health Potion', 'Mana Potion']
-				],
-				'keys' => [
+						'attributes' => array('damage' => 15, 'speed' => 'fast')
+					),
+				),
+				'attributes' => array('items' => 6)
+			),
+			'items' => array(
+				'potions' => array(
+					'potion' => array('Health Potion', 'Mana Potion')
+				),
+				'keys' => array(
 					'chestKey' => 'Chest Key',
 					'bossKey' => 'Boss Key'
-				],
-				'food' => ['Fruit', 'Bread', 'Vegetables'],
-				'scrap' => [
+				),
+				'food' => array('Fruit', 'Bread', 'Vegetables'),
+				'scrap' => array(
 					'value' => 'Scrap',
-					'attributes' => ['count' => 25]
-				]
-			]
-		];
+					'attributes' => array('count' => 25)
+				)
+			)
+		);
 
 		$this->assertEquals($expected, Converter::xmlToArray($this->barbarian, Converter::XML_GROUP));
 	}
@@ -568,32 +568,32 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Test that xmlToArray(XML_ATTRIBS) returns the XML with only attributes.
 	 */
 	public function testXmlToArrayAttribs() {
-		$expected = [
+		$expected = array(
 			'name' => 'Barbarian',
-			'life' => ['max' => 150],
-			'mana' => ['max' => 250],
+			'life' => array('max' => 150),
+			'mana' => array('max' => 250),
 			'stamina' => 15,
 			'vitality' => 20,
-			'dexterity' => ['evade' => '5%', 'block' => '10%'],
-			'agility' => ['turnRate' => '1.25', 'acceleration' => 5],
-			'armors' => [
+			'dexterity' => array('evade' => '5%', 'block' => '10%'),
+			'agility' => array('turnRate' => '1.25', 'acceleration' => 5),
+			'armors' => array(
 				'items' => 6
-			],
-			'weapons' => [
+			),
+			'weapons' => array(
 				'items' => 6
-			],
-			'items' => [
-				'potions' => [
-					'potion' => ['Health Potion', 'Mana Potion']
-				],
-				'keys' => [
+			),
+			'items' => array(
+				'potions' => array(
+					'potion' => array('Health Potion', 'Mana Potion')
+				),
+				'keys' => array(
 					'chestKey' => 'Chest Key',
 					'bossKey' => 'Boss Key'
-				],
-				'food' => ['Fruit', 'Bread', 'Vegetables'],
-				'scrap' => ['count' => 25]
-			]
-		];
+				),
+				'food' => array('Fruit', 'Bread', 'Vegetables'),
+				'scrap' => array('count' => 25)
+			)
+		);
 
 		$this->assertEquals($expected, Converter::xmlToArray($this->barbarian, Converter::XML_ATTRIBS));
 	}
@@ -606,17 +606,17 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * @return array
 	 */
 	protected function createXmlItem($id, $complex = false) {
-		$item = ['id' => $id, 'title' => 'Item #' . $id];
+		$item = array('id' => $id, 'title' => 'Item #' . $id);
 
 		if ($complex) {
-			$item['foo'] = [
+			$item['foo'] = array(
 				$this->createXmlItem(1),
 				$this->createXmlItem(2),
 				$this->createXmlItem(3)
-			];
+			);
 
 			if ($complex !== true) {
-				$item['foo'] = [$complex => $item['foo']];
+				$item['foo'] = array($complex => $item['foo']);
 			}
 		}
 

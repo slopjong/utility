@@ -38,7 +38,7 @@ class Number {
 		}
 
 		$number = trim((string) $number);
-		$sizes = [
+		$sizes = array(
 			'k|kb|ki|kib' => 10,
 			'm|mb|mi|mib' => 20,
 			'g|gb|gi|gib' => 30,
@@ -48,7 +48,7 @@ class Number {
 			'z|zb|zi|zib' => 70,
 			'y|yb|yi|yib' => 80,
 			'b' => 0
-		];
+		);
 
 		foreach ($sizes as $format => $pow) {
 			if (preg_match('/^([0-9\.]+)(' . $format . ')?$/i', $number, $matches)) {
@@ -74,7 +74,7 @@ class Number {
 	 * @static
 	 */
 	public static function bytesTo($size, $precision = 0) {
-		$sizes = ['YB', 'ZB', 'EB', 'PB', 'TB', 'GB', 'MB', 'KB', 'B'];
+		$sizes = array('YB', 'ZB', 'EB', 'PB', 'TB', 'GB', 'MB', 'KB', 'B');
 		$total = count($sizes);
 
 		while ($total-- && $size >= 1024) {
@@ -110,8 +110,8 @@ class Number {
 	 * @return string
 	 * @static
 	 */
-	public static function currency($number, array $options = []) {
-		$defaults = [
+	public static function currency($number, array $options = array()) {
+		$defaults = array(
 			'thousands' => ',',
 			'decimals' => '.',
 			'places' => 2,
@@ -120,7 +120,7 @@ class Number {
 			'cents' => '#&cent;',
 			'use' => 'dollar',
 			'negative' => '(#)'
-		];
+		);
 
 		$options = $options + $defaults;
 		$amount = number_format(self::precision(abs($number), $options['places']), $options['places'], $options['decimals'], $options['thousands']);
@@ -270,16 +270,16 @@ class Number {
 	 * @return string
 	 * @static
 	 */
-	public static function percentage($number, $options = []) {
+	public static function percentage($number, $options = array()) {
 		if (is_numeric($options)) {
-			$options = ['places' => $options];
+			$options = array('places' => $options);
 		}
 
-		$defaults = [
+		$defaults = array(
 			'thousands' => ',',
 			'decimals' => '.',
 			'places' => 2
-		];
+		);
 
 		$options = (array) $options + $defaults;
 

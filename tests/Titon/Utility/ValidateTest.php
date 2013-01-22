@@ -32,7 +32,7 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAlpha() {
 		$this->assertTrue(Validate::alpha('ahjsNKHAShksdnASQfgd'));
-		$this->assertTrue(Validate::alpha('asdnasdsd.dfsdfdfsdfs;', ['.', ';']));
+		$this->assertTrue(Validate::alpha('asdnasdsd.dfsdfdfsdfs;', array('.', ';')));
 
 		$this->assertFalse(Validate::alpha('asdnasdsd.dfsdfdfsdfs;'));
 		$this->assertFalse(Validate::alpha('asdjn1803201'));
@@ -44,7 +44,7 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAlphaNumeric() {
 		$this->assertTrue(Validate::alphaNumeric('ahjsNKHAShksdnASQfgd'));
-		$this->assertTrue(Validate::alphaNumeric('asdnasdsd.dfsdfdfsdfs;', ['.', ';']));
+		$this->assertTrue(Validate::alphaNumeric('asdnasdsd.dfsdfdfsdfs;', array('.', ';')));
 		$this->assertTrue(Validate::alphaNumeric('asdjn1803201'));
 
 		$this->assertFalse(Validate::alphaNumeric('asdnasdsd.dfsdfdfsdfs;'));
@@ -174,8 +174,8 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(Validate::creditCard('869958670174621', Validate::VOYAGER));
 
 		// Test multiple
-		$this->assertTrue(Validate::creditCard('375239372816422', [Validate::AMERICAN_EXPRESS, Validate::VISA])); // = amex
-		$this->assertFalse(Validate::creditCard('869934523596112', [Validate::AMERICAN_EXPRESS, Validate::VISA])); // = voyager
+		$this->assertTrue(Validate::creditCard('375239372816422', array(Validate::AMERICAN_EXPRESS, Validate::VISA))); // = amex
+		$this->assertFalse(Validate::creditCard('869934523596112', array(Validate::AMERICAN_EXPRESS, Validate::VISA))); // = voyager
 
 		// Test length
 		$this->assertFalse(Validate::creditCard('2346533', Validate::MASTERCARD));
@@ -302,33 +302,33 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(Validate::ext('image.gif'));
 		$this->assertTrue(Validate::ext('image.jpeg'));
 		$this->assertTrue(Validate::ext('doc.pdf', 'pdf'));
-		$this->assertTrue(Validate::ext('web.HTML', ['html', 'xhtml']));
+		$this->assertTrue(Validate::ext('web.HTML', array('html', 'xhtml')));
 
 		$this->assertFalse(Validate::ext('image.bmp'));
 		$this->assertFalse(Validate::ext('doc.doc', 'pdf'));
-		$this->assertFalse(Validate::ext('web.XML', ['html', 'xhtml']));
+		$this->assertFalse(Validate::ext('web.XML', array('html', 'xhtml')));
 	}
 
 	/**
 	 * Test that file() returns true if for valid file uploads.
 	 */
 	public function testFile() {
-		$this->assertTrue(Validate::file([
+		$this->assertTrue(Validate::file(array(
 			'name' => 'file1.jpg',
 			'type' => 'image/jpeg',
 			'tmp_name' => '/tmp/phpUkYTB5',
 			'error' => 0,
 			'size' => 307808
-		]));
+		)));
 
 		$this->assertFalse(Validate::file('file1.jpg'));
-		$this->assertFalse(Validate::file([
+		$this->assertFalse(Validate::file(array(
 			'name' => 'file1.jpg',
 			'type' => 'image/jpeg',
 			'tmp_name' => '/tmp/phpUkYTB5',
 			'error' => UPLOAD_ERR_CANT_WRITE,
 			'size' => 307808
-		]));
+		)));
 	}
 
 	/**
@@ -343,11 +343,11 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 * Test that inList() returns true if the value is in the whitelist.
 	 */
 	public function testInList() {
-		$this->assertTrue(Validate::inList(1, [1, '1', 'c']));
-		$this->assertTrue(Validate::inList('foo', ['foo', 'BAR', 'wtf']));
+		$this->assertTrue(Validate::inList(1, array(1, '1', 'c')));
+		$this->assertTrue(Validate::inList('foo', array('foo', 'BAR', 'wtf')));
 
-		$this->assertFalse(Validate::inList('b', [1, '1', 'c']));
-		$this->assertFalse(Validate::inList('test', ['foo', 'BAR', 'wtf']));
+		$this->assertFalse(Validate::inList('b', array(1, '1', 'c')));
+		$this->assertFalse(Validate::inList('test', array('foo', 'BAR', 'wtf')));
 	}
 
 	/**
@@ -451,8 +451,8 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 * Test that mimeType() returns true if the mimetype of a file is within the whitelist.
 	 */
 	public function testMimeType() {
-		$this->assertTrue(Validate::mimeType($this->image, ['image/jpeg', 'image/jpg']));
-		$this->assertFalse(Validate::mimeType($this->image, ['image/gif']));
+		$this->assertTrue(Validate::mimeType($this->image, array('image/jpeg', 'image/jpg')));
+		$this->assertFalse(Validate::mimeType($this->image, array('image/gif')));
 	}
 
 	/**
@@ -537,7 +537,7 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	public function testNotEmpty() {
 		$this->assertTrue(Validate::notEmpty('abc'));
 		$this->assertTrue(Validate::notEmpty(123));
-		$this->assertTrue(Validate::notEmpty(['foo', 'bar']));
+		$this->assertTrue(Validate::notEmpty(array('foo', 'bar')));
 		$this->assertTrue(Validate::notEmpty(true));
 		$this->assertTrue(Validate::notEmpty(0));
 		$this->assertTrue(Validate::notEmpty('0'));

@@ -118,7 +118,7 @@ class Hash {
 	 * @static
 	 */
 	public static function expand($set) {
-		$data = [];
+		$data = array();
 
 		foreach ((array) $set as $key => $value) {
 			$data = self::insert($data, $key, $value);
@@ -210,7 +210,7 @@ class Hash {
 			$path = $path . '.';
 		}
 
-		$data = [];
+		$data = array();
 
 		foreach ((array) $set as $key => $value) {
 			if (is_array($value)) {
@@ -242,7 +242,7 @@ class Hash {
 			return $set;
 		}
 
-		$data = [];
+		$data = array();
 
 		foreach ($set as $key => $value) {
 			$empty = ($value === '' || $value === false || $value === null);
@@ -362,7 +362,7 @@ class Hash {
 
 			// Break out of non-existent paths early
 			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
-				$search[$key] = [];
+				$search[$key] = array();
 			}
 
 			$search =& $search[$key];
@@ -422,7 +422,7 @@ class Hash {
 	 */
 	public static function keyOf($set, $match) {
 		$return = null;
-		$isArray = [];
+		$isArray = array();
 
 		foreach ((array) $set as $key => $value) {
 			if ($value === $match) {
@@ -455,7 +455,7 @@ class Hash {
 	 * @return array
 	 * @static
 	 */
-	public static function map($set, $function, $args = []) {
+	public static function map($set, $function, $args = array()) {
 		foreach ((array) $set as $key => $value) {
 			if (is_array($value)) {
 				$set[$key] = self::map($value, $function, $args);
@@ -492,7 +492,7 @@ class Hash {
 	 */
 	public static function merge() {
 		$sets = func_get_args();
-		$data = [];
+		$data = array();
 
 		if ($sets) {
 			foreach ($sets as $set) {
@@ -554,7 +554,7 @@ class Hash {
 	 * @static
 	 */
 	public static function pluck($set, $path) {
-		$data = [];
+		$data = array();
 
 		foreach ((array) $set as $array) {
 			if ($value = self::extract($array, $path)) {
@@ -576,7 +576,7 @@ class Hash {
 	 * @static
 	 */
 	public static function range($start, $stop, $step = 1, $index = true) {
-		$array = [];
+		$array = array();
 
 		if ($stop > $start) {
 			for ($i = $start; $i <= $stop; $i += $step) {

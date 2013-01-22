@@ -129,15 +129,15 @@ class Format {
 	 * @return string
 	 * @static
 	 */
-	public static function relativeTime($time, array $options = []) {
-		$defaults = [
-			'seconds' => ['%ss', '%s second', '%s seconds'],
-			'minutes' => ['%sm', '%s minute', '%s minutes'],
-			'hours' => ['%sh', '%s hour', '%s hours'],
-			'days' => ['%sd', '%s day', '%s days'],
-			'weeks' => ['%sw', '%s week', '%s weeks'],
-			'months' => ['%sm', '%s month', '%s months'],
-			'years' => ['%sy', '%s year', '%s years'],
+	public static function relativeTime($time, array $options = array()) {
+		$defaults = array(
+			'seconds' => array('%ss', '%s second', '%s seconds'),
+			'minutes' => array('%sm', '%s minute', '%s minutes'),
+			'hours' => array('%sh', '%s hour', '%s hours'),
+			'days' => array('%sd', '%s day', '%s days'),
+			'weeks' => array('%sw', '%s week', '%s weeks'),
+			'months' => array('%sm', '%s month', '%s months'),
+			'years' => array('%sy', '%s year', '%s years'),
 			'now' => 'just now',
 			'in' => 'in %s',
 			'ago' => '%s ago',
@@ -145,11 +145,11 @@ class Format {
 			'verbose' => true,
 			'depth' => 2,
 			'time' => time()
-		];
+		);
 
 		$options = $options + $defaults;
 		$diff = Time::difference($options['time'], Time::toUnix($time));
-		$output = [];
+		$output = array();
 
 		// Present tense
 		if ($diff === 0) {

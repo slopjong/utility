@@ -101,7 +101,7 @@ class Converter {
 		}
 
 		// Attempt other types
-		foreach (['bool', 'double', 'float', 'int', 'long', 'null', 'resource'] as $type) {
+		foreach (array('bool', 'double', 'float', 'int', 'long', 'null', 'resource') as $type) {
 			if (call_user_func('is_' . $type, $data)) {
 				return $type;
 			}
@@ -295,7 +295,7 @@ class Converter {
 	 * @return array
 	 */
 	public static function buildArray($object) {
-		$array = [];
+		$array = array();
 
 		foreach ($object as $key => $value) {
 			if (is_object($value) || is_array($value)) {
@@ -349,7 +349,7 @@ class Converter {
 				if (isset($value[0])) {
 					foreach ($value as $kValue) {
 						if (is_array($kValue)) {
-							self::buildXml($xml, [$key => $kValue]);
+							self::buildXml($xml, array($key => $kValue));
 						} else {
 							$xml->addChild($key, self::unbox($kValue));
 						}
@@ -378,7 +378,7 @@ class Converter {
 					if (!empty($value)) {
 						foreach ($value as $aKey => $aValue) {
 							if (is_array($aValue)) {
-								self::buildXml($node, [$aKey => $aValue]);
+								self::buildXml($node, array($aKey => $aValue));
 							} else {
 								$node->addAttribute($aKey, self::unbox($aValue));
 							}
@@ -392,7 +392,7 @@ class Converter {
 					if (!empty($value)) {
 						foreach ($value as $aKey => $aValue) {
 							if (is_array($aValue)) {
-								self::buildXml($node, [$aKey => $aValue]);
+								self::buildXml($node, array($aKey => $aValue));
 							} else {
 								$node->addChild($aKey, self::unbox($aValue));
 							}
@@ -421,10 +421,10 @@ class Converter {
 			return self::autobox((string) $xml);
 		}
 
-		$array = [];
+		$array = array();
 
 		foreach ($xml->children() as $element => $node) {
-			$data = [];
+			$data = array();
 
 			if (!isset($array[$element])) {
 				$array[$element] = '';
@@ -436,10 +436,10 @@ class Converter {
 			} else {
 				switch ($format) {
 					case self::XML_GROUP:
-						$data = [
+						$data = array(
 							'value' => self::autobox((string) $node),
-							'attributes' => []
-						];
+							'attributes' => array()
+						);
 
 						if (count($node->children()) > 0) {
 							$data['value'] = self::xmlToArray($node, $format);

@@ -91,17 +91,17 @@ class NumberTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('(0.75&cent;)', Number::currency(-0.75));
 
 		// options
-		$this->assertEquals('USD 85 839,34', Number::currency(85839.34, [
+		$this->assertEquals('USD 85 839,34', Number::currency(85839.34, array(
 			'use' => 'code',
 			'thousands' => ' ',
 			'decimals' => ','
-		]));
+		)));
 
 		// formats
-		$this->assertEquals('-$0.34', Number::currency(-0.34, [
+		$this->assertEquals('-$0.34', Number::currency(-0.34, array(
 			'negative' => '-#',
 			'cents' => false
-		]));
+		)));
 	}
 
 	/**
@@ -192,19 +192,19 @@ class NumberTest extends \PHPUnit_Framework_TestCase {
 	 * Test that percentage() returns a number formatted string with a % sign.
 	 */
 	public function testPercentage() {
-		$this->assertEquals('123%', Number::percentage(123, ['places' => 0]));
-		$this->assertEquals('4,546%', Number::percentage(4546, ['places' => 0]));
-		$this->assertEquals('92,378,453%', Number::percentage(92378453, ['places' => 0]));
-		$this->assertEquals('287,349,238,432%', Number::percentage('287349238432', ['places' => 0]));
+		$this->assertEquals('123%', Number::percentage(123, array('places' => 0)));
+		$this->assertEquals('4,546%', Number::percentage(4546, array('places' => 0)));
+		$this->assertEquals('92,378,453%', Number::percentage(92378453, array('places' => 0)));
+		$this->assertEquals('287,349,238,432%', Number::percentage('287349238432', array('places' => 0)));
 		$this->assertEquals('3,843.45%', Number::percentage(3843.4450));
 		$this->assertEquals('93,789.34%', Number::percentage(93789.34));
 
 		// options
-		$this->assertEquals('92 378 453,94%', Number::percentage(92378453.9438, [
+		$this->assertEquals('92 378 453,94%', Number::percentage(92378453.9438, array(
 			'thousands' => ' ',
 			'decimals' => ',',
 			'places' => 2
-		]));
+		)));
 	}
 
 	/**

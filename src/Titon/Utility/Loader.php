@@ -75,7 +75,7 @@ class Loader {
 	 * @static
 	 */
 	public static function includePath($paths) {
-		$current = [get_include_path()];
+		$current = array(get_include_path());
 
 		if (is_array($paths)) {
 			foreach ($paths as $path) {
@@ -115,7 +115,8 @@ class Loader {
 
 		// Attempt to split path at src folder
 		if (mb_strpos($path, 'src/') !== false) {
-			$path = explode('src/', $path)[1];
+			$paths = explode('src/', $path);
+			$path = $paths[1];
 		}
 
 		return trim(str_replace('/', '\\', $path), '\\');
