@@ -383,7 +383,7 @@ class Validate {
 	 * @static
 	 */
 	public static function ext($input, $extensions = array('gif', 'jpeg', 'png', 'jpg')) {
-		if (isset($input['name'])) {
+		if (is_array($input) && isset($input['name'])) {
 			$input = $input['name'];
 		}
 

@@ -30,20 +30,23 @@ class SanitizeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('"Double" quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_NOQUOTES)));
 		$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_COMPAT)));
 		$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES)));
-		$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_HTML5)));
-		$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_XHTML)));
 
 		$this->assertEquals("'Single' quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_NOQUOTES)));
 		$this->assertEquals("'Single' quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_COMPAT)));
 		$this->assertEquals("&#039;Single&#039; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES)));
-		$this->assertEquals("&apos;Single&apos; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES | ENT_HTML5)));
-		$this->assertEquals("&#039;Single&#039; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES | ENT_XHTML)));
 
 		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_NOQUOTES)));
 		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_COMPAT)));
 		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES)));
-		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES | ENT_HTML5)));
-		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES | ENT_XHTML)));
+
+		if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+			$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_HTML5)));
+			$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_XHTML)));
+			$this->assertEquals("&apos;Single&apos; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES | ENT_HTML5)));
+			$this->assertEquals("&#039;Single&#039; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES | ENT_XHTML)));
+			$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES | ENT_HTML5)));
+			$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES | ENT_XHTML)));
+		}
 	}
 
 	/**
