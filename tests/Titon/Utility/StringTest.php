@@ -200,7 +200,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; en&hellip;', String::truncate($string, 25, array('word' => false)));
 		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in&hellip;', String::truncate($string, 35, array('word' => false)));
 		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has&hellip;', String::truncate($string, 45, array('word' => false)));
-		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has &quot;quotes&quot; as well.', String::truncate($string, false, array('word' => false)));
+		$this->assertEquals('This has <a href="/" class="link">anchor tags</a> &amp; entities in it. It has &quot;quo&hellip;', String::truncate($string, 50, array('word' => false)));
 
 		// Preserve none
 		$this->assertEquals('This has anchor tags &amp; en&hellip;', String::truncate($string, 25, array('word' => false, 'html' => false)));

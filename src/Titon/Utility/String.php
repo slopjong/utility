@@ -354,7 +354,7 @@ class String {
 
 		foreach ($tokens as $token) {
 			// Increase limit by 1 for tokens
-			if (preg_match($entityPattern, $token)) {
+			if (preg_match($entityPattern, $token) && $current < $limit) {
 				$current++;
 				$output .= $token;
 
