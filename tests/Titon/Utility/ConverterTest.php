@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Converter;
 
 /**
  * Test class for Titon\Utility\Converter.
  */
-class ConverterTest extends \PHPUnit_Framework_TestCase {
+class ConverterTest extends TestCase {
 
 	public $array;
 	public $object;
@@ -25,6 +26,8 @@ class ConverterTest extends \PHPUnit_Framework_TestCase {
 	 * Setup resources.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		$data = array('key' => 'value', 'number' => 1337, 'boolean' => true, 'float' => 1.50, 'array' => array(1, 2, 3));
 
 		$this->array = $data;

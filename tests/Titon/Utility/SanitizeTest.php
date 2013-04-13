@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Sanitize;
 
 /**
  * Test class for Titon\Utility\Sanitize.
  */
-class SanitizeTest extends \PHPUnit_Framework_TestCase {
+class SanitizeTest extends TestCase {
 
 	/**
 	 * Test that email() removes unwanted characters.
@@ -39,7 +40,7 @@ class SanitizeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_COMPAT)));
 		$this->assertEquals('&lt;Html&gt; tags', Sanitize::escape('<Html> tags', array('flags' => ENT_QUOTES)));
 
-		if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+		if ($this->is54) {
 			$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_HTML5)));
 			$this->assertEquals('&quot;Double&quot; quotes', Sanitize::escape('"Double" quotes', array('flags' => ENT_QUOTES | ENT_XHTML)));
 			$this->assertEquals("&apos;Single&apos; quotes", Sanitize::escape("'Single' quotes", array('flags' => ENT_QUOTES | ENT_HTML5)));

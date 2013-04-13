@@ -18,6 +18,9 @@
 		"ext-fileinfo": "*",
 		"ext-simplexml": "*"
 	},
+	"require-dev": {
+		"titon/test": "*"
+	},
 	"autoload": {
 		"psr-0": { "Titon\\Utility": "src/" }
 	}

@@ -7,13 +7,14 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Validate;
 use \Exception;
 
 /**
  * Test class for Titon\Utility\Validate.
  */
-class ValidateTest extends \PHPUnit_Framework_TestCase {
+class ValidateTest extends TestCase {
 
 	/**
 	 * Test image path. 200x267
@@ -24,6 +25,8 @@ class ValidateTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		$this->image = TEMP_DIR . '/image.jpg';
 	}
 

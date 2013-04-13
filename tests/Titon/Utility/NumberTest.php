@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Number;
 
 /**
  * Test class for Titon\Utility\Number.
  */
-class NumberTest extends \PHPUnit_Framework_TestCase {
+class NumberTest extends TestCase {
 
 	/**
 	 * Test that bytesFrom() returns the numerical equivalent.

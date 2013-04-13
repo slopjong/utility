@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Inflector;
 
 /**
  * Test class for Titon\Utility\Inflector.
  */
-class InflectorTest extends \PHPUnit_Framework_TestCase {
+class InflectorTest extends TestCase {
 
 	/**
 	 * Test that camelCase() returns strings as camel case.

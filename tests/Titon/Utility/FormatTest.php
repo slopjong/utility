@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Format;
 
 /**
  * Test class for Titon\Utility\Format.
  */
-class FormatTest extends \PHPUnit_Framework_TestCase {
+class FormatTest extends TestCase {
 
 	/**
 	 * Test that atom() formats a timestamp to an Atom feed format.

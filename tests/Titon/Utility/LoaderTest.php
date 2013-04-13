@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Loader;
 
 /**
  * Test class for Titon\Utility\Loader.
  */
-class LoaderTest extends \PHPUnit_Framework_TestCase {
+class LoaderTest extends TestCase {
 
 	/**
 	 * Test that the class name is returned without the namespace or extension.

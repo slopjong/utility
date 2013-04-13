@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\String;
 
 /**
  * Test class for Titon\Utility\String.
  */
-class StringTest extends \PHPUnit_Framework_TestCase {
+class StringTest extends TestCase {
 
 	/**
 	 * Test strings.

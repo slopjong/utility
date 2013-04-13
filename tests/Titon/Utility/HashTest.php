@@ -7,6 +7,7 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Hash;
 use \Exception;
 use \stdClass;
@@ -14,7 +15,7 @@ use \stdClass;
 /**
  * Test class for Titon\Utility\Hash.
  */
-class HashTest extends \PHPUnit_Framework_TestCase {
+class HashTest extends TestCase {
 
 	/**
 	 * Multi-dimension array.

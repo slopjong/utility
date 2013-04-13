@@ -7,13 +7,14 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Time;
 use \DateTime;
 
 /**
  * Test class for Titon\Utility\Time.
  */
-class TimeTest extends \PHPUnit_Framework_TestCase {
+class TimeTest extends TestCase {
 
 	/**
 	 * Test that difference() returns the difference of seconds between 2 dates.

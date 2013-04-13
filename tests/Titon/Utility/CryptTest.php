@@ -7,12 +7,13 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
 use Titon\Utility\Crypt;
 
 /**
  * Test class for Titon\Utility\Crypt.
  */
-class CryptTest extends \PHPUnit_Framework_TestCase {
+class CryptTest extends TestCase {
 
 	/**
 	 * String to crypt.

@@ -7,10 +7,12 @@
 
 namespace Titon\Utility;
 
+use Titon\Test\TestCase;
+
 /**
  * Test class for Titon\Utility\Validator.
  */
-class ValidatorTest extends \PHPUnit_Framework_TestCase {
+class ValidatorTest extends TestCase {
 
 	/**
 	 * Validator instance.
@@ -23,6 +25,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		$this->object = new Validator(array(
 			'username' => 'miles',
 			'email' => 'miles@titon' // invalid
