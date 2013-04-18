@@ -47,8 +47,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param array $exceptions
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function alpha($input, $exceptions = array()) {
 		return self::custom($input, '/^[\p{L}\s' . self::escape($exceptions) . ']+$/imU');
@@ -59,8 +58,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param array $exceptions
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function alphaNumeric($input, $exceptions = array()) {
 		return self::custom($input, '/^[\p{L}\p{N}\p{Nd}\s' . self::escape($exceptions) . ']+$/imU');
@@ -72,8 +70,7 @@ class Validate {
 	 * @param string $input
 	 * @param int $min
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function between($input, $min, $max) {
 		$length = mb_strlen($input);
@@ -82,11 +79,10 @@ class Validate {
 	}
 
 	/**
-	 * Validate input is a boolean or boolean-like flag.
+	 * Validate input is a bool or bool-like flag.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function boolean($input) {
 		return in_array($input, array(true, false, 1, 0, '1', '0', 'on', 'off', 'yes', 'no'), true);
@@ -96,9 +92,8 @@ class Validate {
 	 * Validate input with a custom callback function.
 	 *
 	 * @param string $input
-	 * @param Closure $callback
-	 * @return boolean
-	 * @static
+	 * @param \Closure $callback
+	 * @return bool
 	 */
 	public static function callback($input, Closure $callback) {
 		return (bool) $callback($input);
@@ -110,9 +105,8 @@ class Validate {
 	 * @param int $input
 	 * @param int $check
 	 * @param string $mode
-	 * @return boolean
+	 * @return bool
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function comparison($input, $check, $mode) {
 		switch (mb_strtolower($mode)) {
@@ -159,9 +153,8 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string|array $types
-	 * @return boolean
+	 * @return bool
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function creditCard($input, $types = null) {
 		$input = str_replace(array('-', ' '), '', $input);
@@ -214,8 +207,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function currency($input, $format = '/^\$[0-9,]+(?:\.[0-9]{2})?$/') {
 		return self::custom($input, $format);
@@ -226,8 +218,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $expression
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function custom($input, $expression) {
 		return (bool) preg_match($expression, $input);
@@ -237,8 +228,7 @@ class Validate {
 	 * Validate input is a real date.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function date($input) {
 		$time = Time::toUnix($input);
@@ -257,8 +247,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param int $places
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function decimal($input, $places = 2) {
 		if (!$places) {
@@ -276,14 +265,13 @@ class Validate {
 	 * @param array $input
 	 * @param string $type
 	 * @param int $size
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function dimensions($input, $type, $size) {
 		if (self::file($input)) {
 			$path = $input['tmp_name'];
 
-		} elseif (file_exists($input)) {
+		} else if (file_exists($input)) {
 			$path = $input;
 
 		} else {
@@ -311,9 +299,8 @@ class Validate {
 	 * Validate input is an email. If $dns is true, will check DNS records as well.
 	 *
 	 * @param string $input
-	 * @param boolean $dns
-	 * @return boolean
-	 * @static
+	 * @param bool $dns
+	 * @return bool
 	 */
 	public static function email($input, $dns = true) {
 		$result = (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
@@ -340,8 +327,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $check
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function equal($input, $check) {
 		return ($input == $check);
@@ -352,8 +338,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $check
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function exact($input, $check) {
 		return ($input === $check);
@@ -364,7 +349,6 @@ class Validate {
 	 *
 	 * @param array|string $characters
 	 * @return string
-	 * @static
 	 */
 	public static function escape($characters) {
 		if (is_array($characters)) {
@@ -379,8 +363,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string|array $extensions
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function ext($input, $extensions = array('gif', 'jpeg', 'png', 'jpg')) {
 		if (is_array($input) && isset($input['name'])) {
@@ -394,8 +377,7 @@ class Validate {
 	 * Validate input is a file upload by checking for tmp_name and verifying error.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function file($input) {
 		return (is_array($input) && !empty($input['tmp_name']) && $input['error'] == 0);
@@ -406,8 +388,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $size
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function height($input, $size = 0) {
 		return self::dimensions($input, 'height', $size);
@@ -418,8 +399,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param array $list
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function inList($input, array $list) {
 		return in_array($input, $list, true);
@@ -431,8 +411,7 @@ class Validate {
 	 * @param string $input
 	 * @param int $min
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function inRange($input, $min, $max) {
 		return ($input <= $max && $input >= $min);
@@ -443,8 +422,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param int $flags
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function ip($input, $flags = 0) {
 		return (bool) filter_var($input, FILTER_VALIDATE_IP, $flags);
@@ -454,8 +432,7 @@ class Validate {
 	 * Luhn algorithm.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 * @link http://en.wikipedia.org/wiki/Luhn_algorithm
 	 */
 	public static function luhn($input) {
@@ -483,14 +460,13 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string|array $mimes
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function mimeType($input, $mimes) {
 		if (self::file($input)) {
 			$path = $input['tmp_name'];
 
-		} elseif (file_exists($input)) {
+		} else if (file_exists($input)) {
 			$path = $input;
 
 		} else {
@@ -509,14 +485,13 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $min
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function minFilesize($input, $min) {
 		if (self::file($input)) {
 			$size = $input['size'];
 
-		} elseif (file_exists($input)) {
+		} else if (file_exists($input)) {
 			$size = filesize($input);
 
 		} else {
@@ -531,8 +506,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $min
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function minHeight($input, $min) {
 		return self::dimensions($input, 'minHeight', $min);
@@ -543,8 +517,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param int $min
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function minLength($input, $min) {
 		return (mb_strlen($input) >= $min);
@@ -555,8 +528,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $min
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function minWidth($input, $min) {
 		return self::dimensions($input, 'minWidth', $min);
@@ -567,14 +539,13 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function maxFilesize($input, $max) {
 		if (self::file($input)) {
 			$size = $input['size'];
 
-		} elseif (file_exists($input)) {
+		} else if (file_exists($input)) {
 			$size = filesize($input);
 
 		} else {
@@ -589,8 +560,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function maxHeight($input, $max) {
 		return self::dimensions($input, 'maxHeight', $max);
@@ -601,8 +571,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function maxLength($input, $max) {
 		return (mb_strlen($input) <= $max);
@@ -613,8 +582,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function maxWidth($input, $max) {
 		return self::dimensions($input, 'maxWidth', $max);
@@ -624,8 +592,7 @@ class Validate {
 	 * Validate input is not empty; zero's are not flagged as empty.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function notEmpty($input) {
 		return (!empty($input) || $input === 0 || $input === '0');
@@ -635,8 +602,7 @@ class Validate {
 	 * Validate input is numeric.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function numeric($input) {
 		return is_numeric($input);
@@ -647,8 +613,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function phone($input, $format = '/^(?:\+?1)?\s?(?:\([0-9]{3}\))?\s?[0-9]{3}-[0-9]{4}$/') {
 		return self::custom($input, $format);
@@ -659,8 +624,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function postalCode($input, $format = '/^[0-9]{5}(?:-[0-9]{4})?$/') {
 		return self::custom($input, $format);
@@ -671,8 +635,7 @@ class Validate {
 	 *
 	 * @param string $input
 	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function ssn($input, $format = '/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/') {
 		return self::custom($input, $format);
@@ -682,8 +645,7 @@ class Validate {
 	 * Validate input is a UUID.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function uuid($input) {
 		return self::custom($input, '/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i');
@@ -693,8 +655,7 @@ class Validate {
 	 * Validate input is a URL / website address.
 	 *
 	 * @param string $input
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function url($input) {
 		return (bool) filter_var($input, FILTER_VALIDATE_URL);
@@ -705,8 +666,7 @@ class Validate {
 	 *
 	 * @param array $input
 	 * @param int $size
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function width($input, $size) {
 		return self::dimensions($input, 'width', $size);

@@ -39,7 +39,6 @@ class Crypt {
 	 * @param string $key
 	 * @param int $operation
 	 * @return string
-	 * @static
 	 */
 	public static function blowfish($string, $key, $operation = self::ENCRYPT) {
 		if ($operation === self::ENCRYPT) {
@@ -58,7 +57,6 @@ class Crypt {
 	 * @param string $cipher
 	 * @param string $mode
 	 * @return string
-	 * @static
 	 */
 	public static function decrypt($string, $key, $cipher, $mode = MCRYPT_MODE_CBC) {
 		list($key, $iv) = self::_prepare($key, $cipher, $mode);
@@ -73,7 +71,6 @@ class Crypt {
 	 * @param string $key
 	 * @param int $operation
 	 * @return string
-	 * @static
 	 */
 	public static function des($string, $key, $operation = self::ENCRYPT) {
 		if ($operation === self::ENCRYPT) {
@@ -92,7 +89,6 @@ class Crypt {
 	 * @param string $cipher
 	 * @param string $mode
 	 * @return string
-	 * @static
 	 */
 	public static function encrypt($string, $key, $cipher, $mode = MCRYPT_MODE_CBC) {
 		list($key, $iv) = self::_prepare($key, $cipher, $mode);
@@ -108,7 +104,6 @@ class Crypt {
 	 * @param string $string
 	 * @param string $salt
 	 * @return string
-	 * @static
 	 */
 	public static function hash($cipher, $string, $salt = self::SALT) {
 		return hash_hmac($cipher, $string, $salt);
@@ -119,7 +114,6 @@ class Crypt {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function obfuscate($string) {
 		$string = (string) $string;
@@ -142,7 +136,6 @@ class Crypt {
 	 * @param string $key
 	 * @param int $operation
 	 * @return string
-	 * @static
 	 */
 	public static function rijndael($string, $key, $operation = self::ENCRYPT) {
 		if ($operation === self::ENCRYPT) {
@@ -159,7 +152,6 @@ class Crypt {
 	 * @param string $key
 	 * @param int $operation
 	 * @return string
-	 * @static
 	 */
 	public static function tripledes($string, $key, $operation = self::ENCRYPT) {
 		if ($operation === self::ENCRYPT) {
@@ -176,8 +168,7 @@ class Crypt {
 	 * @param string $key
 	 * @param string $cipher
 	 * @param string $mode
-	 * @return array
-	 * @static
+	 * @return string[]
 	 */
 	protected static function _prepare($key, $cipher, $mode) {
 		$keySize = mcrypt_get_key_size($cipher, $mode);

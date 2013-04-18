@@ -20,16 +20,15 @@ class Hash {
 	 * Has two methods of determining depth: based on recursive depth, or based on tab indentation (faster).
 	 *
 	 * @param array|object $set
-	 * @param boolean $recursive
+	 * @param bool $recursive
 	 * @return int
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function depth($set, $recursive = false) {
 		if (is_object($set)) {
-			$set = self::toArray($set);
+			$set = Converter::toArray($set);
 
-		} elseif (!is_array($set)) {
+		} else if (!is_array($set)) {
 			throw new Exception('Value passed must be an array');
 		}
 
@@ -75,10 +74,9 @@ class Hash {
 	 * If recursive is true, will apply the callback to nested arrays as well.
 	 *
 	 * @param array $set
-	 * @param Closure $callback
-	 * @param boolean $recursive
+	 * @param \Closure $callback
+	 * @param bool $recursive
 	 * @return array
-	 * @static
 	 */
 	public static function each($set, Closure $callback, $recursive = true) {
 		foreach ((array) $set as $key => $value) {
@@ -96,9 +94,8 @@ class Hash {
 	 * Returns true if every element in the array satisfies the provided testing function.
 	 *
 	 * @param array $set
-	 * @param Closure $callback
-	 * @return boolean
-	 * @static
+	 * @param \Closure $callback
+	 * @return bool
 	 */
 	public static function every($set, Closure $callback) {
 		foreach ((array) $set as $key => $value) {
@@ -115,7 +112,6 @@ class Hash {
 	 *
 	 * @param array $set
 	 * @return array
-	 * @static
 	 */
 	public static function expand($set) {
 		$data = array();
@@ -134,7 +130,6 @@ class Hash {
 	 * @param array $set
 	 * @param string $path
 	 * @return mixed
-	 * @static
 	 */
 	public static function extract($set, $path) {
 		if (!is_array($set) || !$set) {
@@ -153,7 +148,7 @@ class Hash {
 				return array_key_exists($key, $search) ? $search[$key] : null;
 
 			// Break out of non-existent paths early
-			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return null;
 			}
 
@@ -172,10 +167,9 @@ class Hash {
 	 * If $recursive is set to true, will remove all empty values within all sub-arrays.
 	 *
 	 * @param array $set
-	 * @param boolean $recursive
-	 * @param Closure $callback
-	 * @return mixed|array
-	 * @static
+	 * @param bool $recursive
+	 * @param \Closure $callback
+	 * @return array
 	 */
 	public static function filter($set, $recursive = true, Closure $callback = null) {
 		$set = (array) $set;
@@ -203,7 +197,6 @@ class Hash {
 	 * @param array $set
 	 * @param string $path
 	 * @return array
-	 * @static
 	 */
 	public static function flatten($set, $path = null) {
 		if ($path) {
@@ -232,10 +225,9 @@ class Hash {
 	 * If the value is empty/false/null and $truncate is true, that key will be removed.
 	 *
 	 * @param array $set
-	 * @param boolean $recursive
-	 * @param boolean $truncate
+	 * @param bool $recursive
+	 * @param bool $truncate
 	 * @return array
-	 * @static
 	 */
 	public static function flip($set, $recursive = true, $truncate = true) {
 		if (!is_array($set)) {
@@ -252,11 +244,11 @@ class Hash {
 					$data[$key] = self::flip($value, $truncate);
 				}
 
-			} elseif (is_int($key) && !$empty) {
+			} else if (is_int($key) && !$empty) {
 				$data[$value] = '';
 
 			} else {
-				if ($truncate === true && !$empty) {
+				if ($truncate && !$empty) {
 					$data[$value] = $key;
 				}
 			}
@@ -286,7 +278,6 @@ class Hash {
 	 * @param array $set
 	 * @param string $path
 	 * @return array
-	 * @static
 	 */
 	public static function has($set, $path) {
 		if (!is_array($set) || !$path) {
@@ -305,7 +296,7 @@ class Hash {
 				return array_key_exists($key, $search);
 
 			// Break out of non-existent paths early
-			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return false;
 			}
 
@@ -342,7 +333,6 @@ class Hash {
 	 * @param string $path
 	 * @param mixed $value
 	 * @return array
-	 * @static
 	 */
 	public static function insert($set, $path, $value) {
 		if (!is_array($set) || !$path) {
@@ -361,7 +351,7 @@ class Hash {
 				$search[$key] = $value;
 
 			// Break out of non-existent paths early
-			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				$search[$key] = array();
 			}
 
@@ -380,9 +370,8 @@ class Hash {
 	 * If $strict is true, method will fail if there are values that are numerical strings, but are not cast as integers.
 	 *
 	 * @param array $set
-	 * @param boolean $strict
-	 * @return boolean
-	 * @static
+	 * @param bool $strict
+	 * @return bool
 	 */
 	public static function isAlpha($set, $strict = true) {
 		return self::every($set, function($value, $key) use ($strict) {
@@ -404,8 +393,7 @@ class Hash {
 	 * Checks to see if all values in the array are numeric, returns false if not.
 	 *
 	 * @param array $set
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isNumeric($set) {
 		return self::every($set, function($value, $key) {
@@ -450,10 +438,9 @@ class Hash {
 	 * Additionally, the $function argument can be a string or array containing the class and method name.
 	 *
 	 * @param array $set
-	 * @param string|Closure $function
+	 * @param string|\Closure $function
 	 * @param array $args
 	 * @return array
-	 * @static
 	 */
 	public static function map($set, $function, $args = array()) {
 		foreach ((array) $set as $key => $value) {
@@ -476,8 +463,7 @@ class Hash {
 	 *
 	 * @param array $set1
 	 * @param array $set2
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function matches($set1, $set2) {
 		return ((array) $set1 === (array) $set2);
@@ -488,7 +474,6 @@ class Hash {
 	 * the previous value will be overwritten instead of being added into an array. The later array takes precedence when merging.
 	 *
 	 * @return array
-	 * @static
 	 */
 	public static function merge() {
 		$sets = func_get_args();
@@ -501,7 +486,7 @@ class Hash {
 						if (is_array($value) && is_array($data[$key])) {
 							$data[$key] = self::merge($data[$key], $value);
 
-						} elseif (is_int($key)) {
+						} else if (is_int($key)) {
 							array_push($data, $value);
 
 						} else {
@@ -522,8 +507,7 @@ class Hash {
 	 *
 	 * @param array $set1 - The base array
 	 * @param array $set2 - The array to overwrite the base array
-	 * @return null|array
-	 * @static
+	 * @return array
 	 */
 	public static function overwrite($set1, $set2) {
 		if (!is_array($set1) || !is_array($set2)) {
@@ -551,7 +535,6 @@ class Hash {
 	 * @param array $set
 	 * @param string $path
 	 * @return array
-	 * @static
 	 */
 	public static function pluck($set, $path) {
 		$data = array();
@@ -571,9 +554,8 @@ class Hash {
 	 * @param int $start
 	 * @param int $stop
 	 * @param int $step
-	 * @param boolean $index
+	 * @param bool $index
 	 * @return array
-	 * @static
 	 */
 	public static function range($start, $stop, $step = 1, $index = true) {
 		$array = array();
@@ -587,7 +569,7 @@ class Hash {
 				}
 			}
 
-		} elseif ($stop < $start) {
+		} else if ($stop < $start) {
 			for ($i = $start; $i >= $stop; $i -= $step) {
 				if ($index) {
 					$array[$i] = $i;
@@ -606,7 +588,6 @@ class Hash {
 	 * @param array $set
 	 * @param string $path
 	 * @return array
-	 * @static
 	 */
 	public static function remove($set, $path) {
 		if (!is_array($set) || !$path) {
@@ -626,7 +607,7 @@ class Hash {
 				return $set;
 
 			// Break out of non-existent paths early
-			} elseif (!array_key_exists($key, $search) || !is_array($search[$key])) {
+			} else if (!array_key_exists($key, $search) || !is_array($search[$key])) {
 				return $set;
 			}
 
@@ -647,7 +628,6 @@ class Hash {
 	 * @param array|string $path
 	 * @param mixed $value
 	 * @return array
-	 * @static
 	 */
 	public static function set($set, $path, $value = null) {
 		if (is_array($path)) {
@@ -665,9 +645,8 @@ class Hash {
 	 * Returns true if at least one element in the array satisfies the provided testing function.
 	 *
 	 * @param array $set
-	 * @param Closure $callback
-	 * @return boolean
-	 * @static
+	 * @param \Closure $callback
+	 * @return bool
 	 */
 	public static function some($set, Closure $callback) {
 		$pass = false;
@@ -682,80 +661,6 @@ class Hash {
 		}
 
 		return $pass;
-	}
-
-	/**
-	 * Transforms a multi/single-dimensional object into a mirrored array.
-	 * Only public class properties will be parsed into the array.
-	 *
-	 * @param object $object
-	 * @return array
-	 * @throws \Titon\Utility\Exception
-	 * @static
-	 */
-	public static function toArray($object) {
-		if (is_array($object)) {
-			return $object;
-
-		} elseif (!is_object($object)) {
-			throw new Exception('Value passed must be an object');
-		}
-
-		$array = get_object_vars($object);
-
-		foreach ($array as $key => $value) {
-			if (is_object($value)) {
-				$array[$key] = self::toArray($value);
-			}
-		}
-
-		return $array;
-	}
-
-	/**
-	 * Transforms a multi/single-dimensional array into a mirrored object.
-	 *
-	 * @param array $array
-	 * @return object
-	 * @throws \Titon\Utility\Exception
-	 * @static
-	 */
-	public static function toObject($array) {
-		if (is_object($array)) {
-			return $array;
-
-		} elseif (!is_array($array)) {
-			throw new Exception('Value passed must be an array');
-		}
-
-		$object = (object) $array;
-
-		foreach ($object as $key => $value) {
-			if (is_array($value)) {
-				$object->{$key} = self::toObject($value);
-			}
-		}
-
-		return $object;
-	}
-
-	/**
-	 * Convenience function for converting an object to array, or array to object.
-	 *
-	 * @param array|object $set
-	 * @return array|object
-	 * @static
-	 */
-	public static function transform($set) {
-		if (is_object($set)) {
-			return self::toArray($set);
-
-		} elseif (is_array($set)) {
-			return self::toObject($set);
-
-		} else {
-			return $set;
-		}
 	}
 
 }

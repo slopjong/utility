@@ -32,7 +32,6 @@ class Time {
 	 * @param string|int $time1
 	 * @param string|int $time2
 	 * @return int
-	 * @static
 	 */
 	public static function difference($time1, $time2) {
 		return self::toUnix($time1) - self::toUnix($time2);
@@ -44,7 +43,6 @@ class Time {
 	 * @param string|int $time
 	 * @param string $timezone
 	 * @return \DateTime
-	 * @static
 	 */
 	public static function factory($time = null, $timezone = null) {
 		return new DateTime($time, self::timezone($timezone));
@@ -53,9 +51,8 @@ class Time {
 	/**
 	 * Returns true if date passed is today.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function isToday($time) {
 		return (date('Ymd', self::toUnix($time)) === date('Ymd'));
@@ -64,9 +61,8 @@ class Time {
 	/**
 	 * Returns true if date passed is within this week.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function isThisWeek($time) {
 		return (date('Wo', self::toUnix($time)) === date('Wo'));
@@ -75,9 +71,8 @@ class Time {
 	/**
 	 * Returns true if date passed is within this month.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function isThisMonth($time) {
 		return (date('mY', self::toUnix($time)) === date('mY'));
@@ -86,9 +81,8 @@ class Time {
 	/**
 	 * Returns true if date passed is within this year.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function isThisYear($time) {
 		return (date('Y', self::toUnix($time)) === date('Y'));
@@ -97,9 +91,8 @@ class Time {
 	/**
 	 * Returns true if date passed is tomorrow.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function isTomorrow($time) {
 		return (date('Ymd', self::toUnix($time)) === date('Ymd', strtotime('tomorrow')));
@@ -108,9 +101,9 @@ class Time {
 	/**
 	 * Returns true if the date passed will be within the next time frame span.
 	 *
-	 * @param mixed $time
+	 * @param string|int $time
 	 * @param int $span
-	 * @return boolean
+	 * @return bool
 	 * static
 	 */
 	public static function isWithinNext($time, $span) {
@@ -125,7 +118,6 @@ class Time {
 	 *
 	 * @param string $timezone
 	 * @return \DateTimeZone
-	 * @static
 	 */
 	public static function timezone($timezone = null) {
 		if (!$timezone) {
@@ -140,13 +132,12 @@ class Time {
 	 *
 	 * @param int|string $time
 	 * @return int
-	 * @static
 	 */
 	public static function toUnix($time) {
 		if (!$time) {
 			return time();
 
-		} elseif ($time instanceof DateTime) {
+		} else if ($time instanceof DateTime) {
 			return $time->format('U');
 		}
 
@@ -156,9 +147,8 @@ class Time {
 	/**
 	 * Returns true if date passed was within last week.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function wasLastWeek($time) {
 		return (date('Wo', self::toUnix($time)) === date('Wo', strtotime('last week')));
@@ -167,9 +157,8 @@ class Time {
 	/**
 	 * Returns true if date passed was within last month.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function wasLastMonth($time) {
 		return (date('mY', self::toUnix($time)) === date('mY', strtotime('last month')));
@@ -178,9 +167,8 @@ class Time {
 	/**
 	 * Returns true if date passed was within last year.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function wasLastYear($time) {
 		return (date('Y', self::toUnix($time)) === date('Y', strtotime('last year')));
@@ -189,9 +177,8 @@ class Time {
 	/**
 	 * Returns true if date passed was yesterday.
 	 *
-	 * @param mixed $time
-	 * @return boolean
-	 * @static
+	 * @param string|int $time
+	 * @return bool
 	 */
 	public static function wasYesterday($time) {
 		return (date('Ymd', self::toUnix($time)) === date('Ymd', strtotime('yesterday')));
@@ -200,10 +187,9 @@ class Time {
 	/**
 	 * Returns true if the date passed was within the last time frame span.
 	 *
-	 * @param mixed $time
+	 * @param string|int $time
 	 * @param int $span
-	 * @return boolean
-	 * static
+	 * @return bool
 	 */
 	public static function wasWithinLast($time, $span) {
 		$time = self::toUnix($time);

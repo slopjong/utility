@@ -20,7 +20,6 @@ class Format {
 	 *
 	 * @param string|int $time
 	 * @return string
-	 * @static
 	 */
 	public static function atom($time) {
 		return date(DateTime::ATOM, Time::toUnix($time));
@@ -32,7 +31,6 @@ class Format {
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
-	 * @static
 	 */
 	public static function date($time, $format = '%Y-%m-%d') {
 		return strftime($format, Time::toUnix($time));
@@ -44,7 +42,6 @@ class Format {
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
-	 * @static
 	 */
 	public static function datetime($time, $format = '%Y-%m-%d %H:%M:%S') {
 		return strftime($format, Time::toUnix($time));
@@ -61,8 +58,7 @@ class Format {
 	 *
 	 * @param int|string $value
 	 * @param string $format
-	 * @return mixed
-	 * @static
+	 * @return string
 	 */
 	public static function format($value, $format) {
 		$value = (string) $value;
@@ -88,7 +84,6 @@ class Format {
 	 *
 	 * @param string|int $time
 	 * @return string
-	 * @static
 	 */
 	public static function http($time) {
 		return gmdate('D, d M Y H:i:s T', Time::toUnix($time));
@@ -101,7 +96,6 @@ class Format {
 	 * @param int $value
 	 * @param string $format
 	 * @return string
-	 * @static
 	 */
 	public static function phone($value, $format) {
 		$value = preg_replace('/[^0-9]+/', '', $value);
@@ -111,7 +105,7 @@ class Format {
 
 			if ($length >= 11) {
 				$format = $format[11];
-			} elseif ($length >= 10) {
+			} else if ($length >= 10) {
 				$format = $format[10];
 			} else {
 				$format = $format[7];
@@ -127,7 +121,6 @@ class Format {
 	 * @param string|int $time
 	 * @param array $options
 	 * @return string
-	 * @static
 	 */
 	public static function relativeTime($time, array $options = array()) {
 		$defaults = array(
@@ -165,23 +158,23 @@ class Format {
 				$key = 'years';
 				$div = Time::YEAR;
 
-			} elseif ($seconds >= Time::MONTH) {
+			} else if ($seconds >= Time::MONTH) {
 				$key = 'months';
 				$div = Time::MONTH;
 
-			} elseif ($seconds >= Time::WEEK) {
+			} else if ($seconds >= Time::WEEK) {
 				$key = 'weeks';
 				$div = Time::WEEK;
 
-			} elseif ($seconds >= Time::DAY) {
+			} else if ($seconds >= Time::DAY) {
 				$key = 'days';
 				$div = Time::DAY;
 
-			} elseif ($seconds >= Time::HOUR) {
+			} else if ($seconds >= Time::HOUR) {
 				$key = 'hours';
 				$div = Time::HOUR;
 
-			} elseif ($seconds >= Time::MINUTE) {
+			} else if ($seconds >= Time::MINUTE) {
 				$key = 'minutes';
 				$div = Time::MINUTE;
 
@@ -220,7 +213,6 @@ class Format {
 	 *
 	 * @param string|int $time
 	 * @return string
-	 * @static
 	 */
 	public static function rss($time) {
 		return date(DateTime::RSS, Time::toUnix($time));
@@ -232,7 +224,6 @@ class Format {
 	 * @param string|int $value
 	 * @param string $format
 	 * @return string
-	 * @static
 	 */
 	public static function ssn($value, $format) {
 		return self::format($value, $format);
@@ -244,7 +235,6 @@ class Format {
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
-	 * @static
 	 */
 	public static function time($time, $format = '%H:%M:%S') {
 		return strftime($format, Time::toUnix($time));

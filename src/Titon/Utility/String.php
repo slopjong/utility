@@ -33,7 +33,6 @@ class String {
 	 * @param string $string
 	 * @param int $index
 	 * @return string
-	 * @static
 	 */
 	public static function charAt($string, $index) {
 		return isset($string[$index]) ? $string[$index] : null;
@@ -44,10 +43,9 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $value
-	 * @param boolean $strict
+	 * @param bool $strict
 	 * @param int $length
 	 * @return int
-	 * @static
 	 */
 	public static function compare($string, $value, $strict = true, $length = 0) {
 		$string = (string) $string;
@@ -73,10 +71,9 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $needle
-	 * @param boolean $strict
+	 * @param bool $strict
 	 * @param int $offset
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function contains($string, $needle, $strict = true, $offset = 0) {
 		return (self::indexOf($string, $needle, $strict, $offset) !== false);
@@ -87,9 +84,8 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $needle
-	 * @param boolean $strict
-	 * @return boolean
-	 * @static
+	 * @param bool $strict
+	 * @return bool
 	 */
 	public static function endsWith($string, $needle, $strict = true) {
 		$end = self::extract($string, -mb_strlen($needle));
@@ -108,7 +104,6 @@ class String {
 	 * @param int $offset
 	 * @param int $length
 	 * @return string
-	 * @static
 	 */
 	public static function extract($string, $offset, $length = null) {
 		if ($length) {
@@ -124,7 +119,6 @@ class String {
 	 * @param int $length
 	 * @param string $seed
 	 * @return string
-	 * @static
 	 */
 	public static function generate($length, $seed = self::ALNUM) {
 		$return = '';
@@ -143,10 +137,9 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $needle
-	 * @param boolean $strict
+	 * @param bool $strict
 	 * @param int $offset
 	 * @return int
-	 * @static
 	 */
 	public static function indexOf($string, $needle, $strict = true, $offset = 0) {
 		if ($strict) {
@@ -163,7 +156,6 @@ class String {
 	 * @param array $data
 	 * @param array $options
 	 * @return string
-	 * @static
 	 */
 	public static function insert($string, array $data, array $options = array()) {
 		$options = $options + array(
@@ -188,10 +180,9 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $needle
-	 * @param boolean $strict
+	 * @param bool $strict
 	 * @param int $offset
 	 * @return int
-	 * @static
 	 */
 	public static function lastIndexOf($string, $needle, $strict = true, $offset = 0) {
 		if ($strict) {
@@ -208,7 +199,6 @@ class String {
 	 * @param string $glue
 	 * @param string $sep
 	 * @return string
-	 * @static
 	 */
 	public static function listing($items, $glue = ' &amp; ', $sep = ', ') {
 		if (is_array($items)) {
@@ -232,7 +222,6 @@ class String {
 	 * @param int $limit
 	 * @param string $glue
 	 * @return string
-	 * @static
 	 */
 	public static function shorten($string, $limit = 25, $glue = ' &hellip; ') {
 		if (mb_strlen($string) > $limit) {
@@ -263,9 +252,8 @@ class String {
 	 *
 	 * @param string $string
 	 * @param string $needle
-	 * @param boolean $strict
-	 * @return boolean
-	 * @static
+	 * @param bool $strict
+	 * @return bool
 	 */
 	public static function startsWith($string, $needle, $strict = true) {
 		$start = self::extract($string, 0, mb_strlen($needle));
@@ -283,14 +271,13 @@ class String {
 	 * @param string $string
 	 * @param int $limit
 	 * @param array $options
-	 * 		html: True to preserve HTML tags
-	 * 		word: True to preserve trailing words
-	 * 		suffix: Will be appended to the end of the output
-	 * 		prefix: Will be appended to the beginning of the out output
-	 * 		open: The opening tag (defaults to < HTML)
-	 * 		close: The closing tag (defaults to > HTML)
+	 * 		html - (bool) True to preserve HTML tags
+	 * 		word - (bool) True to preserve trailing words
+	 * 		suffix - (string) Will be appended to the end of the output
+	 * 		prefix - (string) Will be appended to the beginning of the out output
+	 * 		open - (string) The opening tag (defaults to < HTML)
+	 * 		close - (string) The closing tag (defaults to > HTML)
 	 * @return string
-	 * @static
 	 */
 	public static function truncate($string, $limit = 25, array $options = array()) {
 		$options = $options + array(
@@ -332,7 +319,7 @@ class String {
 				$tokens[] = $token;
 				$token = $char;
 
-			} elseif ($char === $close || $char === ';') {
+			} else if ($char === $close || $char === ';') {
 				$tokens[] = $token . $char;
 				$token = '';
 
@@ -359,7 +346,7 @@ class String {
 				$output .= $token;
 
 			// Increase limit by 0 for HTML tags but check for tag boundaries
-			} elseif (preg_match($htmlPattern, $token, $matches)) {
+			} else if (preg_match($htmlPattern, $token, $matches)) {
 				$inHtml = (mb_substr($token, 0, 2) !== $open . '/');
 				$output .= $token;
 
@@ -370,7 +357,7 @@ class String {
 				if ($current >= $limit) {
 					// Do nothing, we reached the limit
 
-				} elseif (($current + $length) >= $limit) {
+				} else if (($current + $length) >= $limit) {
 					$allowed = ($limit - $current);
 					$output .= mb_substr($token, 0, $allowed);
 					$current += $allowed;

@@ -18,7 +18,6 @@ class Inflector {
 	 * Cached inflections for all methods.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $_cache = array();
 
@@ -27,7 +26,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function camelCase($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -40,7 +38,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function className($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -53,9 +50,8 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @param string $ext
-	 * @param boolean $capitalize
+	 * @param bool $capitalize
 	 * @return string
-	 * @static
 	 */
 	public static function fileName($string, $ext = 'php', $capitalize = true) {
 		if (mb_strpos($string, '.') !== false) {
@@ -80,7 +76,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function normalCase($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -93,7 +88,6 @@ class Inflector {
 	 *
 	 * @param int $number
 	 * @return string
-	 * @static
 	 */
 	public static function ordinal($number) {
 		return $number;
@@ -104,7 +98,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function pluralize($string) {
 		return $string;
@@ -115,7 +108,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function route($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -128,7 +120,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function singularize($string) {
 		return $string;
@@ -139,7 +130,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function slug($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -161,7 +151,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function tableName($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -174,7 +163,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function titleCase($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -187,7 +175,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function transliterate($string) {
 		return $string;
@@ -198,7 +185,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function underscore($string) {
 		return self::_cache(array(__METHOD__, $string), function() use ($string) {
@@ -211,7 +197,6 @@ class Inflector {
 	 *
 	 * @param string $string
 	 * @return string
-	 * @static
 	 */
 	public static function variable($string) {
 		$string = preg_replace('/[^_a-z0-9]+/i', '', $string);
@@ -227,9 +212,8 @@ class Inflector {
 	 * Cache the result of an inflection by using a Closure.
 	 *
 	 * @param string|array $key
-	 * @param Closure $callback
+	 * @param \Closure $callback
 	 * @return mixed
-	 * @static
 	 */
 	protected static function _cache($key, Closure $callback) {
 		if (is_array($key)) {

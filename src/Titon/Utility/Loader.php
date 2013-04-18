@@ -18,7 +18,6 @@ class Loader {
 	 * @param string $class
 	 * @param string $separator
 	 * @return string
-	 * @static
 	 */
 	public static function baseClass($class, $separator = '\\') {
 		return self::stripExt(trim(mb_strrchr($class, $separator), $separator));
@@ -30,7 +29,6 @@ class Loader {
 	 * @param string $class
 	 * @param string $separator
 	 * @return string
-	 * @static
 	 */
 	public static function baseNamespace($class, $separator = '\\') {
 		$class = self::toNamespace($class);
@@ -42,9 +40,8 @@ class Loader {
 	 * Converts OS directory separators to the standard forward slash.
 	 *
 	 * @param string $path
-	 * @param boolean $endSlash
+	 * @param bool $endSlash
 	 * @return string
-	 * @static
 	 */
 	public static function ds($path, $endSlash = false) {
 		$path = str_replace('\\', '/', $path);
@@ -61,7 +58,6 @@ class Loader {
 	 *
 	 * @param string $path
 	 * @return string
-	 * @static
 	 */
 	public static function ext($path) {
 		return mb_strtolower(pathinfo($path, PATHINFO_EXTENSION));
@@ -71,8 +67,6 @@ class Loader {
 	 * Define additional include paths for PHP to detect within.
 	 *
 	 * @param string|array $paths
-	 * @return void
-	 * @static
 	 */
 	public static function includePath($paths) {
 		$current = array(get_include_path());
@@ -93,7 +87,6 @@ class Loader {
 	 *
 	 * @param string $path
 	 * @return string
-	 * @static
 	 */
 	public static function stripExt($path) {
 		if (mb_strpos($path, '.') !== false) {
@@ -108,7 +101,6 @@ class Loader {
 	 *
 	 * @param string $path
 	 * @return string
-	 * @static
 	 */
 	public static function toNamespace($path) {
 		$path = self::ds(self::stripExt($path));
@@ -127,11 +119,10 @@ class Loader {
 	 *
 	 * @param string $path
 	 * @param string $ext
-	 * @param mixed $root
+	 * @param string $root
 	 * @return string
-	 * @static
 	 */
-	public static function toPath($path, $ext = 'php', $root = false) {
+	public static function toPath($path, $ext = 'php', $root = '') {
 		$path = self::ds($path);
 		$dirs = explode('/', $path);
 		$file = array_pop($dirs);

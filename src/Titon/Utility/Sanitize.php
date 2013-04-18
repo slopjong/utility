@@ -17,7 +17,6 @@ class Sanitize {
 	 *
 	 * @param string $value
 	 * @return string
-	 * @static
 	 */
 	public static function email($value) {
 		return (string) filter_var($value, FILTER_SANITIZE_EMAIL);
@@ -32,7 +31,6 @@ class Sanitize {
 	 * 		flags		- (int) Encoding flags; defaults to ENT_QUOTES
 	 * 		double		- (bool) Will convert existing entities
 	 * @return string
-	 * @static
 	 */
 	public static function escape($value, array $options = array()) {
 		$options = $options + array(
@@ -49,7 +47,6 @@ class Sanitize {
 	 *
 	 * @param string $value
 	 * @return string
-	 * @static
 	 */
 	public static function float($value) {
 		return (float) filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC);
@@ -63,7 +60,6 @@ class Sanitize {
 	 * 		strip		- (bool) Will remove HTML tags
 	 * 		whitelist	- (string) List of tags to not strip
 	 * @return string
-	 * @static
 	 */
 	public static function html($value, array $options = array()) {
 		$options = $options + array(
@@ -83,7 +79,6 @@ class Sanitize {
 	 *
 	 * @param string $value
 	 * @return string
-	 * @static
 	 */
 	public static function integer($value) {
 		return (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
@@ -100,7 +95,6 @@ class Sanitize {
 	 * 		limit	- (int) The start limit to remove extraneous characters
 	 * 		trim	- (bool) Will remove whitespace and newlines around the edges
 	 * @return string
-	 * @static
 	 */
 	public static function newlines($value, array $options = array()) {
 		$options = $options + array(
@@ -143,7 +137,6 @@ class Sanitize {
 	 *
 	 * @param string $value
 	 * @return string
-	 * @static
 	 */
 	public static function url($value) {
 		return filter_var($value, FILTER_SANITIZE_URL);
@@ -160,7 +153,6 @@ class Sanitize {
 	 * 		strip	- (bool) Will remove non-standard white space character
 	 * 		trim	- (bool) Will remove whitespace and newlines around the edges
 	 * @return string
-	 * @static
 	 */
 	public static function whitespace($value, array $options = array()) {
 		$options = $options + array(
@@ -205,7 +197,6 @@ class Sanitize {
 	 * @param string $value
 	 * @param array $options
 	 * @return string
-	 * @static
 	 */
 	public static function xss($value, array $options = array()) {
 		$options = $options + array('strip' => true);

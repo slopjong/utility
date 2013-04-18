@@ -152,7 +152,7 @@ class Validator {
 	/**
 	 * Validate the data against the rules schema. Return true if all fields passed validation.
 	 *
-	 * @return boolean
+	 * @return bool
 	 * @throws \Titon\Utility\Exception
 	 */
 	public function validate() {

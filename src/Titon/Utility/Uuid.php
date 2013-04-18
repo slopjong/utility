@@ -20,7 +20,6 @@ class Uuid {
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function v1() {
 		throw new Exception('UUID version 1 has not been implemented yet');
@@ -31,7 +30,6 @@ class Uuid {
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function v2() {
 		throw new Exception('UUID version 2 has not been implemented yet');
@@ -42,7 +40,6 @@ class Uuid {
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function v3() {
 		throw new Exception('UUID version 3 has not been implemented yet');
@@ -53,7 +50,6 @@ class Uuid {
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function v4() {
 		return sprintf('%s-%s-%s%s-%s%s-%s',
@@ -71,7 +67,6 @@ class Uuid {
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
-	 * @static
 	 */
 	public static function v5() {
 		throw new Exception('UUID version 5 has not been implemented yet');

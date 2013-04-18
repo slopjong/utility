@@ -27,13 +27,12 @@ class Number {
 	 *
 	 * @param int $number
 	 * @return int
-	 * @static
 	 */
 	public static function bytesFrom($number) {
 		if (!$number) {
 			return 0;
 
-		} elseif (is_numeric($number)) {
+		} else if (is_numeric($number)) {
 			return $number;
 		}
 
@@ -71,7 +70,6 @@ class Number {
 	 * @param int $size
 	 * @param int $precision
 	 * @return string
-	 * @static
 	 */
 	public static function bytesTo($size, $precision = 0) {
 		$sizes = array('YB', 'ZB', 'EB', 'PB', 'TB', 'GB', 'MB', 'KB', 'B');
@@ -91,7 +89,6 @@ class Number {
 	 * @param int $fromBase
 	 * @param int $toBase
 	 * @return int
-	 * @static
 	 */
 	public static function convert($no, $fromBase, $toBase) {
 		if ($fromBase == $toBase) {
@@ -108,7 +105,6 @@ class Number {
 	 * @param int $number
 	 * @param array $options
 	 * @return string
-	 * @static
 	 */
 	public static function currency($number, array $options = array()) {
 		$defaults = array(
@@ -152,8 +148,7 @@ class Number {
 	 * @param int $number
 	 * @param int $min
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function in($number, $min, $max) {
 		return ($number >= $min && $number <= $max);
@@ -163,8 +158,7 @@ class Number {
 	 * Is the current value even?
 	 *
 	 * @param int $number
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isEven($number) {
 		return ($number % 2 === 0);
@@ -174,8 +168,7 @@ class Number {
 	 * Is the current value negative; less than zero.
 	 *
 	 * @param int $number
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isNegative($number) {
 		return ($number < 0);
@@ -185,8 +178,7 @@ class Number {
 	 * Is the current value odd?
 	 *
 	 * @param int $number
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isOdd($number) {
 		return !self::isEven($number);
@@ -196,9 +188,8 @@ class Number {
 	 * Is the current value positive; greater than or equal to zero.
 	 *
 	 * @param int $number
-	 * @param boolean $zero
-	 * @return boolean
-	 * @static
+	 * @param bool $zero
+	 * @return bool
 	 */
 	public static function isPositive($number, $zero = true) {
 		return ($zero ? ($number >= 0) : ($number > 0));
@@ -211,7 +202,6 @@ class Number {
 	 * @param int $min
 	 * @param int $max
 	 * @return int
-	 * @static
 	 */
 	public static function limit($number, $min, $max) {
 		return self::max(self::min($number, $min), $max);
@@ -223,7 +213,6 @@ class Number {
 	 * @param int $number
 	 * @param int $min
 	 * @return int
-	 * @static
 	 */
 	public static function min($number, $min) {
 		if ($number < $min) {
@@ -239,7 +228,6 @@ class Number {
 	 * @param int $number
 	 * @param int $max
 	 * @return int
-	 * @static
 	 */
 	public static function max($number, $max) {
 		if ($number > $max) {
@@ -255,8 +243,7 @@ class Number {
 	 * @param int $number
 	 * @param int $min
 	 * @param int $max
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function out($number, $min, $max) {
 		return ($number < $min || $number > $max);
@@ -268,20 +255,17 @@ class Number {
 	 * @param int $number
 	 * @param int|array $options
 	 * @return string
-	 * @static
 	 */
 	public static function percentage($number, $options = array()) {
-		if (is_numeric($options)) {
+		if (!is_array($options)) {
 			$options = array('places' => $options);
 		}
 
-		$defaults = array(
+		$options = (array) $options + array(
 			'thousands' => ',',
 			'decimals' => '.',
 			'places' => 2
 		);
-
-		$options = (array) $options + $defaults;
 
 		return number_format(self::precision($number, $options['places']), $options['places'], $options['decimals'], $options['thousands']) . '%';
 	}
@@ -292,7 +276,6 @@ class Number {
 	 * @param float $number
 	 * @param int $precision
 	 * @return float
-	 * @static
 	 */
 	public static function precision($number, $precision = 2) {
 		return sprintf('%01.' . $precision . 'F', $number);
@@ -303,13 +286,12 @@ class Number {
 	 *
 	 * @param int $number
 	 * @return int
-	 * @static
 	 */
 	public static function signum($number) {
 		if ($number < 0) {
 			return -1;
 
-		} elseif ($number == 0) {
+		} else if ($number == 0) {
 			return 0;
 
 		} else {
@@ -323,7 +305,6 @@ class Number {
 	 * @param int $number
 	 * @param int $base
 	 * @return int
-	 * @static
 	 */
 	public static function toBinary($number, $base = self::DECIMAL) {
 		return self::convert($number, $base, self::BINARY);
@@ -335,7 +316,6 @@ class Number {
 	 * @param int $number
 	 * @param int $base
 	 * @return int
-	 * @static
 	 */
 	public static function toDecimal($number, $base = self::DECIMAL) {
 		return self::convert($number, $base, self::DECIMAL);
@@ -347,7 +327,6 @@ class Number {
 	 * @param int $number
 	 * @param int $base
 	 * @return string
-	 * @static
 	 */
 	public static function toHex($number, $base = self::DECIMAL) {
 		return self::convert($number, $base, self::HEX);
@@ -359,7 +338,6 @@ class Number {
 	 * @param int $number
 	 * @param int $base
 	 * @return string
-	 * @static
 	 */
 	public static function toOctal($number, $base = self::DECIMAL) {
 		return self::convert($number, $base, self::OCTAL);

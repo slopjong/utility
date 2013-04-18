@@ -40,7 +40,6 @@ class Converter {
 	 *
 	 * @param mixed $value
 	 * @return mixed
-	 * @static
 	 */
 	public static function autobox($value) {
 		if (is_numeric($value)) {
@@ -50,11 +49,10 @@ class Converter {
 			} else {
 				return (int) $value;
 			}
-
-		} elseif (is_bool($value)) {
+		} else if (is_bool($value)) {
 			return (bool) $value;
 
-		} elseif ($value === 'true' || $value === 'false') {
+		} else if ($value === 'true' || $value === 'false') {
 			return ($value === 'true');
 		}
 
@@ -66,11 +64,10 @@ class Converter {
 	 *
 	 * @param mixed $value
 	 * @return string
-	 * @static
 	 */
 	public static function unbox($value) {
 		if (is_bool($value)) {
-			return ($value === true) ? 'true' : 'false';
+			return $value ? 'true' : 'false';
 		}
 
 		return (string) $value;
@@ -81,41 +78,33 @@ class Converter {
 	 *
 	 * @param mixed $data
 	 * @return string
-	 * @static
 	 */
 	public static function is($data) {
 		if (self::isArray($data)) {
 			return 'array';
 
-		} elseif (self::isObject($data)) {
+		} else if (self::isObject($data)) {
 			return 'object';
 
-		} elseif (self::isJson($data)) {
+		} else if (self::isJson($data)) {
 			return 'json';
 
-		} elseif (self::isSerialized($data)) {
+		} else if (self::isSerialized($data)) {
 			return 'serialized';
 
-		} elseif (self::isXml($data)) {
+		} else if (self::isXml($data)) {
 			return 'xml';
 		}
 
 		// Attempt other types
-		foreach (array('bool', 'double', 'float', 'int', 'long', 'null', 'resource') as $type) {
-			if (call_user_func('is_' . $type, $data)) {
-				return $type;
-			}
-		}
-
-		return 'other';
+		return strtolower(gettype($data));
 	}
 
 	/**
 	 * Check to see if data passed is an array.
 	 *
 	 * @param mixed $data
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isArray($data) {
 		return is_array($data);
@@ -126,7 +115,6 @@ class Converter {
 	 *
 	 * @param mixed $data
 	 * @return mixed
-	 * @static
 	 */
 	public static function isJson($data) {
 		$json = @json_decode($data, true);
@@ -138,8 +126,7 @@ class Converter {
 	 * Check to see if data passed is an object.
 	 *
 	 * @param mixed $data
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public static function isObject($data) {
 		return is_object($data);
@@ -150,7 +137,6 @@ class Converter {
 	 *
 	 * @param mixed $data
 	 * @return mixed
-	 * @static
 	 */
 	public static function isSerialized($data) {
 		$ser = @unserialize($data);
@@ -163,7 +149,6 @@ class Converter {
 	 *
 	 * @param mixed $data
 	 * @return \SimpleXmlElement
-	 * @static
 	 */
 	public static function isXml($data) {
 		$xml = @simplexml_load_string($data);
@@ -175,24 +160,23 @@ class Converter {
 	 * Transforms a resource into an array.
 	 *
 	 * @param mixed $resource
-	 * @param boolean $recursive
+	 * @param bool $recursive
 	 * @return array
-	 * @static
 	 */
 	public static function toArray($resource, $recursive = false) {
 		if (self::isArray($resource)) {
 			return $recursive ? self::buildArray($resource) : $resource;
 
-		} elseif (self::isObject($resource)) {
+		} else if (self::isObject($resource)) {
 			return self::buildArray($resource);
 
-		} elseif ($json = self::isJson($resource)) {
+		} else if ($json = self::isJson($resource)) {
 			$resource = $json;
 
-		} elseif ($ser = self::isSerialized($resource)) {
+		} else if ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 
-		} elseif ($xml = self::isXml($resource)) {
+		} else if ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 		}
 
@@ -204,7 +188,6 @@ class Converter {
 	 *
 	 * @param mixed $resource
 	 * @return string
-	 * @static
 	 */
 	public static function toJson($resource) {
 		if (self::isJson($resource)) {
@@ -214,10 +197,10 @@ class Converter {
 		if (self::isObject($resource)) {
 			$resource = self::buildArray($resource);
 
-		} elseif ($xml = self::isXml($resource)) {
+		} else if ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 
-		} elseif ($ser = self::isSerialized($resource)) {
+		} else if ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 		}
 
@@ -228,9 +211,8 @@ class Converter {
 	 * Transforms a resource into an object.
 	 *
 	 * @param mixed $resource
-	 * @param boolean $recursive
+	 * @param bool $recursive
 	 * @return object
-	 * @static
 	 */
 	public static function toObject($resource, $recursive = false) {
 		if (self::isObject($resource)) {
@@ -238,16 +220,16 @@ class Converter {
 				return $resource;
 			}
 
-		} elseif (self::isArray($resource)) {
+		} else if (self::isArray($resource)) {
 			// Continue
 
-		} elseif ($json = self::isJson($resource)) {
+		} else if ($json = self::isJson($resource)) {
 			$resource = $json;
 
-		} elseif ($ser = self::isSerialized($resource)) {
+		} else if ($ser = self::isSerialized($resource)) {
 			$resource = $ser;
 
-		} elseif ($xml = self::isXml($resource)) {
+		} else if ($xml = self::isXml($resource)) {
 			$resource = self::xmlToArray($xml);
 		}
 
@@ -259,7 +241,6 @@ class Converter {
 	 *
 	 * @param mixed $resource
 	 * @return string
-	 * @static
 	 */
 	public static function toSerialize($resource) {
 		return serialize(self::toArray($resource));
@@ -271,7 +252,6 @@ class Converter {
 	 * @param mixed $resource
 	 * @param string $root
 	 * @return string
-	 * @static
 	 */
 	public static function toXml($resource, $root = 'root') {
 		if (self::isXml($resource)) {
@@ -356,7 +336,7 @@ class Converter {
 					}
 
 				// XML_GROUP
-				} elseif (isset($value['attributes'])) {
+				} else if (isset($value['attributes'])) {
 					if (is_array($value['value'])) {
 						$node = $xml->addChild($key);
 						self::buildXml($node, $value['value']);
@@ -371,7 +351,7 @@ class Converter {
 					}
 
 				// XML_MERGE
-				} elseif (isset($value['value'])) {
+				} else if (isset($value['value'])) {
 					$node = $xml->addChild($key, $value['value']);
 					unset($value['value']);
 
