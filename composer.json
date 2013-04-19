@@ -22,6 +22,7 @@
 		"titon/test": "*"
 	},
 	"autoload": {
-		"psr-0": { "Titon\\Utility": "src/" }
+		"psr-0": { "Titon\\Utility": "src/" },
+		"files": [ "src/Titon/bootstrap.php" ]
 	}
 }
