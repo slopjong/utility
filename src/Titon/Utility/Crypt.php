@@ -10,6 +10,8 @@ namespace Titon\Utility;
 /**
  * Crypt provides methods for encrypting and decrypting data using popular algorithms like Rijndael, Blowfish and DES.
  * Also provides convenience methods for basic hashing and obfuscation that utilizes configuration settings like salts.
+ *
+ * @package Titon\Utility
  */
 class Crypt {
 

@@ -11,6 +11,8 @@ use Titon\Utility\Sanitize;
 
 /**
  * Specific methods that deal with string manipulation, truncation, formation, etc.
+ *
+ * @package Titon\Utility
  */
 class String {
 
@@ -152,9 +154,15 @@ class String {
 	/**
 	 * Insert values into a string defined by an array of key tokens.
 	 *
+	 * @uses Titon\Utility\Sanitize
+	 *
 	 * @param string $string
 	 * @param array $data
-	 * @param array $options
+	 * @param array $options {
+	 * 		@type string $before	Opening variable delimiter
+	 * 		@type string $after		Closing variable delimiter
+	 * 		@type bool $escape		Escape the string
+	 * }
 	 * @return string
 	 */
 	public static function insert($string, array $data, array $options = array()) {
@@ -270,13 +278,14 @@ class String {
 	 *
 	 * @param string $string
 	 * @param int $limit
-	 * @param array $options
-	 * 		html - (bool) True to preserve HTML tags
-	 * 		word - (bool) True to preserve trailing words
-	 * 		suffix - (string) Will be appended to the end of the output
-	 * 		prefix - (string) Will be appended to the beginning of the out output
-	 * 		open - (string) The opening tag (defaults to < HTML)
-	 * 		close - (string) The closing tag (defaults to > HTML)
+	 * @param array $options {
+	 * 		@type bool $html		True to preserve HTML tags
+	 * 		@type bool $word		True to preserve trailing words
+	 * 		@type string $suffix	Will be appended to the end of the output
+	 * 		@type string $prefix	Will be appended to the beginning of the out output
+	 * 		@type string $open		The opening tag (defaults to < HTML)
+	 * 		@type string $close		The closing tag (defaults to > HTML)
+	 * }
 	 * @return string
 	 */
 	public static function truncate($string, $limit = 25, array $options = array()) {
@@ -346,7 +355,7 @@ class String {
 				$output .= $token;
 
 			// Increase limit by 0 for HTML tags but check for tag boundaries
-			} else if (preg_match($htmlPattern, $token, $matches)) {
+			} else if (preg_match($htmlPattern, $token)) {
 				$inHtml = (mb_substr($token, 0, 2) !== $open . '/');
 				$output .= $token;
 

@@ -10,6 +10,8 @@ namespace Titon\Utility;
 /**
  * The Number utility allows for the twiddling and calculation of numbers and floats.
  * Provides helper methods to ease in the evaluation of numbers within context.
+ *
+ * @package Titon\Utility
  */
 class Number {
 
@@ -103,7 +105,16 @@ class Number {
 	 * Allow for overrides through an options array.
 	 *
 	 * @param int $number
-	 * @param array $options
+	 * @param array $options {
+	 *		@type string $thousands	Character used for thousands place
+	 * 		@type string $decimals	Character used for decimal
+	 * 		@type int $places		Decimal (cent) limit
+	 * 		@type string $code		Currency code with replaceable hash
+	 * 		@type string $dollar	Dollar sign with replaceable hash
+	 * 		@type string $cents		Cent sign with replaceable hash
+	 * 		@type string $use		Whether to use dollar or code for formatting
+	 * 		@type string $negative	Negative sign with replaceable hash
+	 * }
 	 * @return string
 	 */
 	public static function currency($number, array $options = array()) {
@@ -253,7 +264,11 @@ class Number {
 	 * Convert a number to a percentage string with decimal and comma separations.
 	 *
 	 * @param int $number
-	 * @param int|array $options
+	 * @param int|array $options {
+	 *		@type string $thousands	Character used for thousands place
+	 * 		@type string $decimals	Character used for decimal
+	 * 		@type int $places		Decimal (cent) limit
+	 * }
 	 * @return string
 	 */
 	public static function percentage($number, $options = array()) {

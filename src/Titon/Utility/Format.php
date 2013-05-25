@@ -12,11 +12,15 @@ use \DateTime;
 
 /**
  * Format provides utility methods for converting raw data to specific visual formats.
+ *
+ * @package Titon\Utility
  */
 class Format {
 
 	/**
 	 * Format a date string to an Atom feed format.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @return string
@@ -28,6 +32,8 @@ class Format {
 	/**
 	 * Format a date string.
 	 *
+	 * @uses Titon\Utility\Time
+	 *
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
@@ -38,6 +44,8 @@ class Format {
 
 	/**
 	 * Format a datetime string.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @param string $format
@@ -51,10 +59,10 @@ class Format {
 	 * Format a value to a certain string sequence. All #'s in the format will be replaced by the character in the same position within the sequence.
 	 * All *'s will mask the character in the sequence. Large numbers should be passed as strings.
 	 *
-	 * {{{
+	 * @example {
 	 * 		Format::format(1234567890, '(###) ###-####');				(123) 456-7890
 	 * 		Format::format(1234567890123456, '****-****-####-####');	****-****-9012-3456
-	 * }}}
+	 * }
 	 *
 	 * @param int|string $value
 	 * @param string $format
@@ -81,6 +89,8 @@ class Format {
 
 	/**
 	 * Format a date string to an HTTP header format.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @return string
@@ -117,6 +127,8 @@ class Format {
 
 	/**
 	 * Format a timestamp as a date relative human readable string; also known as time ago in words.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @param array $options
@@ -201,15 +213,15 @@ class Format {
 		// Past
 		if ($diff > 0) {
 			return sprintf($options['ago'], $output);
-
-		// Future
-		} else {
-			return sprintf($options['in'], $output);
 		}
+
+		return sprintf($options['in'], $output);
 	}
 
 	/**
 	 * Format a date string to an RSS feed format.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @return string
@@ -231,6 +243,8 @@ class Format {
 
 	/**
 	 * Format a time string.
+	 *
+	 * @uses Titon\Utility\Time
 	 *
 	 * @param string|int $time
 	 * @param string $format

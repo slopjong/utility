@@ -12,6 +12,8 @@ use \Closure;
 
 /**
  * Manipulates, manages and processes multiple types of result sets: objects and arrays.
+ *
+ * @package Titon\Utility
  */
 class Hash {
 
@@ -19,12 +21,13 @@ class Hash {
 	 * Determines the total depth of a multi-dimensional array or object.
 	 * Has two methods of determining depth: based on recursive depth, or based on tab indentation (faster).
 	 *
+	 * @uses Titon\Utility\Converter
+	 *
 	 * @param array|object $set
-	 * @param bool $recursive
 	 * @return int
 	 * @throws \Titon\Utility\Exception
 	 */
-	public static function depth($set, $recursive = false) {
+	public static function depth($set) {
 		if (is_object($set)) {
 			$set = Converter::toArray($set);
 
@@ -38,35 +41,17 @@ class Hash {
 
 		$depth = 1;
 
-		// Depth based on indentation
-		if ($recursive === false) {
-			$array = print_r($set, true);
-			$lines = explode("\n", $array);
+		foreach ($set as $value) {
+			if (is_array($value)) {
+				$count = self::depth($value) + 1;
 
-			foreach ($lines as $line) {
-				$indentation = (mb_strlen($line) - mb_strlen(ltrim($line))) / 4;
-
-				if ($indentation > $depth) {
-					$depth = $indentation;
+				if ($count > $depth) {
+					$depth = $count;
 				}
 			}
-
-			return ceil(($depth - 1) / 2) + 1;
-
-		// Depth based on recursion
-		} else {
-			foreach ($set as $value) {
-				if (is_array($value)) {
-					$count = self::depth($value) + 1;
-
-					if ($count > $depth) {
-						$depth = $count;
-					}
-				}
-			}
-
-			return $depth;
 		}
+
+		return $depth;
 	}
 
 	/**
@@ -374,7 +359,7 @@ class Hash {
 	 * @return bool
 	 */
 	public static function isAlpha($set, $strict = true) {
-		return self::every($set, function($value, $key) use ($strict) {
+		return self::every($set, function($value) use ($strict) {
 			if (!is_string($value)) {
 				return false;
 			}
@@ -396,7 +381,7 @@ class Hash {
 	 * @return bool
 	 */
 	public static function isNumeric($set) {
-		return self::every($set, function($value, $key) {
+		return self::every($set, function($value) {
 			return is_numeric($value);
 		});
 	}
@@ -473,6 +458,7 @@ class Hash {
 	 * Merge is a combination of array_merge() and array_merge_recursive(). However, when merging two keys with the same key,
 	 * the previous value will be overwritten instead of being added into an array. The later array takes precedence when merging.
 	 *
+	 * @param array $array,...
 	 * @return array
 	 */
 	public static function merge() {

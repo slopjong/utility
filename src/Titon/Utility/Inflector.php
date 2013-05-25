@@ -11,13 +11,15 @@ use \Closure;
 
 /**
  * String and grammar inflection. Converts strings to a certain format. Camel cased, singular, plural etc.
+ *
+ * @package Titon\Utility
  */
 class Inflector {
 
 	/**
 	 * Cached inflections for all methods.
 	 *
-	 * @var array
+	 * @type array
 	 */
 	protected static $_cache = array();
 

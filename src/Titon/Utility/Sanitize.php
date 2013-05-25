@@ -9,6 +9,8 @@ namespace Titon\Utility;
 
 /**
  * Makes dirty values clean! Sanitize will process an input and return a safe output depending on the scope of the cleaner.
+ *
+ * @package Titon\Utility
  */
 class Sanitize {
 
@@ -26,10 +28,11 @@ class Sanitize {
 	 * Escape a string using the apps encoding.
 	 *
 	 * @param string $value
-	 * @param array $options
-	 * 		encoding	- (string) Character encoding set; defaults to UTF-8
-	 * 		flags		- (int) Encoding flags; defaults to ENT_QUOTES
-	 * 		double		- (bool) Will convert existing entities
+	 * @param array $options {
+	 * 		@type string $encoding	Character encoding set; defaults to UTF-8
+	 * 		@type int $flags		Encoding flags; defaults to ENT_QUOTES
+	 * 		@type bool $double		Will double escape existing entities
+	 * }
 	 * @return string
 	 */
 	public static function escape($value, array $options = array()) {
@@ -56,9 +59,10 @@ class Sanitize {
 	 * Sanitize a string by removing xor escaping HTML characters and entities.
 	 *
 	 * @param string $value
-	 * @param array $options
-	 * 		strip		- (bool) Will remove HTML tags
-	 * 		whitelist	- (string) List of tags to not strip
+	 * @param array $options {
+	 * 		@type bool $strip		Will remove HTML tags
+	 * 		@type string $whitelist	List of tags to not strip
+	 * }
 	 * @return string
 	 */
 	public static function html($value, array $options = array()) {
@@ -88,12 +92,13 @@ class Sanitize {
 	 * Sanitize a string by removing excess CRLF characters.
 	 *
 	 * @param string $value
-	 * @param array $options
-	 * 		cr		- (bool) Will remove carriage returns \r
-	 * 		lf		- (bool) Will remove line feeds \n
-	 * 		crlf	- (bool) Will remove CRLF \r\n
-	 * 		limit	- (int) The start limit to remove extraneous characters
-	 * 		trim	- (bool) Will remove whitespace and newlines around the edges
+	 * @param array $options {
+	 * 		@type bool $cr		Will remove carriage returns \r
+	 * 		@type bool $lf		Will remove line feeds \n
+	 * 		@type bool $crlf	Will remove CRLF \r\n
+	 * 		@type bool $trim	Will remove whitespace and newlines around the edges
+	 * 		@type int $limit	The start limit to remove extraneous characters
+	 * }
 	 * @return string
 	 */
 	public static function newlines($value, array $options = array()) {
@@ -146,12 +151,13 @@ class Sanitize {
 	 * Sanitize a string by removing excess whitespace and tab characters.
 	 *
 	 * @param string $value
-	 * @param array $options
-	 * 		space	- (bool) Will remove white space
-	 * 		tab		- (bool) Will remove tabs
-	 * 		limit	- (int) The start limit to remove extraneous characters
-	 * 		strip	- (bool) Will remove non-standard white space character
-	 * 		trim	- (bool) Will remove whitespace and newlines around the edges
+	 * @param array $options {
+	 * 		@type bool $space	Will remove white space
+	 * 		@type bool $tab		Will remove tabs
+	 * 		@type bool $strip	Will remove non-standard white space character
+	 * 		@type bool $trim	Will remove whitespace and newlines around the edges
+	 * 		@type int $limit	The start limit to remove extraneous characters
+	 * }
 	 * @return string
 	 */
 	public static function whitespace($value, array $options = array()) {
@@ -195,7 +201,9 @@ class Sanitize {
 	 * Will bubble up to html() and escape().
 	 *
 	 * @param string $value
-	 * @param array $options
+	 * @param array $options {
+	 * 		@type bool $strip	Remove HTML tags
+	 * }
 	 * @return string
 	 */
 	public static function xss($value, array $options = array()) {

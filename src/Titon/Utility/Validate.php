@@ -16,6 +16,8 @@ use \Closure;
 /**
  * Validate provides methods for validating data against specific conditions. This should not be used to validate formatting (excluding a few),
  * but should allow validation of data before the formatting of data.
+ *
+ * @package Titon\Utility
  */
 class Validate {
 
@@ -227,6 +229,8 @@ class Validate {
 	/**
 	 * Validate input is a real date.
 	 *
+	 * @uses Titon\Utility\Time
+	 *
 	 * @param string $input
 	 * @return bool
 	 */
@@ -360,6 +364,8 @@ class Validate {
 
 	/**
 	 * Validate input has an extension and is in the whitelist.
+	 *
+	 * @uses Titon\Utility\Loader
 	 *
 	 * @param string $input
 	 * @param string|array $extensions
@@ -536,6 +542,8 @@ class Validate {
 
 	/**
 	 * Validate an images file size is below the maximum.
+	 *
+	 * @uses Titon\Utility\Number
 	 *
 	 * @param array $input
 	 * @param int $max

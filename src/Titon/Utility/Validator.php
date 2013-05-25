@@ -11,34 +11,36 @@ use Titon\Utility\Exception;
 
 /**
  * The Validator allows for quick validation against a defined set of rules and fields.
+ *
+ * @package Titon\Utility
  */
 class Validator {
 
 	/**
 	 * Data to validate against.
 	 *
-	 * @var array
+	 * @type array
 	 */
 	protected $_data = array();
 
 	/**
 	 * Errors gathered during validation.
 	 *
-	 * @var array
+	 * @type array
 	 */
 	protected $_errors = array();
 
 	/**
 	 * Mapping of fields and titles.
 	 *
-	 * @var array
+	 * @type array
 	 */
 	protected $_fields = array();
 
 	/**
 	 * Mapping of fields and validation rules.
 	 *
-	 * @var array
+	 * @type array
 	 */
 	protected $_rules = array();
 

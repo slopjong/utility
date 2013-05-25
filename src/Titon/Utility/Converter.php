@@ -12,6 +12,8 @@ use \SimpleXmlElement;
 /**
  * A class that handles the detection and conversion of certain resource formats / content types into other formats.
  * The current formats are supported: XML, JSON, Array, Object, Serialized
+ *
+ * @package Titon\Utility
  */
 class Converter {
 
@@ -403,6 +405,7 @@ class Converter {
 
 		$array = array();
 
+		/** @type SimpleXMLElement $node */
 		foreach ($xml->children() as $element => $node) {
 			$data = array();
 
@@ -431,15 +434,14 @@ class Converter {
 					break;
 
 					case self::XML_MERGE:
-					case self::XML_ATTRIBS:
-						if ($format === self::XML_MERGE) {
-							if (count($node->children()) > 0) {
-								$data = $data + self::xmlToArray($node, $format);
-							} else {
-								$data['value'] = self::autobox((string) $node);
-							}
+						if (count($node->children()) > 0) {
+							$data = $data + self::xmlToArray($node, $format);
+						} else {
+							$data['value'] = self::autobox((string) $node);
 						}
+					/* fall-through */
 
+					case self::XML_ATTRIBS:
 						foreach ($node->attributes() as $attr => $value) {
 							$data[$attr] = self::autobox((string) $value);
 						}

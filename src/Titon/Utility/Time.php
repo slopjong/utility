@@ -12,6 +12,8 @@ use \DateTimeZone;
 
 /**
  * Time provides functionality for calculating date and time ranges and making timezones easy to use.
+ *
+ * @package Titon\Utility
  */
 class Time {
 

@@ -9,6 +9,8 @@ namespace Titon\Utility;
 
 /**
  * Provides convenience functions for inflecting notation paths, namespace paths and file system paths.
+ *
+ * @package Titon\Utility
  */
 class Loader {
 

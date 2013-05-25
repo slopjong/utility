@@ -9,6 +9,8 @@ namespace Titon\Utility;
 
 /**
  * Exception for the utility package.
+ *
+ * @package Titon\Utility
  */
 class Exception extends \Exception {
 

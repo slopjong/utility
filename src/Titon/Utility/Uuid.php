@@ -12,6 +12,8 @@ use Titon\Utility\Exception;
 
 /**
  * Uuid handles the creation of compatible UUID's (unique universal identifier) in all versions.
+ *
+ * @package Titon\Utility
  */
 class Uuid {
 
@@ -47,6 +49,8 @@ class Uuid {
 
 	/**
 	 * Creates UUID version 4: random number generation based.
+	 *
+	 * @uses Titon\Utility\String
 	 *
 	 * @return string
 	 * @throws \Titon\Utility\Exception
