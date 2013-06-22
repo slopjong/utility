@@ -547,7 +547,6 @@ class HashTest extends TestCase {
 			'boolean' => false,
 			'string' => 'xyz',
 			'number' => 456,
-			'one',
 			'two'
 		), Hash::merge($data1, $data2));
 
@@ -564,7 +563,6 @@ class HashTest extends TestCase {
 			'boolean' => false,
 			'string' => 'xyz',
 			'number' => 456,
-			'one',
 			'two',
 			'array' => array(
 				'key' => 'value',
@@ -584,15 +582,13 @@ class HashTest extends TestCase {
 			'boolean' => true,
 			'string' => 'abc',
 			'number' => 123,
-			'two',
+			'one',
 			'array' => array(
 				'key' => 'value',
 				'foo' => 'bar',
 				123,
-				123,
 				true
-			),
-			'one'
+			)
 		), Hash::merge($data2, $data1));
 	}
 

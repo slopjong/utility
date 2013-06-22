@@ -472,9 +472,6 @@ class Hash {
 						if (is_array($value) && is_array($data[$key])) {
 							$data[$key] = self::merge($data[$key], $value);
 
-						} else if (is_int($key)) {
-							array_push($data, $value);
-
 						} else {
 							$data[$key] = $value;
 						}
