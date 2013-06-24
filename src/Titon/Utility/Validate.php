@@ -157,7 +157,7 @@ class Validate {
 	 * @param string $input
 	 * @param string|array $types
 	 * @return bool
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\InvalidCreditCardException
 	 */
 	public static function creditCard($input, $types = null) {
 		$input = str_replace(array('-', ' '), '', $input);
@@ -236,13 +236,13 @@ class Validate {
 	 * @return bool
 	 */
 	public static function date($input) {
-		$time = Time::toUnix($input);
+		$input = Time::toUnix($input);
 
-		if (!$time) {
+		if (!$input) {
 			return false;
 		}
 
-		list($m, $d, $y) = explode('/', date('m/d/Y', $time));
+		list($m, $d, $y) = explode('/', date('m/d/Y', $input));
 
 		return checkdate($m, $d, $y);
 	}

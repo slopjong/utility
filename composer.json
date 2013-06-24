@@ -13,13 +13,18 @@
 	],
 	"require": {
 		"php": ">=5.3.0",
-		"ext-mcrypt": "*",
-		"ext-mbstring": "*",
-		"ext-fileinfo": "*",
-		"ext-simplexml": "*"
+		"ext-mbstring": "*"
 	},
 	"require-dev": {
-		"titon/test": "*"
+		"titon/test": "*",
+		"ext-mcrypt": "*",
+		"ext-simplexml": "*",
+		"ext-fileinfo": "*"
+	},
+	"suggest": {
+		"ext-mcrypt": "Encrypt and decrypt data with the Crypt class",
+		"ext-simplexml": "Convert XML to other file types with the Converter class",
+		"ext-fileinfo": "Validate file mime types with the Validate class"
 	},
 	"autoload": {
 		"psr-0": { "Titon\\Utility": "src/" },

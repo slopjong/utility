@@ -156,7 +156,7 @@ class Validator {
 	 * Validate the data against the rules schema. Return true if all fields passed validation.
 	 *
 	 * @return bool
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\InvalidValidationRuleException
 	 */
 	public function validate() {
 		if (!$this->_data) {
