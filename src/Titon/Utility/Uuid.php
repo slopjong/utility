@@ -8,7 +8,7 @@
 namespace Titon\Utility;
 
 use Titon\Utility\String;
-use Titon\Utility\Exception;
+use Titon\Utility\Exception\UnsupportedMethodException;
 
 /**
  * Uuid handles the creation of compatible UUID's (unique universal identifier) in all versions.
@@ -21,30 +21,30 @@ class Uuid {
 	 * Creates UUID version 1.
 	 *
 	 * @return string
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\UnsupportedMethodException
 	 */
 	public static function v1() {
-		throw new Exception('UUID version 1 has not been implemented yet');
+		throw new UnsupportedMethodException('UUID version 1 has not been implemented yet');
 	}
 
 	/**
 	 * Creates UUID version 2.
 	 *
 	 * @return string
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\UnsupportedMethodException
 	 */
 	public static function v2() {
-		throw new Exception('UUID version 2 has not been implemented yet');
+		throw new UnsupportedMethodException('UUID version 2 has not been implemented yet');
 	}
 
 	/**
 	 * Creates UUID version 3: md5 based.
 	 *
 	 * @return string
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\UnsupportedMethodException
 	 */
 	public static function v3() {
-		throw new Exception('UUID version 3 has not been implemented yet');
+		throw new UnsupportedMethodException('UUID version 3 has not been implemented yet');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Uuid {
 	 * @uses Titon\Utility\String
 	 *
 	 * @return string
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\UnsupportedMethodException
 	 */
 	public static function v4() {
 		return sprintf('%s-%s-%s%s-%s%s-%s',
@@ -70,10 +70,10 @@ class Uuid {
 	 * Creates UUID version 5: sha1 based.
 	 *
 	 * @return string
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\UnsupportedMethodException
 	 */
 	public static function v5() {
-		throw new Exception('UUID version 5 has not been implemented yet');
+		throw new UnsupportedMethodException('UUID version 5 has not been implemented yet');
 	}
 
 }

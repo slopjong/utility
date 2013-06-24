@@ -7,7 +7,8 @@
 
 namespace Titon\Utility;
 
-use Titon\Utility\Exception;
+use Titon\Utility\Exception\InvalidArgumentException;
+use Titon\Utility\Exception\InvalidValidationRuleException;
 
 /**
  * The Validator allows for quick validation against a defined set of rules and fields.
@@ -109,11 +110,11 @@ class Validator {
 	 * @param string $message
 	 * @param array $options
 	 * @return \Titon\Utility\Validator
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\InvalidArgumentException
 	 */
 	public function addRule($field, $rule, $message, $options = array()) {
 		if (empty($this->_fields[$field])) {
-			throw new Exception(sprintf('Field %s does not exist', $field));
+			throw new InvalidArgumentException(sprintf('Field %s does not exist', $field));
 		}
 
 		$this->_rules[$field][$rule] = array(
@@ -179,7 +180,7 @@ class Validator {
 				}
 
 				if (!method_exists($class, $rule)) {
-					throw new Exception(sprintf('Validation rule %s does not exist', $rule));
+					throw new InvalidValidationRuleException(sprintf('Validation rule %s does not exist', $rule));
 				}
 
 				if (!call_user_func_array(array($class, $rule), $options)) {

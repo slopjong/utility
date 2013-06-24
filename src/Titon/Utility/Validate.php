@@ -10,7 +10,8 @@ namespace Titon\Utility;
 use Titon\Utility\Loader;
 use Titon\Utility\Number;
 use Titon\Utility\Time;
-use Titon\Utility\Exception;
+use Titon\Utility\Exception\InvalidArgumentException;
+use Titon\Utility\Exception\InvalidCreditCardException;
 use \Closure;
 
 /**
@@ -108,7 +109,7 @@ class Validate {
 	 * @param int $check
 	 * @param string $mode
 	 * @return bool
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\InvalidArgumentException
 	 */
 	public static function comparison($input, $check, $mode) {
 		switch (mb_strtolower($mode)) {
@@ -145,7 +146,7 @@ class Validate {
 				return ($input != $check);
 			break;
 			default:
-				throw new Exception(sprintf('Unsupported mode %s for %s', $mode, __METHOD__));
+				throw new InvalidArgumentException(sprintf('Unsupported mode %s for %s', $mode, __METHOD__));
 			break;
 		}
 	}
@@ -188,7 +189,7 @@ class Validate {
 				if (isset($cards[$card])) {
 					$validate[$card] = $cards[$card];
 				} else {
-					throw new Exception(sprintf('Credit card type %s does not exist', $card));
+					throw new InvalidCreditCardException(sprintf('Credit card type %s does not exist', $card));
 				}
 			}
 		} else {

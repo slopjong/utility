@@ -7,7 +7,7 @@
 
 namespace Titon\Utility;
 
-use Titon\Utility\Exception;
+use Titon\Utility\Exception\InvalidTypeException;
 use \Closure;
 
 /**
@@ -25,14 +25,14 @@ class Hash {
 	 *
 	 * @param array|object $set
 	 * @return int
-	 * @throws \Titon\Utility\Exception
+	 * @throws \Titon\Utility\Exception\InvalidTypeException
 	 */
 	public static function depth($set) {
 		if (is_object($set)) {
 			$set = Converter::toArray($set);
 
 		} else if (!is_array($set)) {
-			throw new Exception('Value passed must be an array');
+			throw new InvalidTypeException('Value passed must be an array');
 		}
 
 		if (!$set) {
