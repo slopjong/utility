@@ -153,7 +153,11 @@ class Time {
 	 * @return bool
 	 */
 	public static function wasLastWeek($time) {
-		return (date('Wo', self::toUnix($time)) === date('Wo', strtotime('last week')));
+		$start = strtotime('last week 00:00:00');
+		$end = strtotime('next week -1 second', $start);
+		$time = self::toUnix($time);
+
+		return ($time >= $start && $time <= $end);
 	}
 
 	/**
@@ -163,7 +167,11 @@ class Time {
 	 * @return bool
 	 */
 	public static function wasLastMonth($time) {
-		return (date('mY', self::toUnix($time)) === date('mY', strtotime('last month')));
+		$start = strtotime('first day of last month 00:00:00');
+		$end = strtotime('next month -1 second', $start);
+		$time = self::toUnix($time);
+
+		return ($time >= $start && $time <= $end);
 	}
 
 	/**
@@ -173,7 +181,11 @@ class Time {
 	 * @return bool
 	 */
 	public static function wasLastYear($time) {
-		return (date('Y', self::toUnix($time)) === date('Y', strtotime('last year')));
+		$start = strtotime('last year January 1st 00:00:00');
+		$end = strtotime('next year -1 second', $start);
+		$time = self::toUnix($time);
+
+		return ($time >= $start && $time <= $end);
 	}
 
 	/**
