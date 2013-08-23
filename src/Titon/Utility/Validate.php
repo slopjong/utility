@@ -7,7 +7,7 @@
 
 namespace Titon\Utility;
 
-use Titon\Utility\Loader;
+use Titon\Utility\Path;
 use Titon\Utility\Number;
 use Titon\Utility\Time;
 use Titon\Utility\Exception\InvalidArgumentException;
@@ -377,7 +377,7 @@ class Validate {
 			$input = $input['name'];
 		}
 
-		return in_array(Loader::ext($input), (array) $extensions, true);
+		return in_array(Path::ext($input), (array) $extensions, true);
 	}
 
 	/**
