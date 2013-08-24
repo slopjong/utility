@@ -63,8 +63,8 @@ class Hash {
 	 * @param bool $recursive
 	 * @return array
 	 */
-	public static function each($set, Closure $callback, $recursive = true) {
-		foreach ((array) $set as $key => $value) {
+	public static function each(array $set, Closure $callback, $recursive = true) {
+		foreach ($set as $key => $value) {
 			if (is_array($value) && $recursive) {
 				$set[$key] = self::each($value, $callback, $recursive);
 			} else {
@@ -82,8 +82,8 @@ class Hash {
 	 * @param \Closure $callback
 	 * @return bool
 	 */
-	public static function every($set, Closure $callback) {
-		foreach ((array) $set as $key => $value) {
+	public static function every(array $set, Closure $callback) {
+		foreach ($set as $key => $value) {
 			if (!$callback($value, $key)) {
 				return false;
 			}
@@ -98,10 +98,10 @@ class Hash {
 	 * @param array $set
 	 * @return array
 	 */
-	public static function expand($set) {
+	public static function expand(array $set) {
 		$data = array();
 
-		foreach ((array) $set as $key => $value) {
+		foreach ($set as $key => $value) {
 			$data = self::insert($data, $key, $value);
 		}
 
@@ -116,8 +116,8 @@ class Hash {
 	 * @param string $path
 	 * @return mixed
 	 */
-	public static function extract($set, $path) {
-		if (!is_array($set) || !$set) {
+	public static function extract(array $set, $path) {
+		if (!$set) {
 			return null;
 		}
 
@@ -156,9 +156,7 @@ class Hash {
 	 * @param \Closure $callback
 	 * @return array
 	 */
-	public static function filter($set, $recursive = true, Closure $callback = null) {
-		$set = (array) $set;
-
+	public static function filter(array $set, $recursive = true, Closure $callback = null) {
 		if ($recursive) {
 			foreach ($set as $key => $value) {
 				if (is_array($value)) {
@@ -183,14 +181,14 @@ class Hash {
 	 * @param string $path
 	 * @return array
 	 */
-	public static function flatten($set, $path = null) {
+	public static function flatten(array $set, $path = null) {
 		if ($path) {
 			$path = $path . '.';
 		}
 
 		$data = array();
 
-		foreach ((array) $set as $key => $value) {
+		foreach ($set as $key => $value) {
 			if (is_array($value)) {
 				if ($value) {
 					$data += self::flatten($value, $path . $key);
@@ -214,11 +212,7 @@ class Hash {
 	 * @param bool $truncate
 	 * @return array
 	 */
-	public static function flip($set, $recursive = true, $truncate = true) {
-		if (!is_array($set)) {
-			return $set;
-		}
-
+	public static function flip(array $set, $recursive = true, $truncate = true) {
 		$data = array();
 
 		foreach ($set as $key => $value) {
@@ -249,7 +243,7 @@ class Hash {
 	 * @param string $path
 	 * @return mixed
 	 */
-	public static function get($set, $path = null) {
+	public static function get(array $set, $path = null) {
 		if (!$path) {
 			return $set;
 		}
@@ -264,8 +258,8 @@ class Hash {
 	 * @param string $path
 	 * @return array
 	 */
-	public static function has($set, $path) {
-		if (!is_array($set) || !$path) {
+	public static function has(array $set, $path) {
+		if (!$set || !$path) {
 			return false;
 		}
 
@@ -303,7 +297,7 @@ class Hash {
 	 * @param mixed $value
 	 * @return array
 	 */
-	public static function inject($set, $path, $value) {
+	public static function inject(array $set, $path, $value) {
 		if (self::has($set, $path)) {
 			return $set;
 		}
@@ -319,8 +313,8 @@ class Hash {
 	 * @param mixed $value
 	 * @return array
 	 */
-	public static function insert($set, $path, $value) {
-		if (!is_array($set) || !$path) {
+	public static function insert(array $set, $path, $value) {
+		if (!$path) {
 			return $set;
 		}
 
@@ -358,7 +352,7 @@ class Hash {
 	 * @param bool $strict
 	 * @return bool
 	 */
-	public static function isAlpha($set, $strict = true) {
+	public static function isAlpha(array $set, $strict = true) {
 		return self::every($set, function($value) use ($strict) {
 			if (!is_string($value)) {
 				return false;
@@ -380,7 +374,7 @@ class Hash {
 	 * @param array $set
 	 * @return bool
 	 */
-	public static function isNumeric($set) {
+	public static function isNumeric(array $set) {
 		return self::every($set, function($value) {
 			return is_numeric($value);
 		});
@@ -393,11 +387,11 @@ class Hash {
 	 * @param mixed $match
 	 * @return mixed
 	 */
-	public static function keyOf($set, $match) {
+	public static function keyOf(array $set, $match) {
 		$return = null;
 		$isArray = array();
 
-		foreach ((array) $set as $key => $value) {
+		foreach ($set as $key => $value) {
 			if ($value === $match) {
 				$return = $key;
 			}
@@ -427,8 +421,8 @@ class Hash {
 	 * @param array $args
 	 * @return array
 	 */
-	public static function map($set, $function, $args = array()) {
-		foreach ((array) $set as $key => $value) {
+	public static function map(array $set, $function, $args = array()) {
+		foreach ($set as $key => $value) {
 			if (is_array($value)) {
 				$set[$key] = self::map($value, $function, $args);
 
@@ -450,8 +444,8 @@ class Hash {
 	 * @param array $set2
 	 * @return bool
 	 */
-	public static function matches($set1, $set2) {
-		return ((array) $set1 === (array) $set2);
+	public static function matches(array $set1, array $set2) {
+		return ($set1 === $set2);
 	}
 
 	/**
@@ -465,19 +459,21 @@ class Hash {
 		$sets = func_get_args();
 		$data = array();
 
-		if ($sets) {
-			foreach ($sets as $set) {
-				foreach ((array) $set as $key => $value) {
-					if (isset($data[$key])) {
-						if (is_array($value) && is_array($data[$key])) {
-							$data[$key] = self::merge($data[$key], $value);
+		if (!$sets) {
+			return $data;
+		}
 
-						} else {
-							$data[$key] = $value;
-						}
+		foreach ($sets as $set) {
+			foreach ((array) $set as $key => $value) {
+				if (isset($data[$key])) {
+					if (is_array($value) && is_array($data[$key])) {
+						$data[$key] = self::merge($data[$key], $value);
+
 					} else {
 						$data[$key] = $value;
 					}
+				} else {
+					$data[$key] = $value;
 				}
 			}
 		}
@@ -492,11 +488,7 @@ class Hash {
 	 * @param array $set2 - The array to overwrite the base array
 	 * @return array
 	 */
-	public static function overwrite($set1, $set2) {
-		if (!is_array($set1) || !is_array($set2)) {
-			return null;
-		}
-
+	public static function overwrite(array $set1, array $set2) {
 		$overwrite = array_intersect_key($set2, $set1);
 
 		if ($overwrite) {
@@ -519,10 +511,10 @@ class Hash {
 	 * @param string $path
 	 * @return array
 	 */
-	public static function pluck($set, $path) {
+	public static function pluck(array $set, $path) {
 		$data = array();
 
-		foreach ((array) $set as $array) {
+		foreach ($set as $array) {
 			if ($value = self::extract($array, $path)) {
 				$data[] = $value;
 			}
@@ -572,8 +564,8 @@ class Hash {
 	 * @param string $path
 	 * @return array
 	 */
-	public static function remove($set, $path) {
-		if (!is_array($set) || !$path) {
+	public static function remove(array $set, $path) {
+		if (!$path) {
 			return $set;
 		}
 
@@ -612,7 +604,7 @@ class Hash {
 	 * @param mixed $value
 	 * @return array
 	 */
-	public static function set($set, $path, $value = null) {
+	public static function set(array $set, $path, $value = null) {
 		if (is_array($path)) {
 			foreach ($path as $key => $value) {
 				$set = self::insert($set, $key, $value);
@@ -631,7 +623,7 @@ class Hash {
 	 * @param \Closure $callback
 	 * @return bool
 	 */
-	public static function some($set, Closure $callback) {
+	public static function some(array $set, Closure $callback) {
 		$pass = false;
 
 		if ($set) {

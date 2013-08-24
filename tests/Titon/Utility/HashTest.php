@@ -188,10 +188,6 @@ class HashTest extends TestCase {
 	 */
 	public function testExpand() {
 		$this->assertEquals($this->expanded, Hash::expand($this->collapsed));
-
-		foreach (array(true, false, null, 123, 'foo') as $type) {
-			$this->assertEquals(array(), Hash::expand($type));
-		}
 	}
 
 	/**
@@ -208,11 +204,6 @@ class HashTest extends TestCase {
 		$this->assertEquals(null, Hash::extract($data, 'fake.path'));
 		$this->assertEquals($data['one']['two']['three'], Hash::extract($data, 'one.two.three'));
 		$this->assertEquals($data['one']['two']['three']['four']['five']['six'], Hash::extract($data, 'one.two.three.four.five.six'));
-
-		foreach (array(true, false, null, 123, 'foo') as $type) {
-			$this->assertEquals(null, Hash::extract($type, 'boolean'));
-			$this->assertEquals(null, Hash::extract($data, $type));
-		}
 	}
 
 	/**
@@ -365,11 +356,6 @@ class HashTest extends TestCase {
 		$this->assertFalse(Hash::has($data, 'foo'));
 		$this->assertFalse(Hash::has($data, 'foo.bar'));
 		$this->assertFalse(Hash::has($data, 'empty.key'));
-
-		foreach (array(true, false, null, 123, 'foo') as $type) {
-			$this->assertFalse(Hash::has($type, 'fake'));
-			$this->assertFalse(Hash::has($type, null));
-		}
 	}
 
 	/**
@@ -516,10 +502,6 @@ class HashTest extends TestCase {
 			'bar' => 'baz',
 			'array' => array()
 		)));
-
-		foreach (array(true, false, null, 123, 'foo') as $type) {
-			$this->assertFalse(Hash::matches($this->expanded, $type));
-		}
 	}
 
 	/**
