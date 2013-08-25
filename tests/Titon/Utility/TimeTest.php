@@ -112,9 +112,8 @@ class TimeTest extends TestCase {
 	 * Test that wasLastWeek() returns true if the passed date was last week.
 	 */
 	public function testWasLastWeek() {
-		$this->assertTrue(Time::wasLastWeek('-1 week'));
-		$this->assertFalse(Time::wasLastWeek('+1 week'));
-		$this->assertFalse(Time::wasLastWeek('+0 week'));
+		$this->assertTrue(Time::wasLastWeek('last week'));
+		$this->assertFalse(Time::wasLastWeek('next week'));
 	}
 
 	/**

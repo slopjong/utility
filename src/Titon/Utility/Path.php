@@ -203,6 +203,7 @@ class Path {
 	 * @param string $from
 	 * @param string $to
 	 * @return string
+	 * @throws \Titon\Utility\Exception\InvalidArgumentException
 	 */
 	public static function relativeTo($from, $to) {
 		if (self::isRelative($from) || self::isRelative($to)) {
@@ -235,7 +236,7 @@ class Path {
 		}
 
 		if (!$relative) {
-			return './';
+			return '.' . $ds;
 		}
 
 		return implode($ds, $relative);
@@ -264,10 +265,12 @@ class Path {
 	public static function toNamespace($path) {
 		$path = self::ds(self::stripExt($path));
 
-		// Attempt to split path at src folder
-		if (mb_strpos($path, 'src' . self::SEPARATOR) !== false) {
-			$paths = explode('src' . self::SEPARATOR, $path);
-			$path = $paths[1];
+		// Attempt to split path at source folder
+		foreach (array('lib', 'src') as $folder) {
+			if (mb_strpos($path, $folder . self::SEPARATOR) !== false) {
+				$paths = explode($folder . self::SEPARATOR, $path);
+				$path = $paths[1];
+			}
 		}
 
 		return trim(str_replace('/', self::PACKAGE, $path), self::PACKAGE);
