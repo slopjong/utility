@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 namespace Titon\Utility;
@@ -15,347 +15,347 @@ namespace Titon\Utility;
  */
 class Number {
 
-	/**
-	 * Bases.
-	 */
-	const BINARY = 2;
-	const OCTAL = 8;
-	const DECIMAL = 10;
-	const HEX = 16;
+    /**
+     * Bases.
+     */
+    const BINARY = 2;
+    const OCTAL = 8;
+    const DECIMAL = 10;
+    const HEX = 16;
 
-	/**
-	 * Convert a readable string notated form of bytes (1KB) to the numerical equivalent (1024).
-	 * Supports all the different format variations: k, kb, ki, kib, etc.
-	 *
-	 * @param int $number
-	 * @return int
-	 */
-	public static function bytesFrom($number) {
-		if (!$number) {
-			return 0;
+    /**
+     * Convert a readable string notated form of bytes (1KB) to the numerical equivalent (1024).
+     * Supports all the different format variations: k, kb, ki, kib, etc.
+     *
+     * @param int $number
+     * @return int
+     */
+    public static function bytesFrom($number) {
+        if (!$number) {
+            return 0;
 
-		} else if (is_numeric($number)) {
-			return $number;
-		}
+        } else if (is_numeric($number)) {
+            return $number;
+        }
 
-		$number = trim((string) $number);
-		$sizes = array(
-			'k|kb|ki|kib' => 10,
-			'm|mb|mi|mib' => 20,
-			'g|gb|gi|gib' => 30,
-			't|tb|ti|tib' => 40,
-			'p|pb|pi|pib' => 50,
-			'e|eb|ei|eib' => 60,
-			'z|zb|zi|zib' => 70,
-			'y|yb|yi|yib' => 80,
-			'b' => 0
-		);
+        $number = trim((string) $number);
+        $sizes = array(
+            'k|kb|ki|kib' => 10,
+            'm|mb|mi|mib' => 20,
+            'g|gb|gi|gib' => 30,
+            't|tb|ti|tib' => 40,
+            'p|pb|pi|pib' => 50,
+            'e|eb|ei|eib' => 60,
+            'z|zb|zi|zib' => 70,
+            'y|yb|yi|yib' => 80,
+            'b' => 0
+        );
 
-		foreach ($sizes as $format => $pow) {
-			if (preg_match('/^([0-9\.]+)(' . $format . ')?$/i', $number, $matches)) {
-				$size = (float) $matches[1];
+        foreach ($sizes as $format => $pow) {
+            if (preg_match('/^([0-9\.]+)(' . $format . ')?$/i', $number, $matches)) {
+                $size = (float) $matches[1];
 
-				if (empty($matches[2])) {
-					return $size;
-				}
+                if (empty($matches[2])) {
+                    return $size;
+                }
 
-				return ($size * pow(2, $pow));
-			}
-		}
+                return ($size * pow(2, $pow));
+            }
+        }
 
-		return $number;
-	}
+        return $number;
+    }
 
-	/**
-	 * Convert a numerical value to the readable string notated equivalent.
-	 *
-	 * @param int $size
-	 * @param int $precision
-	 * @return string
-	 */
-	public static function bytesTo($size, $precision = 0) {
-		$sizes = array('YB', 'ZB', 'EB', 'PB', 'TB', 'GB', 'MB', 'KB', 'B');
-		$total = count($sizes);
+    /**
+     * Convert a numerical value to the readable string notated equivalent.
+     *
+     * @param int $size
+     * @param int $precision
+     * @return string
+     */
+    public static function bytesTo($size, $precision = 0) {
+        $sizes = array('YB', 'ZB', 'EB', 'PB', 'TB', 'GB', 'MB', 'KB', 'B');
+        $total = count($sizes);
 
-		while ($total-- && $size >= 1024) {
-			$size /= 1024;
-		}
+        while ($total-- && $size >= 1024) {
+            $size /= 1024;
+        }
 
-		return self::precision($size, $precision) . $sizes[$total];
-	}
+        return self::precision($size, $precision) . $sizes[$total];
+    }
 
-	/**
-	 * Convert a number from one base to another.
-	 *
-	 * @param int $no
-	 * @param int $fromBase
-	 * @param int $toBase
-	 * @return int
-	 */
-	public static function convert($no, $fromBase, $toBase) {
-		if ($fromBase == $toBase) {
-			return $no;
-		}
+    /**
+     * Convert a number from one base to another.
+     *
+     * @param int $no
+     * @param int $fromBase
+     * @param int $toBase
+     * @return int
+     */
+    public static function convert($no, $fromBase, $toBase) {
+        if ($fromBase == $toBase) {
+            return $no;
+        }
 
-		return base_convert($no, $fromBase, $toBase);
-	}
+        return base_convert($no, $fromBase, $toBase);
+    }
 
-	/**
-	 * Convert a number to it's currency equivalent, respecting locale.
-	 * Allow for overrides through an options array.
-	 *
-	 * @param int $number
-	 * @param array $options {
-	 *		@type string $thousands	Character used for thousands place
-	 * 		@type string $decimals	Character used for decimal
-	 * 		@type int $places		Decimal (cent) limit
-	 * 		@type string $code		Currency code with replaceable hash
-	 * 		@type string $dollar	Dollar sign with replaceable hash
-	 * 		@type string $cents		Cent sign with replaceable hash
-	 * 		@type string $use		Whether to use dollar or code for formatting
-	 * 		@type string $negative	Negative sign with replaceable hash
-	 * }
-	 * @return string
-	 */
-	public static function currency($number, array $options = array()) {
-		$defaults = array(
-			'thousands' => ',',
-			'decimals' => '.',
-			'places' => 2,
-			'code' => 'USD #',
-			'dollar' => '$#',
-			'cents' => '#&cent;',
-			'use' => 'dollar',
-			'negative' => '(#)'
-		);
+    /**
+     * Convert a number to it's currency equivalent, respecting locale.
+     * Allow for overrides through an options array.
+     *
+     * @param int $number
+     * @param array $options {
+     *      @type string $thousands Character used for thousands place
+     *      @type string $decimals  Character used for decimal
+     *      @type int $places       Decimal (cent) limit
+     *      @type string $code      Currency code with replaceable hash
+     *      @type string $dollar    Dollar sign with replaceable hash
+     *      @type string $cents     Cent sign with replaceable hash
+     *      @type string $use       Whether to use dollar or code for formatting
+     *      @type string $negative  Negative sign with replaceable hash
+     * }
+     * @return string
+     */
+    public static function currency($number, array $options = array()) {
+        $defaults = array(
+            'thousands' => ',',
+            'decimals' => '.',
+            'places' => 2,
+            'code' => 'USD #',
+            'dollar' => '$#',
+            'cents' => '#&cent;',
+            'use' => 'dollar',
+            'negative' => '(#)'
+        );
 
-		$options = $options + $defaults;
-		$amount = number_format(self::precision(abs($number), $options['places']), $options['places'], $options['decimals'], $options['thousands']);
+        $options = $options + $defaults;
+        $amount = number_format(self::precision(abs($number), $options['places']), $options['places'], $options['decimals'], $options['thousands']);
 
-		// Cents
-		if (($number < 1 && $number > -1) && $options['cents']) {
-			$amount = str_replace('#', $amount, $options['cents']);
+        // Cents
+        if (($number < 1 && $number > -1) && $options['cents']) {
+            $amount = str_replace('#', $amount, $options['cents']);
 
-		// Dollars
-		} else {
-			if ($options['use'] === 'dollar') {
-				$amount = str_replace('#', $amount, $options['dollar']);
-			} else {
-				$amount = str_replace('#', $amount, $options['code']);
-			}
-		}
+        // Dollars
+        } else {
+            if ($options['use'] === 'dollar') {
+                $amount = str_replace('#', $amount, $options['dollar']);
+            } else {
+                $amount = str_replace('#', $amount, $options['code']);
+            }
+        }
 
-		// Negative
-		if ($number < 0 && $options['negative']) {
-			$amount = str_replace('#', $amount, $options['negative']);
-		}
+        // Negative
+        if ($number < 0 && $options['negative']) {
+            $amount = str_replace('#', $amount, $options['negative']);
+        }
 
-		return $amount;
-	}
+        return $amount;
+    }
 
-	/**
-	 * Return true if the number is within the min and max.
-	 *
-	 * @param int $number
-	 * @param int $min
-	 * @param int $max
-	 * @return bool
-	 */
-	public static function in($number, $min, $max) {
-		return ($number >= $min && $number <= $max);
-	}
+    /**
+     * Return true if the number is within the min and max.
+     *
+     * @param int $number
+     * @param int $min
+     * @param int $max
+     * @return bool
+     */
+    public static function in($number, $min, $max) {
+        return ($number >= $min && $number <= $max);
+    }
 
-	/**
-	 * Is the current value even?
-	 *
-	 * @param int $number
-	 * @return bool
-	 */
-	public static function isEven($number) {
-		return ($number % 2 === 0);
-	}
+    /**
+     * Is the current value even?
+     *
+     * @param int $number
+     * @return bool
+     */
+    public static function isEven($number) {
+        return ($number % 2 === 0);
+    }
 
-	/**
-	 * Is the current value negative; less than zero.
-	 *
-	 * @param int $number
-	 * @return bool
-	 */
-	public static function isNegative($number) {
-		return ($number < 0);
-	}
+    /**
+     * Is the current value negative; less than zero.
+     *
+     * @param int $number
+     * @return bool
+     */
+    public static function isNegative($number) {
+        return ($number < 0);
+    }
 
-	/**
-	 * Is the current value odd?
-	 *
-	 * @param int $number
-	 * @return bool
-	 */
-	public static function isOdd($number) {
-		return !self::isEven($number);
-	}
+    /**
+     * Is the current value odd?
+     *
+     * @param int $number
+     * @return bool
+     */
+    public static function isOdd($number) {
+        return !self::isEven($number);
+    }
 
-	/**
-	 * Is the current value positive; greater than or equal to zero.
-	 *
-	 * @param int $number
-	 * @param bool $zero
-	 * @return bool
-	 */
-	public static function isPositive($number, $zero = true) {
-		return ($zero ? ($number >= 0) : ($number > 0));
-	}
+    /**
+     * Is the current value positive; greater than or equal to zero.
+     *
+     * @param int $number
+     * @param bool $zero
+     * @return bool
+     */
+    public static function isPositive($number, $zero = true) {
+        return ($zero ? ($number >= 0) : ($number > 0));
+    }
 
-	/**
-	 * Limits the number between two bounds.
-	 *
-	 * @param int $number
-	 * @param int $min
-	 * @param int $max
-	 * @return int
-	 */
-	public static function limit($number, $min, $max) {
-		return self::max(self::min($number, $min), $max);
-	}
+    /**
+     * Limits the number between two bounds.
+     *
+     * @param int $number
+     * @param int $min
+     * @param int $max
+     * @return int
+     */
+    public static function limit($number, $min, $max) {
+        return self::max(self::min($number, $min), $max);
+    }
 
-	/**
-	 * Increase the number to the minimum if below threshold.
-	 *
-	 * @param int $number
-	 * @param int $min
-	 * @return int
-	 */
-	public static function min($number, $min) {
-		if ($number < $min) {
-			$number = $min;
-		}
+    /**
+     * Increase the number to the minimum if below threshold.
+     *
+     * @param int $number
+     * @param int $min
+     * @return int
+     */
+    public static function min($number, $min) {
+        if ($number < $min) {
+            $number = $min;
+        }
 
-		return $number;
-	}
+        return $number;
+    }
 
-	/**
-	 * Decrease the number to the maximum if above threshold.
-	 *
-	 * @param int $number
-	 * @param int $max
-	 * @return int
-	 */
-	public static function max($number, $max) {
-		if ($number > $max) {
-			$number = $max;
-		}
+    /**
+     * Decrease the number to the maximum if above threshold.
+     *
+     * @param int $number
+     * @param int $max
+     * @return int
+     */
+    public static function max($number, $max) {
+        if ($number > $max) {
+            $number = $max;
+        }
 
-		return $number;
-	}
+        return $number;
+    }
 
-	/**
-	 * Return true if the number is outside the min and max.
-	 *
-	 * @param int $number
-	 * @param int $min
-	 * @param int $max
-	 * @return bool
-	 */
-	public static function out($number, $min, $max) {
-		return ($number < $min || $number > $max);
-	}
+    /**
+     * Return true if the number is outside the min and max.
+     *
+     * @param int $number
+     * @param int $min
+     * @param int $max
+     * @return bool
+     */
+    public static function out($number, $min, $max) {
+        return ($number < $min || $number > $max);
+    }
 
-	/**
-	 * Convert a number to a percentage string with decimal and comma separations.
-	 *
-	 * @param int $number
-	 * @param int|array $options {
-	 *		@type string $thousands	Character used for thousands place
-	 * 		@type string $decimals	Character used for decimal
-	 * 		@type int $places		Decimal (cent) limit
-	 * }
-	 * @return string
-	 */
-	public static function percentage($number, $options = array()) {
-		if (!is_array($options)) {
-			$options = array('places' => $options);
-		}
+    /**
+     * Convert a number to a percentage string with decimal and comma separations.
+     *
+     * @param int $number
+     * @param int|array $options {
+     *      @type string $thousands Character used for thousands place
+     *      @type string $decimals  Character used for decimal
+     *      @type int $places       Decimal (cent) limit
+     * }
+     * @return string
+     */
+    public static function percentage($number, $options = array()) {
+        if (!is_array($options)) {
+            $options = array('places' => $options);
+        }
 
-		$options = (array) $options + array(
-			'thousands' => ',',
-			'decimals' => '.',
-			'places' => 2
-		);
+        $options = (array) $options + array(
+            'thousands' => ',',
+            'decimals' => '.',
+            'places' => 2
+        );
 
-		return number_format(self::precision($number, $options['places']), $options['places'], $options['decimals'], $options['thousands']) . '%';
-	}
+        return number_format(self::precision($number, $options['places']), $options['places'], $options['decimals'], $options['thousands']) . '%';
+    }
 
-	/**
-	 * Formats a number with a level of precision (even if it had none).
-	 *
-	 * @param float $number
-	 * @param int $precision
-	 * @return float
-	 */
-	public static function precision($number, $precision = 2) {
-		return sprintf('%01.' . $precision . 'F', $number);
-	}
+    /**
+     * Formats a number with a level of precision (even if it had none).
+     *
+     * @param float $number
+     * @param int $precision
+     * @return float
+     */
+    public static function precision($number, $precision = 2) {
+        return sprintf('%01.' . $precision . 'F', $number);
+    }
 
-	/**
-	 * Returns -1 if the value is negative, 0 if the value equals 0, or 1 if the value is positive.
-	 *
-	 * @param int $number
-	 * @return int
-	 */
-	public static function signum($number) {
-		if ($number < 0) {
-			return -1;
+    /**
+     * Returns -1 if the value is negative, 0 if the value equals 0, or 1 if the value is positive.
+     *
+     * @param int $number
+     * @return int
+     */
+    public static function signum($number) {
+        if ($number < 0) {
+            return -1;
 
-		} else if ($number == 0) {
-			return 0;
+        } else if ($number == 0) {
+            return 0;
 
-		} else {
-			return 1;
-		}
-	}
+        } else {
+            return 1;
+        }
+    }
 
-	/**
-	 * Returns as an unsigned integer in base 2 (binary).
-	 *
-	 * @param int $number
-	 * @param int $base
-	 * @return int
-	 */
-	public static function toBinary($number, $base = self::DECIMAL) {
-		return self::convert($number, $base, self::BINARY);
-	}
+    /**
+     * Returns as an unsigned integer in base 2 (binary).
+     *
+     * @param int $number
+     * @param int $base
+     * @return int
+     */
+    public static function toBinary($number, $base = self::DECIMAL) {
+        return self::convert($number, $base, self::BINARY);
+    }
 
-	/**
-	 * Returns as an unsigned integer in base 10 (decimal).
-	 *
-	 * @param int $number
-	 * @param int $base
-	 * @return int
-	 */
-	public static function toDecimal($number, $base = self::DECIMAL) {
-		return self::convert($number, $base, self::DECIMAL);
-	}
+    /**
+     * Returns as an unsigned integer in base 10 (decimal).
+     *
+     * @param int $number
+     * @param int $base
+     * @return int
+     */
+    public static function toDecimal($number, $base = self::DECIMAL) {
+        return self::convert($number, $base, self::DECIMAL);
+    }
 
-	/**
-	 * Returns as an unsigned integer in base 16 (hexadecimal).
-	 *
-	 * @param int $number
-	 * @param int $base
-	 * @return string
-	 */
-	public static function toHex($number, $base = self::DECIMAL) {
-		return self::convert($number, $base, self::HEX);
-	}
+    /**
+     * Returns as an unsigned integer in base 16 (hexadecimal).
+     *
+     * @param int $number
+     * @param int $base
+     * @return string
+     */
+    public static function toHex($number, $base = self::DECIMAL) {
+        return self::convert($number, $base, self::HEX);
+    }
 
-	/**
-	 * Returns as an unsigned integer in base 8 (octal).
-	 *
-	 * @param int $number
-	 * @param int $base
-	 * @return string
-	 */
-	public static function toOctal($number, $base = self::DECIMAL) {
-		return self::convert($number, $base, self::OCTAL);
-	}
+    /**
+     * Returns as an unsigned integer in base 8 (octal).
+     *
+     * @param int $number
+     * @param int $base
+     * @return string
+     */
+    public static function toOctal($number, $base = self::DECIMAL) {
+        return self::convert($number, $base, self::OCTAL);
+    }
 
 }
