@@ -331,6 +331,9 @@ class Converter {
 
                 // XML_GROUP
                 } else if (isset($value['attributes'])) {
+                    if(!isset($value['value']))
+                        $value['value'] = null;
+                    
                     if (is_array($value['value'])) {
                         $node = $xml->addChild($key);
                         self::buildXml($node, $value['value']);
