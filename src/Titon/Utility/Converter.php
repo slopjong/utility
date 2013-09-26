@@ -320,7 +320,7 @@ class Converter {
                 }
 
                 // Multiple nodes of the same name
-                if (isset($value[0])) {
+                if (Hash::isNumeric(array_keys($value))) {
                     foreach ($value as $kValue) {
                         if (is_array($kValue)) {
                             self::buildXml($xml, array($key => $kValue));
@@ -331,9 +331,10 @@ class Converter {
 
                 // XML_GROUP
                 } else if (isset($value['attributes'])) {
-                    if(!isset($value['value']))
+                    if (!isset($value['value'])) {
                         $value['value'] = null;
-                    
+                    }
+
                     if (is_array($value['value'])) {
                         $node = $xml->addChild($key);
                         self::buildXml($node, $value['value']);

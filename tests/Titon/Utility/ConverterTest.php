@@ -9,6 +9,7 @@ namespace Titon\Utility;
 
 use Titon\Test\TestCase;
 use Titon\Utility\Converter;
+use \Exception;
 
 /**
  * Test class for Titon\Utility\Converter.
@@ -245,7 +246,24 @@ class ConverterTest extends TestCase {
         $expected .= '<2><id>3</id><title>Item #3</title></2>';
         $expected .= '</root>';
 
-        $this->assertEquals($expected, Converter::toXml($items)); // Cant compare XML here
+        // XML nodes cant start with numbers
+        try {
+            $this->assertXmlStringEqualsXmlString($expected, Converter::toXml($items));
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(true);
+        }
+
+        // With numeric indices
+        $numItems = array('item' => array(
+            1 => $this->createXmlItem(1)
+        ));
+
+        $expected  = '<?xml version="1.0" encoding="utf-8"?><root>';
+        $expected .= '<item><id>1</id><title>Item #1</title></item>';
+        $expected .= '</root>';
+
+        $this->assertXmlStringEqualsXmlString($expected, Converter::toXml($numItems));
 
         // With named indices
         $items = array('item' => $items);
