@@ -1,4 +1,4 @@
-# Utility v0.10.1 [![Build Status](https://travis-ci.org/titon/utility.png)](https://travis-ci.org/titon/utility) #
+# Utility v0.10.2 [![Build Status](https://travis-ci.org/titon/utility.png)](https://travis-ci.org/titon/utility) #
 
 The Titon utility package provides convenience classes for basic tasks like validation, formatting, sanitization and more.
 
