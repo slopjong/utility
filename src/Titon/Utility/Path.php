@@ -33,6 +33,49 @@ class Path {
     const PACKAGE = '\\';
 
     /**
+     * Parse the file path to remove absolute paths and replace with a constant name.
+     *
+     * @param string $file
+     * @param array $paths
+     * @return string
+     */
+    public static function alias($file, array $paths = array()) {
+        if (empty($file)) {
+            return '[internal]';
+        }
+
+        $file = self::ds($file);
+
+        // Define source locations
+        foreach (array('src', 'lib') as $source) {
+            if (empty($paths[$source]) && strpos($file, $source) !== false) {
+                $parts = explode($source, $file);
+                $paths[$source] = $parts[0] . $source;
+            }
+        }
+
+        // Inherit titon constants
+        foreach (array('vendor', 'app', 'modules', 'resources', 'temp', 'views', 'web') as $type) {
+            $constant = strtoupper($type) . '_DIR';
+
+            if (empty($paths[$type]) && defined($constant)) {
+                $paths[$type] = constant($constant);
+            }
+        }
+
+        foreach ($paths as $key => $path) {
+            $path = trim(self::ds($path), self::SEPARATOR) . self::SEPARATOR;
+
+            if (mb_strpos($file, $path) !== false) {
+                $file = trim(str_replace($path, '[' . $key . ']', $file), self::SEPARATOR);
+                break;
+            }
+        }
+
+        return $file;
+    }
+
+    /**
      * Strips the namespace to return the base class name.
      *
      * @param string $class

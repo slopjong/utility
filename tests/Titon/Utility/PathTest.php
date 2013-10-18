@@ -17,6 +17,16 @@ use \Exception;
 class PathTest extends TestCase {
 
     /**
+     * Test that certain file paths are replaced with constant shortcuts.
+     */
+    public function testAlias() {
+        $this->assertEquals('[internal]', Path::alias(null));
+        $this->assertEquals('[vendor]Titon' . DS . 'Debug' . DS . 'Debugger.php', Path::alias(VENDOR_DIR . '/Titon/Debug/Debugger.php'));
+        $this->assertEquals('[src]Titon' . DS . 'Debug' . DS . 'Debugger.php', Path::alias(dirname(TEST_DIR) . '/src/Titon/Debug/Debugger.php'));
+        $this->assertEquals('[app]some' . DS . 'file.txt', Path::alias('/app/some/file.txt', array('app' => '/app')));
+    }
+
+    /**
      * Test that the class name is returned without the namespace or extension.
      */
     public function testClassName() {
