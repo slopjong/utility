@@ -558,6 +558,25 @@ class Hash {
     }
 
     /**
+     * Reduce an array by removing all keys that have not been defined for persistence.
+     *
+     * @param array $set
+     * @param array $keys
+     * @return array
+     */
+    public static function reduce(array $set, array $keys) {
+        $array = array();
+
+        foreach ($set as $key => $value) {
+            if (in_array($key, $keys)) {
+                $array[$key] = $value;
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * Remove an index from the array, determined by the given path.
      *
      * @param array $set
@@ -624,18 +643,13 @@ class Hash {
      * @return bool
      */
     public static function some(array $set, Closure $callback) {
-        $pass = false;
-
-        if ($set) {
-            foreach ((array) $set as $value) {
-                if ($callback($value, $value)) {
-                    $pass = true;
-                    break;
-                }
+        foreach ($set as $value) {
+            if ($callback($value, $value)) {
+                return true;
             }
         }
 
-        return $pass;
+        return false;
     }
 
 }

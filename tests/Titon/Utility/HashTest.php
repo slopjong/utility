@@ -640,6 +640,13 @@ class HashTest extends TestCase {
     }
 
     /**
+     * Test that reduce() reduces the size of the array.
+     */
+    public function testReduce() {
+        $this->assertEquals(array('boolean' => true, 'integer' => 123), Hash::reduce($this->expanded, array('boolean', 'integer', 'foobar')));
+    }
+
+    /**
      * Test that remove() deletes elements in an array based on the dot notated path.
      */
     public function testRemove() {
