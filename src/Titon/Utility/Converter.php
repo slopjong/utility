@@ -111,7 +111,7 @@ class Converter {
      * @return bool
      */
     public static function isJson($data) {
-        return ! is_null(@json_decode($data, true));
+        return ! is_null(@json_decode($data));
     }
 
     /**
