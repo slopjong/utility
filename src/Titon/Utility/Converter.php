@@ -108,12 +108,10 @@ class Converter {
      * Check to see if data passed is a JSON object.
      *
      * @param mixed $data
-     * @return mixed
+     * @return bool
      */
     public static function isJson($data) {
-        $json = @json_decode($data, true);
-
-        return ($json !== null) ? $json : false;
+        return ! is_null(@json_decode($data, true));
     }
 
     /**
